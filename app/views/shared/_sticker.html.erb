@@ -1,0 +1,78 @@
+<% type ||= :normal %>
+
+<% if type == :normal %>
+<div class="sticker">
+  <page class="<%= type %>">
+    <section>
+      <div class="header">
+        <p class="title"><%= item.name %></p>
+      </div>
+      <hr/>
+      <p class="inv">инв. № <span><%= item.inventory_number %></span></p>
+      <hr/>
+      <div class="barcode">
+        <%= image_tag "data:png/jpeg;base64,#{item.qr_base64_string}" %> <br/>
+        <span>uid: <%= item.uid %></span>
+      </div>
+      <p class="desc"><span><%= item.description %></span></p>
+      <div class="foother">Администрация города Твери</div>
+    </section>
+  </page>
+</div>
+<% end %>
+
+<% if type == :small %>
+<div class="sticker">
+  <page class="<%= type %>">
+    <section>
+      <div class="info">
+        <p class="title"><%= item.name %></p>
+        <hr/>
+        <p class="inv"><span><%= item.inventory_number %></span></p>
+        <hr/>
+        <span>uid: <%= item.uid %></span>
+      </div>
+      <div class="barcode">
+        <%= image_tag "data:png/jpeg;base64,#{item.qr_base64_string}" %> <br/>
+      </div>
+    </section>
+  </page>
+</div>
+<% end %>
+
+<% if (type == :oirt_id) && (oirt_type == 1) %>
+<div class="sticker">
+  <page class="<%= type %>">
+    <section class="type_<%= oirt_type %>">
+      <% item[0..4].each_with_index do |num,i| %>
+        <p class="inv">ОИРТ ID:<span><%= ("UID %06d" % num).gsub(/(\d)(?=(\d{3})+(?!\d))/, "\\1 ") %></span></p>
+        <%= content_tag :hr if i < 4 %>
+      <% end %>
+    </section>
+  </page>
+</div>
+<% end %>
+
+<% if (type == :oirt_id) && (oirt_type == 2) %>
+<div class="sticker">
+  <page class="<%= type %>">
+    <section class="type_<%= oirt_type %>">
+      <table>
+        <% item[0..4].each_with_index do |num,i| %>
+          <tr>
+            <% ser1 = (65 + num / 1000 / 26).chr %>
+            <% ser2 = (65 + num / 1000 % 26).chr %>
+            <td>
+              <p class="inv"><span><%= ("%s%s %03d" % [ser1, ser2, num]).gsub(/(\d)(?=(\d{3})+(?!\d))/, "\\1 ") %></span></p>  
+            </td>
+            <td>
+              <p class="inv">Рег. №:<span><%= ("%s%s %03d" % [ser1, ser2, num]).gsub(/(\d)(?=(\d{3})+(?!\d))/, "\\1 ") %></span></p>
+              <p class="desc"><span>Администрация города Твери</span></p>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </section>
+  </page>
+</div>
+<% end %>

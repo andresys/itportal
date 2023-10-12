@@ -1,0 +1,122 @@
+<div class="row g-3 mb-4 align-items-center justify-content-between">
+  <div class="col-auto">
+    <h1 class="app-page-title mb-0">Основные средства</h1>
+  </div>
+  <div class="col-auto">
+      <div class="page-utilities">
+      <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+        <div class="col-auto">
+          <form class="table-search-form row gx-1 align-items-center">
+            <div class="col-auto">
+                <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Поиск">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn app-btn-secondary">Искать</button>
+            </div>
+          </form>
+        </div><!--//col-->
+        <div class="col-auto">
+          <select class="form-select w-auto selectpicker">
+            <option selected="" value="option-1">Все группы</option>
+            <option value="option-2">Этот год</option>
+            <option value="option-3">Прошлый год</option>
+            <option value="option-4">Старше 2-х лет</option>
+          </select>
+        </div>
+        <div class="col-auto">						    
+          <%=link_to new_accounting_asset_path, class: "btn app-btn-primary" do %>
+            <svg width="1em" height="1em" viewBox="0 0 24 24" class="bi bi-download me-1" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M20 14V7C20 5.34315 18.6569 4 17 4H12M20 14L13.5 20M20 14H15.5C14.3954 14 13.5 14.8954 13.5 16V20M13.5 20H7C5.34315 20 4 18.6569 4 17V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+              <path fill-rule="evenodd" d="M7 4V7M7 10V7M7 7H4M7 7H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            Добавить ОС
+          <% end %>
+        </div>
+      </div><!--//row-->
+    </div><!--//table-utilities-->
+  </div><!--//col-auto-->
+</div><!--//row-->
+			   
+			    
+<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4" role="tablist">
+  <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Все</a>
+  <a class="flex-sm-fill text-sm-center nav-link" id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false" tabindex="-1">На балансе</a>
+  <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false" tabindex="-1">Списанные</a>
+  <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false" tabindex="-1">На хранении</a>
+</nav>
+				
+				
+<div class="tab-content" id="orders-table-tab-content">
+  <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+      <div class="app-card-body">
+        <div class="table-responsive">
+          <table class="table app-table-hover mb-0 text-left">
+            <thead>
+              <tr>
+                <th class="cell text-center">UID</th>
+                <th class="cell">Название</th>
+                <th class="cell text-center">Инвентарный номер</th>
+                <th class="cell text-center">Дата</th>
+                <th class="cell text-center">Статус</th>
+                <th class="cell text-end">Стоимость</th>
+                <th class="cell"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @assets.each do |item| %>
+              <tr>
+                <td class="cell text-center">#<%= item.uid %></td>
+                <td class="cell"><span class="truncate" title="<%= item.name %>"><%= item.name %></span></td>
+                <td class="cell text-center"><%= item.inventory_number %></td>
+                <td class="cell text-center"><span><%= l item.date, format: "%e %b" %></span><span class="note"><%= item.date.year %> год</span></td>
+                <td class="cell text-center"><span class="badge <%= item.status[:color] %>"><%= item.status[:label] %></span></td>
+                <td class="cell text-end"><%= number_to_currency(item.total, separator: ',', unit: '₽') %></td>
+                <td class="cell text-end"><%= link_to "Подробнее", accounting_asset_path(item), class: "btn-sm app-btn-secondary btn-flash" %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div><!--//table-responsive-->
+      </div><!--//app-card-body-->		
+    </div><!--//app-card-->
+
+    <%= paginate @assets %>
+  </div><!--//tab-pane-->
+</div><!--//tab-content-->
+
+
+
+<%# <div class="row g-3 mb-4 align-items-center justify-content-between">
+  <div class="col-auto">
+    <h1 class="app-page-title mb-0">Инвентарный учет</h1>
+  </div>
+</div> %>
+
+    <%# box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
+    border-radius: 15px;
+    padding: 20px;
+    background-color: white; %>
+<%# <div class="app-card app-card-basic shadow-sm">
+  <div class="app-card-header p-3 border-bottom-0">
+    <div class="row align-items-center gx-3">
+      <div class="col-auto">
+        <div class="app-icon-holder">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-receipt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27zm.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0l-.509-.51z"></path>
+            <path fill-rule="evenodd" d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"></path>
+          </svg>
+        </div><!--//icon-holder-->
+      </div><!--//col-->
+      <div class="col-auto">
+        <h4 class="app-card-title">Основные средства</h4>
+      </div><!--//col-->
+    </div>
+  </div>
+  <div class="app-card-body px-4"> %>
+    <%# datatable_tag @accounting_items, columns: [{name: 'Название'}, {uid: "UID"}, {inventory_number: "Инвентарный номер"}], actions: [:show, lambda{|obj| content_tag :button, class: "btn btn-sm btn-link" do icon_tag("printer") end}] %>
+  <%# </div>
+  <div class="app-card-footer p-4 mt-auto">
+    <a class="btn app-btn-secondary" href="#">Создать</a>
+  </div>
+</div> %>

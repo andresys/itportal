@@ -1,0 +1,17 @@
+<% (@asset.kind_of?(Array) ? @asset : [@asset]).each_with_index do |item, index| %>
+<section>
+  <table>
+    <tr>
+      <td>
+        <h4><%= item.name %></h4>
+        <p><%= item.inventory_number if item.inventory_number %></p>
+        <span>uid: <%= item.uid %></span>
+      </td>
+      <td style="text-align: right; width: 90px"><%= image_tag "data:png/jpeg;base64,#{item.qr_base64_string}" %></td>
+    </tr>
+  </table>
+</section>
+<% if (index + 1) % 2 == 0%>
+  <div class="alwaysbreak"></div>
+<% end %>
+<% end %>

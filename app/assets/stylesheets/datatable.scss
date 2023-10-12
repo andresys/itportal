@@ -1,0 +1,10 @@
+.datatable {
+  td>* {
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 31px;
+  }
+  td.actions {
+    text-align: end;
+  }
+}

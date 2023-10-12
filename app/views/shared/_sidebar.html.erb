@@ -1,0 +1,16 @@
+<div id="app-sidepanel" class="app-sidepanel"> 
+  <div id="sidepanel-drop" class="sidepanel-drop"></div>
+
+  <div class="sidepanel-inner d-flex flex-column">
+    <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
+    <div class="app-branding">
+      <%= link_to root_path, class: "app-logo" do %>
+        <%= image_tag "app-logo.svg", class: "logo-icon me-2", alt: "logo" %>
+        <span class="logo-text">IT PORTAL</span>
+      <% end %>
+    </div><!--//app-branding-->
+
+    <%= render :partial => "shared/navigation" %>
+      
+  </div><!--//sidepanel-inner-->
+</div><!--//app-sidepanel-->

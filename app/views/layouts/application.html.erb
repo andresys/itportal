@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IT Portal</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= favicon_link_tag '/favicon.png' %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="app">
+    <%= render :partial => "shared/header" %>
+    <div class="app-wrapper">
+      <div class="app-content pt-3 p-md-3 p-lg-4">
+		    <div class="container-xl">
+          <%= yield %>
+        </div>
+      </div>
+
+      <%= render :partial => "shared/footer" %>
+    </div><!--//app-wrapper-->    					
+  </body>
+</html>
