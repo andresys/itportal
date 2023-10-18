@@ -5,6 +5,7 @@
     <%= nav_item_tag "Инвентарный учет", nil, icon: "list-check", active: request.path.start_with?("/accounting") do %>
       <%= sub_item_tag "Основные средства", accounting_assets_path %>
       <%= sub_item_tag "Материалы", nil %>
+      <%= sub_item_tag "Документы", nil %>
       <%= sub_item_tag "Печать этикеток", nil %>
     <% end %>
     <%#= nav_item_tag "Документы", "docs.html", icon: "folder" %>

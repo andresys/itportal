@@ -56,4 +56,13 @@ module ApplicationHelper
       "Unknown icon type"
     end
   end
+
+  def status_tag(status)
+    statuses = [
+      {label: "На балансе", color: "bg-success"},
+      {label: "На хранении", color: "bg-warning"},
+      {label: "Списанные", color: "bg-danger"}
+    ]
+    content_tag :span, statuses[status][:label], class: ["badge", statuses[status][:color]].join(' ') if status
+  end
 end
