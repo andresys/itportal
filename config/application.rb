@@ -25,5 +25,3 @@ module Portal
     config.active_job.queue_adapter = :sidekiq
   end
 end
-
-Rack::MiniProfiler.config.position = 'bottom-right'

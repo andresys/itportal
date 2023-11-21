@@ -1,16 +1,27 @@
 class CreateAssets < ActiveRecord::Migration[6.1]
   def change
     create_table :assets do |t|
-      t.string :uid, null: false, foreign_key: true
+      t.string :slug
       t.string :name
       t.string :description
-      t.float :total
+      t.float :cost
       t.datetime :date
       t.integer :status
       t.string :inventory_number
 
+      t.string :code
+      t.datetime :start_date
+      t.integer :useful_life
+      t.reference :location, foreign_key: true
+      t.string :count, :integer
+      t.reference :account, foreign_key: true
+      t.reference :organization, foreign_key: true
+      t.reference :mol, foreign_key: true
+
       t.timestamps null: false
     end
-    add_index :assets, :uid, unique: true
+
+    add_index :assets, :slug, unique: true
+    add_index :assets, [:code, :inventory_number], unique: true
   end
 end
