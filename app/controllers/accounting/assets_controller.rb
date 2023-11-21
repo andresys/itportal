@@ -1,11 +1,43 @@
 class Accounting::AssetsController < ApplicationController
   before_action :set_asset, only: %i[ show edit update destroy print]
+  before_action :set_back_url, :only => :index
 
   layout "sticker", :only => :print
+  layout false, :only => [:new, :edit]
 
   # GET /accounting/assets or /accounting/assets.json
   def index
-    @assets = Asset.where({}).page(params[:page])
+    @query = request.query_parameters
+    @statuses = Asset.statuses.merge('all' => -1)
+    @status = @statuses[params[:status]] && params[:status] || 'on_balance'
+
+    @mol = Mol.find_by_id(params[:mol] || 9)
+    @location = Location.find_by_id(params[:location])
+
+    query_parameters = {}
+
+    if @status
+      accounts = { 'on_balance' => ["101.36", "101.34"], 'out_balance' => ["21.36", "21.34"], 'storage' => ["102"] }
+      accounts = accounts[@status]
+      query_parameters.merge!(account: {code: accounts}) if accounts&.any?
+    end
+
+    if @mol
+      query_parameters.merge!(mol: {id: @mol})
+    end
+
+    if @location
+      query_parameters.merge!(location: {id: @location})
+    end
+
+    page_size = params[:per] || 10
+    page = params[:page] || 0
+
+    @assets = Asset.left_joins(:uids).joins(:account, :mol, :location)
+      .where(query_parameters)
+      .where(Asset.arel_table[:name]
+      .matches("%#{params[:q]}%"))
+      .page(page).per(page_size)
   end
 
   # GET /accounting/assets/1 or /accounting/assets/1.json
@@ -27,8 +59,8 @@ class Accounting::AssetsController < ApplicationController
 
     respond_to do |format|
       if @asset.save
-        format.html { redirect_to @asset, notice: "Asset was successfully created." }
-        format.json { render :show, status: :created, location: @asset }
+        format.html { redirect_to [:accounting, @asset], notice: "Asset was successfully created." }
+        format.json { render :show, status: :created, location: [:accounting, @asset] }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @asset.errors, status: :unprocessable_entity }
@@ -53,7 +85,7 @@ class Accounting::AssetsController < ApplicationController
   def destroy
     @asset.destroy
     respond_to do |format|
-      format.html { redirect_to assets_url, notice: "Asset was successfully destroyed." }
+      format.html { redirect_to [:accounting, @asset], notice: "Asset was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -106,9 +138,19 @@ class Accounting::AssetsController < ApplicationController
 
   def delete_image_attachment
     @image = ActiveStorage::Blob.find_signed(params[:id])
+    @asset = Asset.joins(:images_attachments).where(images_attachments: {blob_id: @image}).first
     @image.attachments.first.purge
     respond_to do |format|
       format.json { head :no_content }
+      format.html { redirect_to [:accounting, @asset], notice: "Asset was successfully destroyed." }
+    end
+  end
+
+  def import
+    @job = ImportAssetsFrom1cJob.perform_later
+    respond_to do |format|
+      format.html { redirect_to job_path(@job.job_id), notice: "Run job: import assets from 1c." }
+      format.json { render show: @job, status: :ok }
     end
   end
 
@@ -119,8 +161,12 @@ class Accounting::AssetsController < ApplicationController
       @asset = ids.kind_of?(Array) && ids.map{|id| Asset.find(id)} || Asset.find(ids)
     end
 
+    def set_back_url
+      session[:back_url] = request.url
+    end
+
     # Only allow a list of trusted parameters through.
     def asset_params
-      params.fetch(:asset, {}).permit(:name, :description, :inventory_number, images: [])
+      params.fetch(:asset, {}).permit(:name, :description, :total, :date, :status, :inventory_number, images: [])
     end
 end

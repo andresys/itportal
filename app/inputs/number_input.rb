@@ -8,7 +8,9 @@ class NumberInput < SimpleForm::Inputs::Base
   end
 
   def input_html_options
-    super.merge({class: 'form-control text-center', autocomplete: 'off'})
+    options = {class: ['form-control', 'text-center'], autocomplete: 'off'}
+    merger = proc { |key, v1, v2| if Hash === v1 && Hash === v2; v1.merge(v2, &merger); elsif Array === v1 && Array === v2; v1 + v2; else v2; end }
+    super.merge(options, &merger)
   end
 
   def minus_button

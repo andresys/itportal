@@ -1,4 +1,4 @@
-<%= simple_form_for [:accounting, @asset] do |f| %>
+<%= simple_form_for [:accounting, asset] do |f| %>
   <% if asset.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
@@ -12,14 +12,24 @@
 
   <div class="mb-3">
     <%= f.input :name %>
-    <%= f.input :inventory_number %>
-    <%#= f.input :count, as: :number %>
-    <%#= f.input :date, as: :date_time_picker, input_html: { :style => "text-align: center" } %>
+  </div>
+  <div class="row mb-3 justify-content-between">
+    <div class="col-12 col-md-6">
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="mb-2"><%= f.input :inventory_number %></div>
+      <div class="mb-2"><%= f.input :date, as: :date_time_picker, input_html: { style: "text-align: center",  data: { provide: "datepicker" } } %></div>
+      <div class="mb-2"><%= f.input :cost, as: :number %></div>
+      <div class="mb-2"><%= f.input :status, as: :select, collection: [["На балансе", 0], ["На хранении", 1], ["Списанные", 2]] %></div>
+    </div>
+  </div>
+  <div class="mb-3">
     <%= f.input :description, as: :text, :input_html => {rows: 5} %>
   </div>
 
   <div class="form-actions text-center">
-    <%= link_to t(:cancel), accounting_assets_path, class: "btn app-btn-secondary" %>
+    <%#= link_to t(:cancel), accounting_assets_path, class: "btn app-btn-secondary" %>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
     <%= f.button :submit, class: "btn app-btn-primary" %>
   </div>
 <% end %>

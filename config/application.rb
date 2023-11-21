@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Portal
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.1
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -20,6 +20,9 @@ module Portal
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ru
     config.active_storage.replace_on_assign_to_many = false
+    config.active_storage.variant_processor = :mini_magick
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
 

@@ -1,0 +1,17 @@
+<% data ||= {} %>
+<% html_class ||= "" %>
+<% query = request.query_parameters.except(item, :page) %>
+<%= form_with method: :get do |f| %>
+  <% query.each do |scope, value| %>
+    <%= f.hidden_field scope, value: value %>
+  <% end %>
+  <%= tag.div class: "row #{html_class}" do %>
+    <%= f.label t(".#{item}"), class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+        <%= f.collection_select item, items,
+          :id, :name,
+          { selected: params[item], include_blank: true },
+          { class: "form-control js-select", placeholder: placeholder, autocomplete: "off", data: {}.merge(data) } %>
+    </div>
+  <% end %>
+<% end %>

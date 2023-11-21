@@ -2,11 +2,20 @@ class Asset < ApplicationRecord
   extend FriendlyId
   friendly_id :uid, use: [:slugged, :finders]
 
-  has_many_attached :images
+  has_many_attached :images do |attachable|
+    attachable.variant :thumb, :resize_to_fill => [200,200]
+  end
   # belongs_to :item_type
-  # belongs_to :item_mol
+  belongs_to :mol
+  belongs_to :location
+  belongs_to :organization
+  belongs_to :account
+  has_many :uids, as: :uidable, dependent: :destroy
 
-  before_create :set_uid
+  attr_accessor :uid
+  enum status: { on_balance: 0, out_balance: 1, storage: 2 }
+
+  # after_initialize lambda { @uid = uids.last&.uid }
 
   def qr_base64_string
     qrcode = RQRCode::QRCode.new("uid: %s" % uid)
@@ -24,11 +33,11 @@ class Asset < ApplicationRecord
     Base64.strict_encode64(png.to_s)
   end
 
-  default_scope { order(:created_at) }
+  default_scope { order(date: :desc) }
 
 private
   def set_uid
-    self.slug = self.uid = SecureRandom.hex(4)
+    uids << Uids.new(uid: SecureRandom.hex(4))
   end
 
   def should_generate_new_friendly_id?

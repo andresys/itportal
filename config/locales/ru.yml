@@ -1,0 +1,30 @@
+ru:
+  cancel: Отмена
+  save: Сохранить
+  all: Все
+  on_balance: На балансе
+  out_balance: За балансом
+  storage: На хранении
+
+  shared:
+    selecter:
+      mol: Материально ответственное лицо
+      location: Место хранения
+
+  activerecord:
+    models:
+      asset: 
+        one: основное средство
+        other: основные средства
+    attributes:
+      asset:
+        name: Название
+        inventory_number: Инвентарный номер
+        date: Дата ввода в эксплуатацию
+        cost: Балансовая стоимость
+        status: Статус основного средства
+        description: Дополнительное описание
+  helpers:
+    submit:
+      create: Создать
+      update: Сохранить

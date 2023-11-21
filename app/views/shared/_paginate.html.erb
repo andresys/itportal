@@ -1,0 +1,36 @@
+<% query = request.query_parameters.clone %>
+<% query.delete(:per) %>
+
+<div class="row g-3 mb-4 align-items-center justify-content-between app-pagination">
+  <div class="col-auto">
+    <ul class="pagination">
+      <li class="page-item">
+        <span class="page-link">
+          <%= page_entries_info items, entry_name: '' %>
+        </span>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="col-auto">
+    <%= paginate items %>
+  </div>
+
+  <div class="col-auto">
+    <div class="btn-group">
+      <ul class="pagination dropdown">
+        <li class="page-item">
+          <button class="page-link dropdown-toggle" data-bs-toggle="dropdown">по <%= items.limit_value %></button>
+          <ul class="dropdown-menu text-center">
+            <% [10, 15, 20, 25, 30, 40, 50, 75, 100].each do |per_page| %>
+              <li>
+                <%= link_to per_page, accounting_assets_path(query.merge(per: per_page)), class: "dropdown-item" %>
+              </li>
+              <% break if per_page >= items.total_count %>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

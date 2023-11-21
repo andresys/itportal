@@ -1,1 +1,12 @@
-@import "bootstrap";
+@import "../styles/bootstrap";
+@import "../styles/portal";
+
+@import "vanillajs-datepicker/sass/datepicker-bs5";
+
+@import "tom-select/dist/scss/tom-select.bootstrap5";
+
+// @import "bootstrap-icons/font/bootstrap-icons";
+
+@import '@fancyapps/ui/dist/fancybox/fancybox';
+
+@import "../styles/override";

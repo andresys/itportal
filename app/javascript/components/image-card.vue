@@ -3,7 +3,7 @@
   <div class="app-card app-card-doc shadow-sm h-100">
     <div class="app-card-thumb-holder p-3">
       <div class="app-card-thumb">
-        <img class="thumb-image" :src="url" alt="">
+        <img class="thumb-image" :src="thumb" alt="">
       </div>
       <span v-if="tag" class="badge bg-success">{{ tag }}</span>
       <a data-fancybox="gallery" :href="url" ref="link" class="app-card-link-mask"></a>
@@ -66,6 +66,7 @@ export default {
   inheritAttrs: false,
   props: {
     url: String,
+    thumb: String,
     size: String,
     uploaded: String,
     deleted: {default: false},

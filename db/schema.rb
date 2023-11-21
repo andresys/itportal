@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_12_095646) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_080352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,8 +20,16 @@ ActiveRecord::Schema.define(version: 2023_10_12_095646) do
     t.string "name"
     t.string "description"
     t.json "options"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_accounts_on_code", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -30,7 +37,7 @@ ActiveRecord::Schema.define(version: 2023_10_12_095646) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -42,8 +49,8 @@ ActiveRecord::Schema.define(version: 2023_10_12_095646) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -54,18 +61,29 @@ ActiveRecord::Schema.define(version: 2023_10_12_095646) do
   end
 
   create_table "assets", force: :cascade do |t|
-    t.string "uid", null: false
     t.string "name"
     t.string "description"
-    t.float "total"
-    t.datetime "date"
+    t.float "cost"
+    t.datetime "date", precision: nil
     t.integer "status"
     t.string "inventory_number"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "slug"
+    t.string "code"
+    t.datetime "start_date", precision: nil
+    t.integer "useful_life"
+    t.bigint "location_id"
+    t.integer "count"
+    t.bigint "account_id"
+    t.bigint "organization_id"
+    t.bigint "mol_id"
+    t.index ["account_id"], name: "index_assets_on_account_id"
+    t.index ["code", "inventory_number"], name: "index_assets_on_code_and_inventory_number", unique: true
+    t.index ["location_id"], name: "index_assets_on_location_id"
+    t.index ["mol_id"], name: "index_assets_on_mol_id"
+    t.index ["organization_id"], name: "index_assets_on_organization_id"
     t.index ["slug"], name: "index_assets_on_slug", unique: true
-    t.index ["uid"], name: "index_assets_on_uid", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -73,12 +91,50 @@ ActiveRecord::Schema.define(version: 2023_10_12_095646) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_locations_on_code", unique: true
+  end
+
+  create_table "mols", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_mols_on_code", unique: true
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_organizations_on_code", unique: true
+  end
+
+  create_table "uids", force: :cascade do |t|
+    t.string "uid", null: false
+    t.string "uidable_type", null: false
+    t.bigint "uidable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_uids_on_uid", unique: true
+    t.index ["uidable_type", "uidable_id"], name: "index_uids_on_uidable"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "assets", "accounts"
+  add_foreign_key "assets", "locations"
+  add_foreign_key "assets", "mols"
+  add_foreign_key "assets", "organizations"
 end

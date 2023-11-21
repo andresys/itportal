@@ -53,16 +53,13 @@ module ApplicationHelper
     when "svg"
       raw icon
     else
-      "Unknown icon type"
+      ""
     end
   end
 
-  def status_tag(status)
-    statuses = [
-      {label: "На балансе", color: "bg-success"},
-      {label: "На хранении", color: "bg-warning"},
-      {label: "Списанные", color: "bg-danger"}
-    ]
-    content_tag :span, statuses[status][:label], class: ["badge", statuses[status][:color]].join(' ') if status
+  def status_tag(code)
+    status = { '101.36' => 'on_balance', "101.34" => 'on_balance', '21.36' => 'out_balance', '21.34' => 'out_balance', '102' => 'storage' }[code]
+    colors = { 'on_balance' => 'bg-success', 'out_balance' => 'bg-warning', 'storage' => 'bg-danger' }
+    content_tag :span, t(status), class: ["badge", colors[status]].join(' ') if status
   end
 end
