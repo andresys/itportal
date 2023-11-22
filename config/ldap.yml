@@ -5,15 +5,14 @@ development:
   password: Rob!ng00d
 
 test:
-  host: 127.0.0.1
-  base: dc=test,dc=local,dc=net
-  bind_dn: cn=admin,dc=local,dc=net
-  password: secret
+  host: 172.30.5.1
+  base: dc=adm,dc=local
+  bind_dn: cn=administrator,cn=Users,dc=adm,dc=local
+  password: Rob!ng00d
 
 production:
-  host: 127.0.0.1
-  method: :tls
-  base: dc=production,dc=local,dc=net
-  bind_dn: cn=admin,dc=local,dc=net
-  password: secret
+  host: 172.30.5.1
+  base: dc=adm,dc=local
+  bind_dn: cn=administrator,cn=Users,dc=adm,dc=local
+  password: Rob!ng00d
 
