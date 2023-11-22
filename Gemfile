@@ -57,6 +57,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'slim'
 gem 'securerandom'
 gem 'net-ldap'
+gem 'activeldap'
 gem 'bindata', '~> 2'
 
 gem 'simple_form'
