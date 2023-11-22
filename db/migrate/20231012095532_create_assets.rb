@@ -12,11 +12,11 @@ class CreateAssets < ActiveRecord::Migration[6.1]
       t.string :code
       t.datetime :start_date
       t.integer :useful_life
-      t.reference :location, foreign_key: true
+      t.references :location, foreign_key: true
       t.string :count, :integer
-      t.reference :account, foreign_key: true
-      t.reference :organization, foreign_key: true
-      t.reference :mol, foreign_key: true
+      t.references :account, foreign_key: true
+      t.references :organization, foreign_key: true
+      t.references :mol, foreign_key: true
 
       t.timestamps null: false
     end
