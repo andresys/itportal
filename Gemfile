@@ -80,3 +80,5 @@ gem 'json'
 gem 'activejob-status'
 gem 'activerecord-import', '~> 1.5'
 gem 'draper'
+
+gem 'unicorn'
