@@ -1,0 +1,23 @@
+development:
+  host: 10.10.2.31
+  protocol: https
+  https_verify: false
+  database: TEST
+  username: admin
+  password: inf24!sp
+
+test:
+  host: 10.10.2.31
+  database: TEST
+  protocol: https
+  https_verify: false
+  username: admin
+  password: inf24!sp
+
+production:
+  host: 10.10.2.31
+  protocol: https
+  https_verify: false
+  database: BGU
+  username: admin
+  password: inf24!sp

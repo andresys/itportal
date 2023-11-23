@@ -1,0 +1,57 @@
+<div class="row g-3 mb-4 align-items-center justify-content-between">
+  <div class="col-auto">
+    <h1 class="app-page-title mb-0">Материальные запасы</h1>
+  </div>
+  <div class="col-auto">
+    <div class="page-utilities">
+      <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+        <div class="col-auto">
+          <%= render partial: "shared/search" %>
+        </div><!--//col-->
+        <div class="col-auto">
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#searchOptions" aria-expanded="false" aria-controls="searchOptions">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+              <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+            </svg>
+          </button>
+        </div>
+      </div><!--//row-->
+    </div><!--//table-utilities-->
+  </div><!--//col-auto-->
+</div><!--//row-->
+
+<div class="collapse" id="searchOptions">
+  <div class="card card-body mb-4">
+    <%= render partial: "shared/selecter", locals: { items: Mol.all, item: :mol, placeholder: "Материально ответственное лицо", html_class: "mb-3" } %>
+    <%= render partial: "shared/selecter", locals: { items: Location.all, item: :location, placeholder: "Место хранения" } %>
+  </div>
+</div>
+
+			
+<div class="tab-content" id="orders-table-tab-content">
+  <div class="tab-pane fade show active" id="status-all" role="tabpanel" aria-labelledby="orders-all-tab">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+      <div class="app-card-body">
+        <div class="table-responsive">
+          <table class="table app-table-hover mb-0 text-left">
+            <thead>
+              <tr>
+                <th class="cell text-center">UID</th>
+                <th class="cell">Название</th>
+                <th class="cell text-center">Цена</th>
+                <th class="cell text-center">Количество</th>
+                <th class="cell text-end">Стоимость</th>
+                <th class="cell"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render @materials %>
+            </tbody>
+          </table>
+        </div><!--//table-responsive-->
+      </div><!--//app-card-body-->		
+    </div><!--//app-card-->
+
+    <%= render partial: "shared/paginate", locals: { items: @materials, link: lambda {|q| accounting_materials_path(q)} } %>
+  </div><!--//tab-pane-->
+</div><!--//tab-content-->

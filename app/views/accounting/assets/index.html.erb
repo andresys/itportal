@@ -66,7 +66,7 @@
       </div><!--//app-card-body-->		
     </div><!--//app-card-->
 
-    <%= render partial: "shared/paginate", locals: { items: @assets} %>
+    <%= render partial: "shared/paginate", locals: { items: @assets, link: lambda {|q| accounting_assets_path(q)} } %>
   </div><!--//tab-pane-->
 </div><!--//tab-content-->
 

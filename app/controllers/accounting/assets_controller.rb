@@ -1,5 +1,5 @@
 class Accounting::AssetsController < ApplicationController
-  before_action :set_asset, only: %i[ show edit update destroy print]
+  before_action :set_asset, only: %i[show edit update destroy print]
   before_action :set_back_url, :only => :index
 
   layout "sticker", :only => :print
@@ -149,7 +149,8 @@ class Accounting::AssetsController < ApplicationController
   def import
     @job = ImportAssetsFrom1cJob.perform_later
     respond_to do |format|
-      format.html { redirect_to job_path(@job.job_id), notice: "Run job: import assets from 1c." }
+      format.html { redirect_to accounting_assets_path, notice: "Run job: import assets from 1c." }
+      # format.html { redirect_to job_path(@job.job_id), notice: "Run job: import assets from 1c." }
       format.json { render show: @job, status: :ok }
     end
   end

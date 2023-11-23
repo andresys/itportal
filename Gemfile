@@ -52,6 +52,10 @@ group :test do
   gem 'webdrivers'
 end
 
+group :production do
+  gem 'unicorn'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'slim'
@@ -80,5 +84,3 @@ gem 'json'
 gem 'activejob-status'
 gem 'activerecord-import', '~> 1.5'
 gem 'draper'
-
-gem 'unicorn'

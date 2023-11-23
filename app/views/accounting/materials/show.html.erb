@@ -1,0 +1,73 @@
+<div class="row g-3 mb-4 align-items-center justify-content-between">
+  <div class="col-auto row align-items-center flex-nowrap">
+      <%= link_to request.referer && session[:back_url] || accounting_materials_path, class: "col-auto btn app-btn-secondary" do %>
+        <svg height="1.5em" width="1.0em" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.143 309.143" xml:space="preserve" fill="#000000">
+          <path style="fill:#231F20;" d="M112.855,154.571L240.481,26.946c2.929-2.929,2.929-7.678,0-10.606L226.339,2.197 C224.933,0.79,223.025,0,221.036,0c-1.989,0-3.897,0.79-5.303,2.197L68.661,149.268c-2.929,2.929-2.929,7.678,0,10.606 l147.071,147.071c1.406,1.407,3.314,2.197,5.303,2.197c1.989,0,3.897-0.79,5.303-2.197l14.142-14.143 c2.929-2.929,2.929-7.678,0-10.606L112.855,154.571z"></path>
+        </svg>
+      <% end %>
+      <h1 class="col-auto app-page-title mb-0">[#<%= @material.uid %>] <%= @material.name %></h1>
+  </div>
+  <div class="col-auto">
+    <%= render partial: "shared/upload_file", locals: {item: @material, title: "Загрузить фото"} %>
+  </div>
+</div>
+
+<div class="row g-4">
+  <%= render partial: "shared/image_card", collection: @material.images, as: :image %>
+</div>
+
+<hr class="mb-4">
+
+<div class="row g-4 settings-section mb-3">
+  <div class="col-12 col-md-4">
+    <h3 class="section-title">Данные инвентарного учета</h3>
+    <div class="section-intro">Здесь представлены основные данные инвентарного учета</div>
+  </div>
+  <div class="col-12 col-md-8">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <div class="mb-2"><strong>Наименование:</strong> <%= tag.span @material.name %></div>
+        <div class="mb-2"><strong>Цена:</strong> <%= tag.span number_to_currency(@material.cost / @material.count, separator: ',', unit: '₽') %></div>
+        <div class="mb-2"><strong>Коцичество:</strong> <%= tag.span @material.count %></div>
+        <div class="mb-2"><strong>Cтоимость:</strong> <%= tag.span number_to_currency(@material.cost, separator: ',', unit: '₽') %></div>
+      </div><!--//app-card-body-->
+    </div><!--//app-card-->
+  </div>
+</div>
+        
+<div class="row g-4 settings-section">
+  <div class="col-12 col-md-4">
+    <div class="section-intro">Прочие данные инвентарного учета</div>
+  </div>
+  <div class="col-12 col-md-8">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <div class="mb-2"><strong>Организация:</strong> <%= link_to @material.organization.name, '#' %></div>
+        <div class="mb-2"><strong>Нахождение:</strong> <%= link_to @material.location.name, '#' %></div>
+        <div class="mb-4"><strong>Материально-ответственное лицо:</strong> <%= link_to @material.mol.name, '#' %></div>
+        
+        <div class="row">
+          <div class="col-auto">
+            <div class="mb-2"><strong>Счет учета:</strong> <%= tag.span @material.account.name %></div>
+            <div class="mb-2"><strong>Код материала:</strong> <%= tag.span @material.code %></div>
+          </div>
+          <div class="col-auto">
+          </div>
+        </div>
+
+        <div class="row justify-content-between">
+          <div class="col-auto">
+            <%#= render partial: "add_edit_material", locals: { model: @material, text: "Изменить", title: "Редактирование основного средства (ОС)" } %>
+          </div>
+          <%# <div class="col-auto">
+            <a class="btn app-btn-secondary" href="#">Cancel Plan</a>
+          </div> %>
+        </div>
+      </div><!--//app-card-body-->
+    </div><!--//app-card-->
+  </div>
+</div>
+
+<p id="notice"><%= notice %></p>
+
+<%#= link_to 'Destroy',  accounting_material_path(@material), data: { confirm: 'Удалить?' }, method: :delete %>

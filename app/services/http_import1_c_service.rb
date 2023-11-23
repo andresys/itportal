@@ -1,17 +1,23 @@
 class HttpImport1CService < ApplicationService
   include HTTParty
-  base_uri 'https://10.10.2.31'
+
+  class << self
+    @@config = YAML.load_file(File.join('config', 'http1c.yml'))[Rails.env]
+  end
+
+  base_uri "#{@@config['protocol'] || 'http'}://#{@@config['host']}/#{@@config['database']}"
+  basic_auth @@config['username'], @@config['password']
+  headers 'Content-Type' => 'application/json'
 
   attr_reader :path, :options
 
   def initialize(api_path)
-    basic_auth = {:username => "admin", :password => "inf24!sp"}
-    @options = { basic_auth: basic_auth, verify: false, headers: {'Content-Type' => 'application/json'} }
     @path = api_path
   end
 
   def call
-    response = self.class.get(@path, @options)
+    p "Loading data from #{@path}"
+    response = self.class.get(@path, { verify: false })
     response.code == "OK" ? response : response
   end
 end

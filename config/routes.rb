@@ -24,6 +24,9 @@ Rails.application.routes.draw do
         delete :delete_image_attachment
       end
     end
+    resources :materials, only: %i[index import show] do
+      get 'import', on: :collection
+    end
     resources :mols, only: %i[index]
   end
   resources :users

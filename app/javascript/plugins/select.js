@@ -1,7 +1,7 @@
 import TomSelect from 'tom-select/dist/js/tom-select.complete'
 import Translations from '../i18n/select.json'
 
-document.addEventListener('turbolinks:before-cache', () => {
+document.addEventListener('turbolinks:load', () => {
   const i18n = Translations[document.querySelector('body').dataset.lang]
 
   document.querySelectorAll('.js-select').forEach((element) => {
