@@ -8,8 +8,8 @@
   <%= tag.div class: "row #{html_class}" do %>
     <%= f.label t(".#{item}"), class: "col-sm-4 col-form-label" %>
     <div class="col-sm-8">
-        <%= f.collection_select item, items,
-          :id, :name,
+        <%= f.collection_select item,
+          items, :id, :name,
           { selected: params[item], include_blank: true },
           { class: "form-control js-select", placeholder: placeholder, autocomplete: "off", data: {}.merge(data) } %>
     </div>

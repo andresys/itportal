@@ -1,11 +1,14 @@
 <% query = request.query_parameters.except(:q, :page) %>
+
 <%= form_with method: :get, class: "table-search-form row gx-1 align-items-center" do |f| %>
   <% query.each do |scope, value| %>
     <%= f.hidden_field scope, value: value %>
   <% end %>
+
   <div class="col-auto">
       <%= f.text_field :q, value: params[:q], class: "form-control search-orders", placeholder: "Поиск" %>
   </div>
+
   <div class="col-auto">
       <button type="submit" class="btn app-btn-secondary">Искать</button>
   </div>

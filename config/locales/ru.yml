@@ -10,6 +10,7 @@ ru:
     selecter:
       mol: Материально ответственное лицо
       location: Место хранения
+      photo: Наличие фото
 
   activerecord:
     models:

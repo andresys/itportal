@@ -21,11 +21,14 @@ class Accounting::MaterialsController < ApplicationController
     page_size = params[:per] || 10
     page = params[:page] || 0
 
-    @materials = Material.left_joins(:uids).joins(:account, :mol, :location)
+    @materials = Material.left_joins(:uids, :images_attachments).joins(:account, :mol, :location)
       .where(query_parameters)
-      .where(Material.arel_table[:name]
-      .matches("%#{params[:q]}%"))
-      .page(page).per(page_size)
+      .where(Material.arel_table[:name].matches("%#{params[:q]}%"))
+
+    @materials = @materials.group(:id).having("COUNT(active_storage_attachments) > 0") if params[:photo] == 1.to_s
+    @materials = @materials.group(:id).having("COUNT(active_storage_attachments) = 0") if params[:photo] == 2.to_s
+
+    @materials = @materials.page(page).per(page_size)
   end
 
   def import

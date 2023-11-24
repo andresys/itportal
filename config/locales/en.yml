@@ -6,6 +6,7 @@ en:
     selecter:
       mol: Financially responsible person
       location: Storage location
+      photo: Photo availability
 
   accounting:
     assets:
