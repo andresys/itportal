@@ -39,9 +39,10 @@ class Accounting::AssetsController < ApplicationController
     @assets = Asset.left_joins(:uids, :images_attachments).joins(:account, :mol, :location)
       .where(query_parameters)
       .where(matches_string.(:name).or(matches_string.(:inventory_number)))
+      .group(:id)
     
-    @assets = @assets.group(:id).having("COUNT(active_storage_attachments) > 0") if params[:photo] == 1.to_s
-    @assets = @assets.group(:id).having("COUNT(active_storage_attachments) = 0") if params[:photo] == 2.to_s
+    @assets = @assets.having("COUNT(active_storage_attachments) > 0") if params[:photo] == 1.to_s
+    @assets = @assets.having("COUNT(active_storage_attachments) = 0") if params[:photo] == 2.to_s
     
     @assets = @assets.page(page).per(page_size)
   end
