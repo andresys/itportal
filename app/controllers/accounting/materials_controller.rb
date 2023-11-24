@@ -1,5 +1,5 @@
 class Accounting::MaterialsController < ApplicationController
-  before_action :set_material, only: %i[show]
+  before_action :set_material, only: %i[show update destroy]
   before_action :set_back_url, :only => :index
 
   def index
@@ -31,6 +31,28 @@ class Accounting::MaterialsController < ApplicationController
     @materials = @materials.page(page).per(page_size)
   end
 
+  def update
+    respond_to do |format|
+      if @material.update(material_params)
+        @material.images.attach(params[:material][:images]) if params.dig(:material, :images).present?
+
+        format.html { redirect_to [:accounting, @material], notice: "Material was successfully updated." }
+        format.json { render :show, status: :ok, location: [:accounting, @material] }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @material.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @material.destroy
+    respond_to do |format|
+      format.html { redirect_to [:accounting, @material], notice: "Material was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
   def import
     @job = ImportMaterialsFrom1cJob.perform_later
     respond_to do |format|
@@ -49,5 +71,9 @@ class Accounting::MaterialsController < ApplicationController
 
     def set_back_url
       session[:back_url] = request.url
+    end
+
+    def material_params
+      params.fetch(:material, {}).permit(:name, :description, :cost, :count)
     end
 end

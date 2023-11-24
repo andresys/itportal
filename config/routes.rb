@@ -12,19 +12,18 @@ Rails.application.routes.draw do
 
   resources :jobs, only: %i[index show]
 
+  resources :images, only: %i[destroy]
+
   namespace :accounting do
     get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :accounting_root
 
-    resources :assets do
+    resources :assets, only: %i[index import show update destroy] do
       get 'import', on: :collection
       get 'print', on: :collection
       #post 'print', to: "items#print2", on: :collection
       # resources :images, only: [:show, :destroy], :defaults => { :format => :json }, constraints: lambda { |req| ['json'].include?(req.format) }
-      member do
-        delete :delete_image_attachment
-      end
     end
-    resources :materials, only: %i[index import show] do
+    resources :materials, only: %i[index import show update destroy] do
       get 'import', on: :collection
     end
     resources :mols, only: %i[index]

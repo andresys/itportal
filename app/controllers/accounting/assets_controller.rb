@@ -145,16 +145,6 @@ class Accounting::AssetsController < ApplicationController
     #end
   end
 
-  def delete_image_attachment
-    @image = ActiveStorage::Blob.find_signed(params[:id])
-    @asset = Asset.joins(:images_attachments).where(images_attachments: {blob_id: @image}).first
-    @image.attachments.first.purge
-    respond_to do |format|
-      format.json { head :no_content }
-      format.html { redirect_to [:accounting, @asset], notice: "Asset was successfully destroyed." }
-    end
-  end
-
   def import
     @job = ImportAssetsFrom1cJob.perform_later
     respond_to do |format|
@@ -177,6 +167,6 @@ class Accounting::AssetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def asset_params
-      params.fetch(:asset, {}).permit(:name, :description, :total, :date, :status, :inventory_number)
+      params.fetch(:asset, {}).permit(:name, :description, :cost, :date, :status, :inventory_number)
     end
 end

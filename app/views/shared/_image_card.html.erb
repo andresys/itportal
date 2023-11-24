@@ -1,4 +1,4 @@
-<% remove_url = delete_image_attachment_accounting_asset_path(image.signed_id) %>
+<% remove_url = image_path(image.signed_id) %>
 
 <%= form_with url: remove_url, method: :delete, class: "col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" do |f| %>
   <div class="app-card app-card-doc shadow-sm h-100">
