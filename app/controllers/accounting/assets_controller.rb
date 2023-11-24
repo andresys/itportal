@@ -11,7 +11,7 @@ class Accounting::AssetsController < ApplicationController
     @statuses = Asset.statuses.merge('all' => -1)
     @status = @statuses[params[:status]] && params[:status] || 'on_balance'
 
-    @mol = Mol.find_by_id(params[:mol] || 9)
+    @mol = Mol.find_by_id(params[:mol] ||= nil)
     @location = Location.find_by_id(params[:location])
 
     query_parameters = {}

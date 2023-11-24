@@ -1,7 +1,7 @@
 <tr>
   <td class="cell text-center">#</td>
   <td class="cell">
-    <% name_with_count = asset.count <=1 ? asset.name : "#{asset.name} (#{asset.count} шт.)" %>
+    <% name_with_count = (asset.count <= 1) ? asset.name : "#{asset.name} (#{asset.count} шт.)" %>
     <%= tag.span name_with_count, class: "truncate1", title: name_with_count %>
   </td>
   <td class="cell text-center"><%= asset.inventory_number %></td>

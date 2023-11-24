@@ -5,7 +5,7 @@ class Accounting::MaterialsController < ApplicationController
   def index
     @query = request.query_parameters
 
-    @mol = Mol.find_by_id(params[:mol] || 9)
+    @mol = Mol.find_by_id(params[:mol] ||= nil)
     @location = Location.find_by_id(params[:location])
 
     query_parameters = {}
