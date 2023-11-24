@@ -79,6 +79,8 @@ class Accounting::AssetsController < ApplicationController
   def update
     respond_to do |format|
       if @asset.update(asset_params)
+        @asset.images.attach(params[:asset][:images]) if params.dig(:asset, :images).present?
+
         format.html { redirect_to [:accounting, @asset], notice: "Asset was successfully updated." }
         format.json { render :show, status: :ok, location: [:accounting, @asset] }
       else
@@ -175,6 +177,6 @@ class Accounting::AssetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def asset_params
-      params.fetch(:asset, {}).permit(:name, :description, :total, :date, :status, :inventory_number, images: [])
+      params.fetch(:asset, {}).permit(:name, :description, :total, :date, :status, :inventory_number)
     end
 end
