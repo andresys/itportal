@@ -40,11 +40,11 @@
     <div class="section-intro">Прочие данные инвентарного учета</div>
   </div>
   <div class="col-12 col-md-8">
-    <div class="app-card app-card-settings shadow-sm p-4">
+    <div class="app-card app-card-settings shadow-sm p-4 mb-3">
       <div class="app-card-body">
-        <div class="mb-2"><strong>Организация:</strong> <%= link_to @material.organization.name, '#' %></div>
-        <div class="mb-2"><strong>Нахождение:</strong> <%= link_to @material.location.name, '#' %></div>
-        <div class="mb-4"><strong>Материально-ответственное лицо:</strong> <%= link_to @material.mol.name, '#' %></div>
+        <div class="mb-2"><strong>Организация:</strong> <%= link_to @material.organization.name, accounting_materials_path(organization: @material.organization) %></div>
+        <div class="mb-2"><strong>Нахождение:</strong> <%= link_to @material.location.name, accounting_materials_path(location: @material.location) %></div>
+        <div class="mb-4"><strong>Материально-ответственное лицо:</strong> <%= link_to @material.mol.name, accounting_materials_path(mol: @material.mol) %></div>
         
         <div class="row">
           <div class="col-auto">
@@ -65,6 +65,8 @@
         </div>
       </div><!--//app-card-body-->
     </div><!--//app-card-->
+
+    <%= render partial: "shared/add_description", locals: { item: @material } %>
   </div>
 </div>
 
