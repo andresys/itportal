@@ -15,7 +15,7 @@ class Accounting::AssetsController < ApplicationController
     @status = @statuses[params[:status]] && params[:status] || 'on_balance'
 
     @mol = Mol.find_by_id(params[:mol] ||= nil)
-    @location = Location.find_by_id(params[:location])
+    # @location = Location.find_by_id(params[:location])
 
     query_parameters = {}
 
@@ -29,14 +29,14 @@ class Accounting::AssetsController < ApplicationController
       query_parameters.merge!(mol: {id: @mol})
     end
 
-    if @location
-      query_parameters.merge!(location: {id: @location})
-    end
+    # if @location
+    #   query_parameters.merge!(location: {id: @location})
+    # end
 
     page_size = params[:per] || 10
     page = params[:page] || 0
 
-    @assets = Asset.left_joins(:uids, :images_attachments).joins(:account, :mol, :location)
+    @assets = Asset.left_joins(:uids, :images_attachments, :account, :mol, :location)
       .where(query_parameters)
       .where(matches_string.(:name).or(matches_string.(:inventory_number)))
       .group(:id)

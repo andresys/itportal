@@ -29,7 +29,6 @@ private
 
     @organizations = {}
     @mols = {}
-    @locations = {}
     @accounts = {}
 
     materials.map do |material|
@@ -47,13 +46,6 @@ private
         mol.update(code: material['mol_code']) if mol
         mol = Mol.create_with(name: material['mol']).find_or_create_by(code: material['mol_code']) unless mol
         @mols[material['mol_code']] = mol
-      end
-
-      unless @locations.has_key? material['location_code']
-        location = Location.find_by_name_and_code(material['location'], nil)
-        location.update(code: material['location_code']) if location
-        location = Location.create_with(name: material['location']).find_or_create_by(code: material['location_code']) unless location
-        @locations[material['location_code']] = location
       end
 
       unless @accounts.has_key? material['account_number']
@@ -77,7 +69,6 @@ private
     return {
       name: !material['name'].blank? && material['name'] || nil,
       code: !material['code'].blank? && material['code'] || nil,
-      location: !material['location_code'].blank? && @locations[material['location_code']] || nil,
       cost: !material['cost'].blank? && material['cost']&.to_f || nil,
       count: !material['count'].blank? && material['count']&.to_i || 1,
       account: !material['account_number'].blank? && @accounts[material['account_number']] || nil,

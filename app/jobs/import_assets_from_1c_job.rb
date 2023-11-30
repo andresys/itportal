@@ -29,7 +29,6 @@ private
 
     @organizations = {}
     @mols = {}
-    @locations = {}
     @accounts = {}
 
     assets.map do |asset|
@@ -47,13 +46,6 @@ private
         mol.update(code: asset['mol_code']) if mol
         mol = Mol.create_with(name: asset['mol']).find_or_create_by(code: asset['mol_code']) unless mol
         @mols[asset['mol_code']] = mol
-      end
-
-      unless @locations.has_key? asset['location_code']
-        location = Location.find_by_name_and_code(asset['location'], nil)
-        location.update(code: asset['location_code']) if location
-        location = Location.create_with(name: asset['location']).find_or_create_by(code: asset['location_code']) unless location
-        @locations[asset['location_code']] = location
       end
 
       unless @accounts.has_key? asset['account_number']
@@ -81,7 +73,6 @@ private
       date: !asset['date'].blank? && Date.strptime(asset['date'], "%d.%m.%Y") || nil,
       start_date: !asset['start_date'].blank? && Date.strptime(asset['start_date'], "%d.%m.%Y") || nil,
       useful_life: !asset['useful_life'].blank? && asset['useful_life']&.to_i || nil,
-      location: !asset['location_code'].blank? && @locations[asset['location_code']] || nil,
       cost: !asset['cost'].blank? && asset['cost']&.to_f || nil,
       count: !asset['count'].blank? && asset['count']&.to_i || 1,
       account: !asset['account_number'].blank? && @accounts[asset['account_number']] || nil,

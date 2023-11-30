@@ -39,14 +39,33 @@
   <div class="col-12 col-md-8">
     <div class="app-card app-card-settings shadow-sm p-4 mb-3">
       <div class="app-card-body">
-        <div class="mb-2"><strong>Цена:</strong> <%= tag.span number_to_currency(@material.cost / @material.count, separator: ',', unit: '₽') %></div>
-        <div class="mb-2"><strong>Коцичество:</strong> <%= tag.span @material.count %></div>
-        <div class="mb-4"><strong>Cтоимость:</strong> <%= tag.span number_to_currency(@material.cost, separator: ',', unit: '₽') %></div>
+        <div class="row mb-4">
+          <div class="col-lg">
+            <div class="mb-2"><strong>Цена:</strong> <%= tag.span number_to_currency(@material.cost / @material.count, separator: ',', unit: '₽') %></div>
+            <div class="mb-2"><strong>Коцичество:</strong> <%= tag.span @material.count %></div>
+            <%= tag.div class: @material.description && "mb-2 mb-lg-0" do %>
+              <strong>Cтоимость:</strong>
+              <%= tag.span number_to_currency(@material.cost, separator: ',', unit: '₽') %>
+            <% end %>
+          </div>
+
+          <% if @material.description %>
+          <div class="col-lg">
+            <div class="card text-bg-light">
+              <div class="card-body">
+                <h6 class="card-title">Информация:</h6>
+                <%= tag.p @material.description %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+
 
         <div class="mb-2"><strong>Организация:</strong> <%= link_to @material.organization.name, accounting_materials_path(organization: @material.organization) %></div>
         <div class="mb-4"><strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong> <%= link_to @material.mol.name, accounting_materials_path(mol: @material.mol) %></div>
         
-        <div class="row mb-3">
+        <div class="row">
           <div class="col-auto">
             <div class="mb-2">
               <strong>Счет учета:</strong>
@@ -56,10 +75,6 @@
           </div>
           <div class="col-auto">
           </div>
-        </div>
-
-        <div class="card">
-          <%= tag.div @material.description, class: "card-body" %>
         </div>
 
         <div class="row justify-content-between">
