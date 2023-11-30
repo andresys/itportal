@@ -22,9 +22,11 @@ Rails.application.routes.draw do
       get 'print', on: :collection
       #post 'print', to: "items#print2", on: :collection
       # resources :images, only: [:show, :destroy], :defaults => { :format => :json }, constraints: lambda { |req| ['json'].include?(req.format) }
+      resources :notes, only: %i[create]
     end
     resources :materials, only: %i[index import show update destroy] do
       get 'import', on: :collection
+      resources :notes, only: %i[create]
     end
     resources :mols, only: %i[index]
   end

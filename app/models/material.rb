@@ -11,6 +11,7 @@ class Material < ApplicationRecord
   belongs_to :organization
   belongs_to :account
   has_many :uids, as: :uidable, dependent: :destroy
+  has_many :notes, as: :noteble, dependent: :destroy
 
   attr_accessor :uid
 

@@ -21,17 +21,14 @@
 <div class="row g-4 settings-section mb-3">
   <div class="col-12 col-md-4">
     <h3 class="section-title">Данные инвентарного учета</h3>
-    <div class="section-intro">Здесь представлены основные данные инвентарного учета</div>
+    <div class="section-intro">Основные данные учета</div>
   </div>
   <div class="col-12 col-md-8">
     <div class="app-card app-card-settings shadow-sm p-4">
       <div class="app-card-body">
         <div class="mb-2"><strong>Наименование:</strong> <%= tag.span @asset.name %></div>
-        <div class="mb-2"><strong>Инвентарный номер:</strong> <%= tag.span @asset.inventory_number %></div>
-        <div class="mb-2"><strong>Коцичество:</strong> <%= tag.span @asset.count %></div>
-        <div class="mb-2"><strong>Балансовая стоимость:</strong> <%= tag.span number_to_currency(@asset.cost, separator: ',', unit: '₽') %></div>
-        <div class="mb-2"><strong>Дата ввода в эксплуатацию:</strong> <%= tag.span l @asset.date, format: "%e %B %Y год" if @asset.date %></div>
-        <div><strong>Статус:</strong> <%= status_tag @asset.account.code %></div>
+        <div class="mb-2"><strong>Нахождение:</strong> <%= link_to @asset.location.name, accounting_assets_path(location: @asset.location) %></div>
+        <div><strong>Ответственное лицо:</strong> <%= link_to "", "" %></div>
       </div><!--//app-card-body-->
     </div><!--//app-card-->
   </div>
@@ -44,19 +41,32 @@
   <div class="col-12 col-md-8">
     <div class="app-card app-card-settings shadow-sm p-4 mb-3">
       <div class="app-card-body">
+        <div class="mb-2"><strong>Инвентарный номер:</strong> <%= tag.span @asset.inventory_number %></div>
+        <div class="mb-2"><strong>Коцичество:</strong> <%= tag.span @asset.count %></div>
+        <div class="mb-4"><strong>Балансовая стоимость:</strong> <%= tag.span number_to_currency(@asset.cost, separator: ',', unit: '₽') %></div>
+
+        <div class="mb-4"><strong>Статус:</strong> <%= status_tag @asset.account.code %></div>
+
         <div class="mb-2"><strong>Организация:</strong> <%= link_to @asset.organization.name, accounting_assets_path(organization: @asset.organization) %></div>
-        <div class="mb-2"><strong>Нахождение:</strong> <%= link_to @asset.location.name, accounting_assets_path(location: @asset.location) %></div>
-        <div class="mb-4"><strong>Материально-ответственное лицо:</strong> <%= link_to @asset.mol.name, accounting_assets_path(mol: @asset.mol) %></div>
+        <div class="mb-4"><strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong> <%= link_to @asset.mol.name, accounting_assets_path(mol: @asset.mol) %></div>
         
-        <div class="row">
-          <div class="col-auto">
-            <div class="mb-2"><strong>Счет учета:</strong> <%= tag.span @asset.account.name %></div>
-            <div class="mb-2"><strong>Код основного средства:</strong> <%= tag.span @asset.code %></div>
+        <div class="row mb-3">
+          <div class="col-lg">
+            <div class="mb-2">
+              <strong>Счет учета:</strong>
+              <%= tag.abbr @asset.account.code, title: @asset.account.name, class: "initialism" %>
+            </div>
+            <div class="mb-2"><strong>Код учета в 1С:</strong> <%= tag.span @asset.code %></div>
           </div>
-          <div class="col-auto">
+          <div class="col-lg">
             <div class="mb-2"><strong>Дата принятия к учету:</strong> <%= tag.span l @asset.start_date, format: "%e %B %Y год" if @asset.start_date %></div>
+            <div class="mb-2"><strong>Дата ввода в эксплуатацию:</strong> <%= tag.span l @asset.date, format: "%e %B %Y год" if @asset.date %></div>
             <div class="mb-2"><strong>Срок полезного использования:</strong> <%= tag.span "#{@asset.useful_life} мес." if @asset.useful_life %></div>
           </div>
+        </div>
+
+        <div class="card">
+          <%= tag.div @asset.description, class: "card-body" %>
         </div>
 
         <div class="row justify-content-between">
@@ -70,7 +80,7 @@
       </div><!--//app-card-body-->
     </div><!--//app-card-->
 
-    <%= render partial: "shared/add_description", locals: { item: @asset } %>
+    <%= render partial: "shared/notes", locals: { item: @asset } %>
   </div>
 </div>
 

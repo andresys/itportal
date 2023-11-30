@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_23_115617) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_30_055105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -122,6 +122,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_115617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_mols_on_code", unique: true
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.datetime "date", default: "2023-11-30 06:04:04"
+    t.string "text", null: false
+    t.json "details"
+    t.string "noteble_type", null: false
+    t.bigint "noteble_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["noteble_type", "noteble_id"], name: "index_notes_on_noteble"
   end
 
   create_table "organizations", force: :cascade do |t|

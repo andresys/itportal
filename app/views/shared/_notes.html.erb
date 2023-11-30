@@ -1,0 +1,36 @@
+<div class="app-card app-card-settings shadow-sm p-4">
+  <div class="app-card-body">
+    <div class="mb-2"><strong>Заметки:</strong></div>
+
+    <% if item.notes.any? %>
+      <table class="table table-striped table-sm mb-4">
+      <colgroup>
+        <col>
+        <col class="w-100">
+      </colgroup>
+      <% item.notes.each do |note| %>
+      <tr>
+        <td><%= tag.small l note.date, format: "%d.%m.%Y" %></td>
+        <td><%= tag.em note.text %></td>
+      </tr>
+      <% end %>
+      </table>
+    <% end %>
+
+    <%= form_with model: [:accounting, item, Note.new], method: :post do |f| %>
+      <div class="row">
+        <div class="col-sm-auto mb-2">
+          <%= f.date_field :date, class: "w-100 form-control" %>
+        </div>
+        <div class="col-sm mb-2">
+          <%= f.text_area :text, class: "w-100 form-control", rows: "3" %>
+        </div>
+      </div>
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <%= f.button :add, class: "btn app-btn-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

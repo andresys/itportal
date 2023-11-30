@@ -5,7 +5,7 @@ class ImagesController < ApplicationController
     @image.attachments.first.purge
     respond_to do |format|
       format.json { head :no_content }
-      format.html { redirect_to request.referer, notice: "Asset was successfully destroyed." }
+      format.html { redirect_to request.referer || root_path, notice: "Asset was successfully destroyed." }
     end
   end  
 end
