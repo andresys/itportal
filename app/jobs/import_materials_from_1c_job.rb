@@ -7,7 +7,7 @@ class ImportMaterialsFrom1cJob < ApplicationJob
     status.update(step: "Import materials from 1c HTTP service")
     p "Import materials from 1c HTTP service"
 
-    data = HttpImport1CService.call("/hs/itportal/materials")
+    data = AccountingImportService.call("/hs/itportal/materials")
     if data.any?
       status.update(step: "Parsing data from JSON")
       p "Parsing data from JSON"

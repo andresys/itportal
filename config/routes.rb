@@ -19,7 +19,9 @@ Rails.application.routes.draw do
 
     resources :organizations, only: %i[index]
     resources :locations, only: %i[index new create edit]
-    resources :employees, only: %i[index new create edit]
+    resources :employees, only: %i[index new create edit import] do
+      get 'import', on: :collection
+    end
     resources :mols, only: %i[index]
   end
 

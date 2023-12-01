@@ -1,5 +1,6 @@
 <% content_for :title do %>
   <%= link_to t('.new'), new_directories_employee_path, class: "btn btn-sm btn-primary" %>
+  <%= link_to t('.import'), import_directories_employees_path, class: "btn btn-sm btn-secondary" %>
 <% end %>
 
 <div class="tab-content">
@@ -12,6 +13,6 @@
       </div><!--//app-card-body-->		
     </div><!--//app-card-->
 
-    <%= render partial: "shared/paginate", locals: { items: @employees, link: lambda {|q| directories_mols_path(q)} } %>
+    <%= render partial: "shared/paginate", locals: { items: @employees, link: lambda {|q| directories_employees_path(q)} } %>
   </div><!--//tab-pane-->
 </div><!--//tab-content-->

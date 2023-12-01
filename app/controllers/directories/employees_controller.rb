@@ -1,6 +1,9 @@
 class Directories::EmployeesController < DirectoriesController
   def index
-    @employees = Employee.where({}).page(params[:page])
+    page_size = params[:per] || 10
+    page = params[:page] || 0
+
+    @employees = Employee.page(page).per(page_size)
   end
 
   def new
@@ -16,6 +19,14 @@ class Directories::EmployeesController < DirectoriesController
       else
         format.html { render :new, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def import
+    @job = ImportEmployeesJob.perform_later
+    respond_to do |format|
+      format.html { redirect_to directories_employees_path, notice: "Job import Employees was successfully created." }
+      format.json { render show: @job, status: :ok }
     end
   end
 

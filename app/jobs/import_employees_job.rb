@@ -1,0 +1,48 @@
+class ImportEmployeesJob < ApplicationJob
+  include ActiveJob::Status
+  
+  queue_as :default
+
+  def perform(*args)
+    status.update(step: "Import employees from HTTP service")
+    p "Import employees from HTTP service"
+
+    data = PhonebookImportService.call
+    if data.any?
+      status.update(step: "Parsing data from JSON")
+      p "Parsing data from JSON"
+      employees = employees_from(data['contacts'])
+      status.update(step: "Save materials to database")
+      p "Save materials to database"
+
+      Employee.import employees, ignore: true
+      status.update(step: "Ok")
+      p "Ok"
+    end
+  end
+
+private 
+
+  def employees_from(employees)
+    progress.total = employees.count
+
+    employees.map do |employee|
+      progress.increment
+
+      update_finded_employee(employee) || Employee.new(employee_params employee)
+    end
+  end
+
+  def update_finded_employee employee
+    finded = Employee.find_by("code = ?", employee['id'])
+    finded&.update(employee_params employee)
+    finded
+  end
+
+  def employee_params employee
+    return {
+      name: !employee['name'].blank? && employee['name'] || nil,
+      code: !employee['id'].blank? && employee['id'] || nil
+    }
+  end
+end
