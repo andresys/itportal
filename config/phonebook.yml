@@ -7,7 +7,7 @@ development:
   password: inf24!sp
 
 test:
-  host: 10.10.2.31
+  host: phonebook.adm.tver.ru
   path: /api/v1/contacts?from=0&limit=1000
   protocol: https
   https_verify: false
@@ -15,7 +15,7 @@ test:
   password: inf24!sp
 
 production:
-  host: 10.10.2.31
+  host: phonebook.adm.tver.ru
   protocol: https
   https_verify: false
   path: /api/v1/contacts?from=0&limit=1000
