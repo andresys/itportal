@@ -3,6 +3,9 @@ class Accounting::MaterialsController < ApplicationController
   before_action :set_back_url, :only => :index
 
   def index
+    material = Material.arel_table
+    matches_string =  ->(p){ material[p].lower.matches("%#{params[:q]&.downcase}%") }
+
     @query = request.query_parameters
 
     @mol = Mol.find_by_id(params[:mol] ||= nil)
@@ -23,7 +26,7 @@ class Accounting::MaterialsController < ApplicationController
 
     @materials = Material.left_joins(:uids, :images_attachments, :account, :mol, :location)
       .where(query_parameters)
-      .where(Material.arel_table[:name].matches("%#{params[:q]}%"))
+      .where(matches_string.(:name))
 
     @materials = @materials.group(:id).having("COUNT(active_storage_attachments) > 0") if params[:photo] == 1.to_s
     @materials = @materials.group(:id).having("COUNT(active_storage_attachments) = 0") if params[:photo] == 2.to_s

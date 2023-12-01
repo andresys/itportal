@@ -8,7 +8,7 @@ class Accounting::AssetsController < ApplicationController
   # GET /accounting/assets or /accounting/assets.json
   def index
     asset = Asset.arel_table
-    matches_string =  ->(p){ asset[p].matches("%#{params[:q]}%") }
+    matches_string =  ->(p){ asset[p].lower.matches("%#{params[:q]&.downcase}%") }
 
     @query = request.query_parameters
     @statuses = Asset.statuses.merge('all' => -1)
