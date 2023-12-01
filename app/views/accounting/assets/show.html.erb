@@ -44,7 +44,7 @@
         <div class="row mb-4">
           <div class="col-lg">
             <div class="mb-2"><strong>Инвентарный номер:</strong> <%= tag.span @asset.inventory_number %></div>
-            <div class="mb-2"><strong>Коцичество:</strong> <%= tag.span @asset.count %></div>
+            <div class="mb-2"><strong>Количество:</strong> <%= tag.span @asset.count %></div>
             <div class="mb-4"><strong>Балансовая стоимость:</strong> <%= tag.span number_to_currency(@asset.cost, separator: ',', unit: '₽') %></div>
 
             <%= tag.div class: @asset.description && "mb-4 mb-lg-0" do %>

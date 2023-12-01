@@ -24,6 +24,7 @@
   <div class="card card-body mb-4">
     <%= render partial: "shared/accounting/filters/selecter", locals: { items: Mol.all, item: :mol, placeholder: "Материально ответственное лицо", html_class: "mb-3" } %>
     <%= render partial: "shared/accounting/filters/selecter", locals: { items: Location.all, item: :location, placeholder: "Место хранения", html_class: "mb-3" } %>
+    <%= render partial: "shared/accounting/filters/selecter", locals: { items: Employee.all, item: :employee, placeholder: "Ответственное лицо", html_class: "mb-3" } %>
     <%= render partial: "shared/accounting/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
   </div>
 </div>

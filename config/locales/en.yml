@@ -8,6 +8,7 @@ en:
         selecter:
           mol: Financially responsible person
           location: Storage location
+          employee: Employee
           photo: Photo availability
   
   application:

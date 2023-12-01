@@ -9,7 +9,8 @@ class Accounting::MaterialsController < ApplicationController
     @query = request.query_parameters
 
     @mol = Mol.find_by_id(params[:mol] ||= nil)
-    # @location = Location.find_by_id(params[:location])
+    @location = Location.find_by_id(params[:location])
+    @employee = Employee.find_by_id(params[:employee])
 
     query_parameters = {}
 
@@ -17,14 +18,18 @@ class Accounting::MaterialsController < ApplicationController
       query_parameters.merge!(mol: {id: @mol})
     end
 
-    # if @location
-    #   query_parameters.merge!(location: {id: @location})
-    # end
+    if @location
+      query_parameters.merge!(location: {id: @location})
+    end
+
+    if @employee
+      query_parameters.merge!(employee: {id: @employee})
+    end
 
     page_size = params[:per] || 10
     page = params[:page] || 0
 
-    @materials = Material.left_joins(:uids, :images_attachments, :account, :mol, :location)
+    @materials = Material.left_joins(:uids, :images_attachments, :account, :mol, :location, :employee)
       .where(query_parameters)
       .where(matches_string.(:name))
 

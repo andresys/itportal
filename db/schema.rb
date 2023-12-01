@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_183151) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_204550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,8 +68,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_183151) do
     t.bigint "account_id"
     t.bigint "organization_id"
     t.bigint "mol_id"
+    t.bigint "employee_id"
     t.index ["account_id"], name: "index_assets_on_account_id"
     t.index ["code", "inventory_number"], name: "index_assets_on_code_and_inventory_number", unique: true
+    t.index ["employee_id"], name: "index_assets_on_employee_id"
     t.index ["location_id"], name: "index_assets_on_location_id"
     t.index ["mol_id"], name: "index_assets_on_mol_id"
     t.index ["organization_id"], name: "index_assets_on_organization_id"
@@ -122,8 +124,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_183151) do
     t.bigint "mol_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "employee_id"
     t.index ["account_id"], name: "index_materials_on_account_id"
     t.index ["code"], name: "index_materials_on_code", unique: true
+    t.index ["employee_id"], name: "index_materials_on_employee_id"
     t.index ["location_id"], name: "index_materials_on_location_id"
     t.index ["mol_id"], name: "index_materials_on_mol_id"
     t.index ["organization_id"], name: "index_materials_on_organization_id"
@@ -176,10 +180,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_183151) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assets", "accounts"
+  add_foreign_key "assets", "employees"
   add_foreign_key "assets", "locations"
   add_foreign_key "assets", "mols"
   add_foreign_key "assets", "organizations"
   add_foreign_key "materials", "accounts"
+  add_foreign_key "materials", "employees"
   add_foreign_key "materials", "locations"
   add_foreign_key "materials", "mols"
   add_foreign_key "materials", "organizations"

@@ -42,7 +42,7 @@
         <div class="row mb-4">
           <div class="col-lg">
             <div class="mb-2"><strong>Цена:</strong> <%= tag.span number_to_currency(@material.cost / @material.count, separator: ',', unit: '₽') %></div>
-            <div class="mb-2"><strong>Коцичество:</strong> <%= tag.span @material.count %></div>
+            <div class="mb-2"><strong>Количество:</strong> <%= tag.span @material.count %></div>
             <%= tag.div class: @material.description && "mb-2 mb-lg-0" do %>
               <strong>Cтоимость:</strong>
               <%= tag.span number_to_currency(@material.cost, separator: ',', unit: '₽') %>
