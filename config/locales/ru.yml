@@ -7,10 +7,44 @@ ru:
   storage: На хранении
 
   shared:
-    selecter:
-      mol: Материально ответственное лицо
-      location: Место хранения
-      photo: Наличие фото
+    accounting:
+      filters:
+        selecter:
+          mol: Материально ответственное лицо
+          location: Место хранения
+          photo: Наличие фото
+    
+  application:
+    navigation:
+      directories: Справочники
+
+  layouts:
+    directories:
+      title: Справочники
+      organizations: Организации
+      employees: Сотрудники
+      mols: Метериально-ответственные лица
+      locations: Места
+
+  accounting:
+    assets:
+      index:
+        all: Все
+        on_balance: На балансе
+        out_balance: За балансом
+        storage: На хранении
+
+  directories:
+    locations:
+      index:
+        new: Новое место
+      form:
+        name: Наименование
+    employees:
+      index:
+        new: Добавить сотрудника
+      form:
+        name: ФИО
 
   activerecord:
     models:
@@ -25,6 +59,11 @@ ru:
         cost: Балансовая стоимость
         status: Статус основного средства
         description: Дополнительное описание
+      location:
+        name: Наименование
+        parent: Родительский элемент
+      employee:
+        name: ФИО сотрудника
   helpers:
     submit:
       create: Создать

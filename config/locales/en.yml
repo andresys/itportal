@@ -3,10 +3,24 @@ en:
   save: Save
 
   shared:
-    selecter:
-      mol: Financially responsible person
-      location: Storage location
-      photo: Photo availability
+    accounting:
+      filters:
+        selecter:
+          mol: Financially responsible person
+          location: Storage location
+          photo: Photo availability
+  
+  application:
+    navigation:
+      directories: Directories
+
+  layouts:
+    directories:
+      title: Directories
+      organizations: Organizations
+      employees: Employees
+      mols: Financially responsible persons
+      locations: Locations
 
   accounting:
     assets:
@@ -15,6 +29,18 @@ en:
         on_balance: On balance
         out_balance: Out balance
         storage: "On storage"
+
+  directories:
+    locations:
+      index:
+        new: New location
+      form:
+        name: Name
+    employees:
+      index:
+        new: New employee
+      form:
+        name: Name
 
   activerecord:
     models:
@@ -29,6 +55,11 @@ en:
         cost: Balance cost
         status: Asset status
         description: Description
+      location:
+        name: Name
+        parent: Parent
+      employee:
+        name: Name
   helpers:
     submit:
       create: Create

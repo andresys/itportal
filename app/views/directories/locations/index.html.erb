@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  <%= link_to t('.new'), new_directories_location_path, class: "btn btn-sm btn-primary" %>
+<% end %>
+
+<%= fields_for :locations do |f| %>
+  <%= nested_li Location, ul_class: "list-group list-group-flush", li_class: "list-group-item" do |location| %>
+    <%= tag.div location.name, class: "text-truncate ps-2", title: location.name %>
+  <% end %>
+<% end %>

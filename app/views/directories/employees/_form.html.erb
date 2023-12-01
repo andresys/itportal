@@ -1,0 +1,22 @@
+<%= form_with model: [:directories, employee] do |f| %>
+  <% if employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+      <ul>
+        <% employee.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control", placeholder: t('.name') %>
+  </div>
+
+  <div class="form-actions text-center">
+    <%= link_to t(:cancel), directories_employees_path, class: "btn app-btn-secondary" %>
+    <%= f.button :submit, class: "btn app-btn-primary" %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_30_142804) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_085412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_30_142804) do
     t.index ["slug"], name: "index_assets_on_slug", unique: true
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -88,11 +94,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_30_142804) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string "code"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code"], name: "index_locations_on_code", unique: true
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
+    t.integer "depth", default: 0, null: false
+    t.integer "children_count", default: 0, null: false
+    t.index ["lft"], name: "index_locations_on_lft"
+    t.index ["parent_id"], name: "index_locations_on_parent_id"
+    t.index ["rgt"], name: "index_locations_on_rgt"
   end
 
   create_table "materials", force: :cascade do |t|
@@ -141,6 +153,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_30_142804) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_organizations_on_code", unique: true
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "uids", force: :cascade do |t|

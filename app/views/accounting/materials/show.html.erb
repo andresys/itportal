@@ -8,12 +8,12 @@
       <h1 class="col-auto app-page-title mb-0">[#<%= @material.uid %>] <%= @material.name %></h1>
   </div>
   <div class="col-auto">
-    <%= render partial: "shared/upload_file", locals: {item: @material, title: "Загрузить фото"} %>
+    <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: "Загрузить фото"} %>
   </div>
 </div>
 
 <div class="row g-4">
-  <%= render partial: "shared/image_card", collection: @material.images, as: :image %>
+  <%= render partial: "shared/accounting/image_card", collection: @material.images, as: :image %>
 </div>
 
 <hr class="mb-4">
@@ -88,7 +88,7 @@
       </div><!--//app-card-body-->
     </div><!--//app-card-->
 
-    <%= render partial: "shared/notes", locals: { item: @material } %>
+    <%= render partial: "shared/accounting/notes", locals: { item: @material } %>
   </div>
 </div>
 

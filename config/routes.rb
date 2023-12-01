@@ -14,8 +14,17 @@ Rails.application.routes.draw do
 
   resources :images, only: %i[destroy]
 
+  namespace :directories do
+    get '/', to: redirect { |p, r| "#{r.url}/organizations" }, as: :root
+
+    resources :organizations, only: %i[index]
+    resources :locations, only: %i[index new create edit]
+    resources :employees, only: %i[index new create edit]
+    resources :mols, only: %i[index]
+  end
+
   namespace :accounting do
-    get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :accounting_root
+    get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :root
 
     resources :assets, only: %i[index import show update destroy] do
       get 'import', on: :collection

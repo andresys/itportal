@@ -6,7 +6,7 @@
     <div class="page-utilities">
       <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
         <div class="col-auto">
-          <%= render partial: "shared/search" %>
+          <%= render partial: "shared/accounting/filters/search" %>
         </div><!--//col-->
         <div class="col-auto">
           <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#searchOptions" aria-expanded="false" aria-controls="searchOptions">
@@ -22,9 +22,9 @@
 
 <div class="collapse" id="searchOptions">
   <div class="card card-body mb-4">
-    <%= render partial: "shared/selecter", locals: { items: Mol.all, item: :mol, placeholder: "Материально ответственное лицо", html_class: "mb-3" } %>
-    <%= render partial: "shared/selecter", locals: { items: Location.all, item: :location, placeholder: "Место хранения", html_class: "mb-3" } %>
-    <%= render partial: "shared/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
+    <%= render partial: "shared/accounting/filters/selecter", locals: { items: Mol.all, item: :mol, placeholder: "Материально ответственное лицо", html_class: "mb-3" } %>
+    <%= render partial: "shared/accounting/filters/selecter", locals: { items: Location.all, item: :location, placeholder: "Место хранения", html_class: "mb-3" } %>
+    <%= render partial: "shared/accounting/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
   </div>
 </div>
 

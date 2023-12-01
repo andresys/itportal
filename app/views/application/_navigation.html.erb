@@ -8,9 +8,9 @@
       <%= sub_item_tag "Документы", nil %>
       <%= sub_item_tag "Печать этикеток", nil %>
     <% end %>
-    <%#= nav_item_tag "Документы", "docs.html", icon: "folder" %>
+    <%= nav_item_tag t('.directories'), directories_root_path, icon: "files" %>
     <%#= nav_item_tag "Заказы", "orders.html", icon: "card-list" %>
-    <%#= nav_item_tag "Страницы", nil, icon: "files" do %>
+    <%#= nav_item_tag "Страницы", nil, icon: "folder" do %>
       <%#= sub_item_tag "Notifications", "notifications.html" %>
       <%#= sub_item_tag "Account", "account.html" %>
       <%#= sub_item_tag "Settings", "settings.html" %>
