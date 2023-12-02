@@ -22,6 +22,8 @@ en:
       employees: Employees
       mols: Financially responsible persons
       locations: Locations
+      titles: Titles
+      departments: Departments
 
   accounting:
     assets:

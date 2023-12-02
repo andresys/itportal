@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_204550) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_02_095209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,12 +78,30 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_204550) do
     t.index ["slug"], name: "index_assets_on_slug", unique: true
   end
 
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
+    t.integer "depth", default: 0, null: false
+    t.integer "children_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lft"], name: "index_departments_on_lft"
+    t.index ["parent_id"], name: "index_departments_on_parent_id"
+    t.index ["rgt"], name: "index_departments_on_rgt"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "code"
+    t.bigint "department_id"
+    t.bigint "title_id"
     t.index ["code"], name: "index_employees_on_code", unique: true
+    t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["title_id"], name: "index_employees_on_title_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -161,8 +179,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_204550) do
     t.index ["code"], name: "index_organizations_on_code", unique: true
   end
 
-  create_table "people", force: :cascade do |t|
+  create_table "titles", force: :cascade do |t|
     t.string "name"
+    t.integer "sort"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -184,6 +203,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_204550) do
   add_foreign_key "assets", "locations"
   add_foreign_key "assets", "mols"
   add_foreign_key "assets", "organizations"
+  add_foreign_key "employees", "departments"
+  add_foreign_key "employees", "titles"
   add_foreign_key "materials", "accounts"
   add_foreign_key "materials", "employees"
   add_foreign_key "materials", "locations"

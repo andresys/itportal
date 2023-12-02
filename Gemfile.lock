@@ -260,6 +260,7 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails_sortable (1.6.0)
     railties (7.1.2)
       actionpack (= 7.1.2)
       activesupport (= 7.1.2)
@@ -383,6 +384,7 @@ DEPENDENCIES
   puma (~> 6.4.0)
   rack-mini-profiler (~> 3.1.1)
   rails (~> 7.1.2)
+  rails_sortable
   rqrcode (~> 2.0)
   russian
   securerandom

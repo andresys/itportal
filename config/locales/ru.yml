@@ -26,6 +26,8 @@ ru:
       employees: Сотрудники
       mols: Метериально-ответственные лица
       locations: Места
+      titles: Должности
+      departments: Подразделения
 
   accounting:
     assets:

@@ -1,0 +1,5 @@
+<%= fields_for :departments do |f| %>
+  <%= nested_li Department, ul_class: "list-group list-group-flush", li_class: "list-group-item" do |department| %>
+    <%= tag.div department.name, class: "text-truncate ps-2", title: department.name %>
+  <% end %>
+<% end %>

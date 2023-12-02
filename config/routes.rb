@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       get 'import', on: :collection
     end
     resources :mols, only: %i[index]
+    resources :departments, only: %i[index]
+    resources :titles, only: %i[index]
   end
 
   namespace :accounting do

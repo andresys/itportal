@@ -1,0 +1,13 @@
+<div class="tab-content">
+  <div class="tab-pane fade show active">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+      <div class="app-card-body">
+        <ul class="list-group list-group-flush">
+          <%= render @titles %>
+        </ul>
+      </div><!--//app-card-body-->		
+    </div><!--//app-card-->
+
+    <%= render partial: "shared/paginate", locals: { items: @titles, link: lambda {|q| directories_titles_path(q)} } %>
+  </div><!--//tab-pane-->
+</div><!--//tab-content-->
