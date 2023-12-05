@@ -44,6 +44,20 @@ en:
         new: New employee
       form:
         name: Name
+    organizations:
+      organization:
+        staffing_table: Staffing table
+        create_staffing_table: Create staffing table
+    staffings:
+      show:
+        add_department: Add department
+        add_title: Add title
+    titles:
+      form:
+        name: Title
+    departments:
+      form:
+        name: Department
 
   activerecord:
     models:
@@ -58,11 +72,16 @@ en:
         cost: Balance cost
         status: Asset status
         description: Description
+        staffing_tables: Staffing table
       location:
         name: Name
         parent: Parent
       employee:
         name: Name
+      department:
+        name: Department
+      titles:
+        name: Title
   helpers:
     submit:
       create: Create

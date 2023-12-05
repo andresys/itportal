@@ -1,4 +1,5 @@
 import * as Alert from "bootstrap/js/dist/alert"
+import * as Toast from "bootstrap/js/dist/toast"
 
 document.addEventListener('turbolinks:load', () => {
 	/* ===== Enable Bootstrap Popover (on element  ====== */
@@ -11,6 +12,11 @@ document.addEventListener('turbolinks:load', () => {
 	var alertList = document.querySelectorAll('.alert')
 	alertList.forEach(function (alert) {
 		new Alert(alert)
+	})
+
+	var toastList = document.querySelectorAll('.toast')
+	toastList.forEach(function (toast) {
+		Toast.getOrCreateInstance(toast).show()
 	})
 
 	/* ===== Responsive Sidepanel ====== */

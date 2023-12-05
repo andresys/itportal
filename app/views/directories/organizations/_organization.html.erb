@@ -1,3 +1,14 @@
 <li class="list-group-item">
-  <%= organization.name %>
+  <div class="row justify-content-between">
+    <div class="col-auto">
+      <%= organization.name %>
+    </div>
+    <div class="col-auto">
+      <% unless organization.department %>
+        <%= button_to t('.create_staffing_table'), directories_organization_staffing_path(organization), class: 'btn btn-sm btn-primary' %>
+      <% else %>
+        <%= link_to t('.staffing_table'), directories_organization_staffing_path(organization), class: 'btn btn-sm btn-primary' %>
+      <% end %>
+    </div>
+  </div>
 </li>

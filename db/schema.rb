@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_02_095209) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_04_135040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,7 +87,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_02_095209) do
     t.integer "children_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organization_id"
     t.index ["lft"], name: "index_departments_on_lft"
+    t.index ["organization_id"], name: "index_departments_on_organization_id"
     t.index ["parent_id"], name: "index_departments_on_parent_id"
     t.index ["rgt"], name: "index_departments_on_rgt"
   end
@@ -184,6 +186,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_02_095209) do
     t.integer "sort"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organization_id"
+    t.bigint "department_id"
+    t.index ["department_id"], name: "index_titles_on_department_id"
+    t.index ["organization_id"], name: "index_titles_on_organization_id"
   end
 
   create_table "uids", force: :cascade do |t|
@@ -203,6 +209,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_02_095209) do
   add_foreign_key "assets", "locations"
   add_foreign_key "assets", "mols"
   add_foreign_key "assets", "organizations"
+  add_foreign_key "departments", "organizations"
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "titles"
   add_foreign_key "materials", "accounts"
@@ -210,4 +217,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_02_095209) do
   add_foreign_key "materials", "locations"
   add_foreign_key "materials", "mols"
   add_foreign_key "materials", "organizations"
+  add_foreign_key "titles", "departments"
+  add_foreign_key "titles", "organizations"
 end

@@ -28,6 +28,7 @@ ru:
       locations: Места
       titles: Должности
       departments: Подразделения
+      staffing_tables: Штатное расписание
 
   accounting:
     assets:
@@ -48,6 +49,20 @@ ru:
         new: Добавить сотрудника
       form:
         name: ФИО
+    organizations:
+      organization:
+        staffing_table: Штатное расписание
+        create_staffing_table: Создать штатное расписание
+    staffings:
+      show:
+        add_department: Добавить подразделение
+        add_title: Добавить должность
+    titles:
+      form:
+        name: Название должности
+    departments:
+      form:
+        name: Название подразделения
 
   activerecord:
     models:
@@ -67,6 +82,10 @@ ru:
         parent: Родительский элемент
       employee:
         name: ФИО сотрудника
+      department:
+        name: Название подразделения
+      titles:
+        name: Название должности
   helpers:
     submit:
       create: Создать
