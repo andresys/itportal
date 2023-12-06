@@ -1,4 +1,4 @@
-<div class="app-card app-card-settings shadow-sm p-4">
+<div class="app-card app-card-orders-table app-card-settings shadow-sm p-4">
   <div class="app-card-body">
     <div class="mb-2"><strong>Заметки:</strong></div>
 
@@ -11,9 +11,19 @@
       </colgroup>
       <% item.notes.each do |note| %>
       <tr>
-        <td><%= tag.small l note.date, format: "%d.%m.%Y" %></td>
-        <td><%= tag.em note.text %></td>
-        <td>
+        <td class="cell text-center">
+          <%= tag.small l note.date, format: "%d.%m.%Y" %>
+        </td>
+        <td class="cell">
+          <em>
+            <% if note.text.empty? %>
+              <span>[нет содержимого]</span>
+            <% else %>
+              <%= raw note.text.lines.map{|l| tag.span l}.join('<br/>') %>
+            <% end %>
+          </em>
+        </td>
+        <td class="cell text-end">
           <div class="d-flex gap-2">
             <%= link_to bs_icon('pencil-square'), [:accounting, item, note] %>
             <%= link_to bs_icon('trash'), [:accounting, item, note], method: :delete, data: { confirm: t(:confirm) } %>
