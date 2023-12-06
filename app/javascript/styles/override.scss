@@ -80,3 +80,11 @@ svg:not(:host).svg-inline--fa, svg:not(:root).svg-inline--fa {
 .dropdown-toggle.no-toggle-arrow:after {
   display: none !important;
 }
+
+.btn-primary {
+  --bs-btn-active-bg: #10814d;
+  --bs-btn-active-border-color: #10814d;
+  --bs-btn-hover-bg: #10814d;
+  --bs-btn-hover-border-color: #128c54;
+  --bs-btn-focus-shadow-rgb: 25, 135, 84;
+}

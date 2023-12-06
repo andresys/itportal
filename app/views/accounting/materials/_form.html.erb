@@ -1,9 +1,9 @@
-<%= form_with model: [:accounting, asset] do |f| %>
-  <% if asset.errors.any? %>
+<%= form_with model: [:accounting, material] do |f| %>
+  <% if material.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+      <h2><%= pluralize(material.errors.count, "error") %> prohibited this material from being saved:</h2>
       <ul>
-        <% asset.errors.each do |error| %>
+        <% material.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="form-actions text-center">
-    <%= link_to t(:cancel), accounting_asset_path(asset), class: "btn app-btn-secondary" %>
+    <%= link_to t(:cancel), accounting_material_path(material), class: "btn app-btn-secondary" %>
     <%= f.button :submit, class: "btn app-btn-primary" %>
   </div>
 <% end %>

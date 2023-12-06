@@ -1,6 +1,11 @@
 en:
   cancel: Cancel
   save: Save
+  all: All
+  on_balance: On balance
+  out_balance: Out balance
+  storage: "On storage"
+  confirm: Do you confirm that you want to delete?
 
   shared:
     accounting:

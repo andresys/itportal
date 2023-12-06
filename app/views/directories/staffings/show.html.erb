@@ -1,23 +1,21 @@
-<div class="row g-3 mb-4 align-items-center justify-content-between">
-  <div class="col-auto row align-items-center flex-nowrap">
-      <%= link_to directories_organizations_path, class: "col-auto btn app-btn-secondary" do %>
-        <svg height="1.5em" width="1.0em" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.143 309.143" xml:space="preserve" fill="#000000">
-          <path style="fill:#231F20;" d="M112.855,154.571L240.481,26.946c2.929-2.929,2.929-7.678,0-10.606L226.339,2.197 C224.933,0.79,223.025,0,221.036,0c-1.989,0-3.897,0.79-5.303,2.197L68.661,149.268c-2.929,2.929-2.929,7.678,0,10.606 l147.071,147.071c1.406,1.407,3.314,2.197,5.303,2.197c1.989,0,3.897-0.79,5.303-2.197l14.142-14.143 c2.929-2.929,2.929-7.678,0-10.606L112.855,154.571z"></path>
-        </svg>
-      <% end %>
-      <h1 class="col-auto app-page-title mb-0">Штатное расписание [<%= @organization.name %>]</h1>
-  </div>
-</div>
+<%= page_title "Штатное расписание [#{@organization.name}]", directories_organizations_path %>
 
 <%= fields_for :locations do |f| %>
   <%= nested_li @departments, ul_class: "list-group list-group-flush", li_class: "list-group-item" do |department| %>
     <div class="row justify-content-between">
       <div class="col-8">
-        <%= tag.div department.name, class: "text-truncate ps-2", title: department.name %>
+        <%= bs_icon 'grip-vertical' %>
+        <%= bs_icon 'folder' %>
+        
+        <%= tag.span department.name, class: "text-truncate ps-2", title: department.name %>
       </div>
-      <div class="col-auto">
-        <%= link_to t('.add_department'), new_directories_organization_department_path(@organization, department: {parent_id: department}), class: 'btn btn-sm btn-primary' %> |
-        <%= link_to t('.add_title'), new_directories_organization_title_path(@organization, title: {department_id: department}), class: 'btn btn-sm btn-primary' %>
+      <div class="col-auto d-flex gap-3">
+        <%= link_to new_directories_organization_department_path(@organization, department: {parent_id: department}), title: t('.add_department') do %>
+          <%= bs_icon 'folder-plus' %>
+        <% end %>
+        <%= link_to new_directories_organization_title_path(@organization, title: {department_id: department}), title: t('.add_title') do %>
+          <%= bs_icon 'person-plus' %>
+        <% end %>
       </div>
     </div>
     <ul class="list-group list-group-flush">
@@ -25,7 +23,10 @@
       <li class="list-group-item">
         <div class="row justify-content-between">
           <div class="col-8">
-            <%= tag.div title.name, class: "text-truncate ps-2", title: title.name %>
+            <%= bs_icon 'grip-vertical' %>
+            <%= bs_icon 'person-circle' %>
+            
+            <%= tag.span title.name, class: "text-truncate ps-2", title: title.name %>
           </div>
           <div class="col-auto">
           </div>

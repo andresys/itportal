@@ -1,3 +1,8 @@
+<%
+  asset.count ||= 1  
+  human_cost = lambda {|cost| number_to_currency(cost, separator: ',', unit: '₽')}
+%>
+
 <tr>
   <td class="cell text-center">#</td>
   <td class="cell">
@@ -11,10 +16,9 @@
       <span><%= l asset.date, format: "%e %b" %></span><span class="note"><%= asset.date.year %> год</span>
     <% end %>
   </td>
-  <td class="cell text-center"><%= status_tag asset.account.code %></td>
+  <td class="cell text-center"><%= status_tag asset.account&.code %></td>
 
   <td class="cell text-end">
-    <% human_cost = lambda {|cost| number_to_currency(cost, separator: ',', unit: '₽')} %>
     <%= human_cost.call(asset.cost) %>
     <%= "<br/><small class=\"text-nowrap\">(#{human_cost.call(asset.cost / asset.count)}/шт)</small>".html_safe if asset.count > 1 %>
   </td>

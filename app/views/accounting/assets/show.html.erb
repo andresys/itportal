@@ -1,16 +1,11 @@
-<div class="row g-3 mb-4 align-items-center justify-content-between">
-  <div class="col-auto row align-items-center flex-nowrap">
-      <%= link_to request.referer && session[:back_url] || accounting_assets_path, class: "col-auto btn app-btn-secondary" do %>
-        <svg height="1.5em" width="1.0em" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.143 309.143" xml:space="preserve" fill="#000000">
-          <path style="fill:#231F20;" d="M112.855,154.571L240.481,26.946c2.929-2.929,2.929-7.678,0-10.606L226.339,2.197 C224.933,0.79,223.025,0,221.036,0c-1.989,0-3.897,0.79-5.303,2.197L68.661,149.268c-2.929,2.929-2.929,7.678,0,10.606 l147.071,147.071c1.406,1.407,3.314,2.197,5.303,2.197c1.989,0,3.897-0.79,5.303-2.197l14.142-14.143 c2.929-2.929,2.929-7.678,0-10.606L112.855,154.571z"></path>
-        </svg>
-      <% end %>
-      <h1 class="col-auto app-page-title mb-0">[#<%= @asset.uid %>] <%= @asset.name %></h1>
-  </div>
-  <div class="col-auto">
-    <%= render partial: "shared/accounting/upload_file", locals: {item: @asset, title: "Загрузить фото ОС"} %>
-  </div>
-</div>
+<% back_url = request.referer && session[:back_url] || accounting_assets_path %>
+<%= page_title @asset.name, back_url do %>
+  <%= render partial: "shared/accounting/upload_file", locals: {item: @asset, title: "Загрузить фото ОС"} %>
+  <%= link_to edit_accounting_asset_path(@asset), class: "btn btn-primary mb-1 flex-fill" do %>
+    <%= bs_icon 'pencil-square' %>
+    <%= t(:edit) %>
+  <% end %>
+<% end %>
 
 <div class="row g-4">
   <%= render partial: "shared/accounting/image_card", collection: @asset.images, as: :image %>
@@ -28,7 +23,7 @@
       <div class="app-card-body">
         <div class="mb-2"><strong>Наименование:</strong> <%= tag.span @asset.name %></div>
         <div class="mb-2"><strong>Нахождение:</strong> <%= link_to @asset.location.name, accounting_assets_path(location: @asset.location) if @asset.location %></div>
-        <div><strong>Ответственное лицо:</strong> <%= link_to "", "" %></div>
+        <div><strong>Ответственное лицо:</strong> <%= link_to @asset.employee.name, accounting_assets_path(employee: @asset.employee) if @asset.employee %></div>
       </div><!--//app-card-body-->
     </div><!--//app-card-->
   </div>
@@ -49,7 +44,7 @@
 
             <%= tag.div class: @asset.description && "mb-4 mb-lg-0" do %>
               <strong>Статус:</strong>
-              <%= status_tag @asset.account.code %>
+              <%= status_tag @asset.account&.code %>
             <% end %>
           </div>
 
@@ -65,14 +60,20 @@
           <% end %>
         </div>
 
-        <div class="mb-2"><strong>Организация:</strong> <%= link_to @asset.organization.name, accounting_assets_path(organization: @asset.organization) %></div>
-        <div class="mb-4"><strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong> <%= link_to @asset.mol.name, accounting_assets_path(mol: @asset.mol) %></div>
+        <div class="mb-2">
+          <strong>Организация:</strong>
+          <%= link_to @asset.organization.name, accounting_assets_path(organization: @asset.organization) if @asset.organization %>
+        </div>
+        <div class="mb-4">
+          <strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong>
+          <%= link_to @asset.mol.name, accounting_assets_path(mol: @asset.mol) if @asset.mol %>
+        </div>
         
         <div class="row">
           <div class="col-lg">
             <div class="mb-2">
               <strong>Счет учета:</strong>
-              <%= tag.abbr @asset.account.code, title: @asset.account.name, class: "initialism" %>
+              <%= tag.abbr @asset.account&.code, title: @asset.account&.name, class: "initialism" %>
             </div>
             <div class="mb-2"><strong>Код учета в 1С:</strong> <%= tag.span @asset.code %></div>
           </div>

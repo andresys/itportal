@@ -1,16 +1,11 @@
-<div class="row g-3 mb-4 align-items-center justify-content-between">
-  <div class="col-auto row align-items-center flex-nowrap">
-      <%= link_to request.referer && session[:back_url] || accounting_materials_path, class: "col-auto btn app-btn-secondary" do %>
-        <svg height="1.5em" width="1.0em" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 309.143 309.143" xml:space="preserve" fill="#000000">
-          <path style="fill:#231F20;" d="M112.855,154.571L240.481,26.946c2.929-2.929,2.929-7.678,0-10.606L226.339,2.197 C224.933,0.79,223.025,0,221.036,0c-1.989,0-3.897,0.79-5.303,2.197L68.661,149.268c-2.929,2.929-2.929,7.678,0,10.606 l147.071,147.071c1.406,1.407,3.314,2.197,5.303,2.197c1.989,0,3.897-0.79,5.303-2.197l14.142-14.143 c2.929-2.929,2.929-7.678,0-10.606L112.855,154.571z"></path>
-        </svg>
-      <% end %>
-      <h1 class="col-auto app-page-title mb-0">[#<%= @material.uid %>] <%= @material.name %></h1>
-  </div>
-  <div class="col-auto">
-    <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: "Загрузить фото"} %>
-  </div>
-</div>
+<% back_url = request.referer && session[:back_url] || accounting_materials_path %>
+<%= page_title @material.name, back_url do %>
+  <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: "Загрузить фото"} %>
+  <%= link_to edit_accounting_material_path(@material), class: "btn btn-primary mb-1 flex-fill" do %>
+    <%= bs_icon 'pencil-square' %>
+    <%= t(:edit) %>
+  <% end %>
+<% end %>
 
 <div class="row g-4">
   <%= render partial: "shared/accounting/image_card", collection: @material.images, as: :image %>

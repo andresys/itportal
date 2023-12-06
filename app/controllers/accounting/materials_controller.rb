@@ -1,6 +1,5 @@
 class Accounting::MaterialsController < ApplicationController
-  before_action :set_material, only: %i[show update destroy]
-  before_action :set_back_url, :only => :index
+  before_action :set_material, only: %i[show edit update]
 
   def index
     material = Material.arel_table
@@ -53,14 +52,6 @@ class Accounting::MaterialsController < ApplicationController
     end
   end
 
-  def destroy
-    @material.destroy
-    respond_to do |format|
-      format.html { redirect_to [:accounting, @material], notice: "Material was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
   def import
     @job = ImportMaterialsFrom1cJob.perform_later
     respond_to do |format|
@@ -77,11 +68,7 @@ class Accounting::MaterialsController < ApplicationController
       @material = ids.kind_of?(Array) && ids.map{|id| Material.find(id)} || Material.find(ids)
     end
 
-    def set_back_url
-      session[:back_url] = request.url
-    end
-
     def material_params
-      params.fetch(:material, {}).permit(:name, :description, :cost, :count)
+      params.fetch(:material, {}).permit(:employee_id, :location_id)
     end
 end

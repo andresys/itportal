@@ -5,6 +5,7 @@ ru:
   on_balance: На балансе
   out_balance: За балансом
   storage: На хранении
+  confirm: Вы подтверждаете, что хотите удалить?
 
   shared:
     accounting:

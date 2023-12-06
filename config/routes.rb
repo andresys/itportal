@@ -34,18 +34,14 @@ Rails.application.routes.draw do
   namespace :accounting do
     get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :root
 
-    resources :assets, only: %i[index import show update destroy] do
-      get 'import', on: :collection
-      get 'print', on: :collection
-      #post 'print', to: "items#print2", on: :collection
-      # resources :images, only: [:show, :destroy], :defaults => { :format => :json }, constraints: lambda { |req| ['json'].include?(req.format) }
-      resources :notes, only: %i[create]
+    resources :assets, only: %i[index show edit update] do
+      resources :notes, except: %i[index new edit]
     end
-    resources :materials, only: %i[index import show update destroy] do
-      get 'import', on: :collection
-      resources :notes, only: %i[create]
+    resources :materials, only: %i[index show edit update] do
+      resources :notes, except: %i[index new edit]
     end
-    resources :mols, only: %i[index]
+    resources :notes, only: %i[index destroy]
+    resources :prints, only: %i[index]
   end
   resources :users
 

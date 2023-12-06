@@ -7,11 +7,18 @@
       <colgroup>
         <col>
         <col class="w-100">
+        <col>
       </colgroup>
       <% item.notes.each do |note| %>
       <tr>
         <td><%= tag.small l note.date, format: "%d.%m.%Y" %></td>
         <td><%= tag.em note.text %></td>
+        <td>
+          <div class="d-flex gap-2">
+            <%= link_to bs_icon('pencil-square'), [:accounting, item, note] %>
+            <%= link_to bs_icon('trash'), [:accounting, item, note], method: :delete, data: { confirm: t(:confirm) } %>
+          </div>
+        </td>
       </tr>
       <% end %>
       </table>

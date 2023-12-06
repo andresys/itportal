@@ -1,9 +1,7 @@
 class Accounting::AssetsController < ApplicationController
-  before_action :set_asset, only: %i[show edit update destroy print]
-  before_action :set_back_url, :only => :index
-
+  before_action :set_asset, only: %i[show edit update]
+  
   layout "sticker", :only => :print
-  layout false, :only => [:new, :edit]
 
   # GET /accounting/assets or /accounting/assets.json
   def index
@@ -52,34 +50,6 @@ class Accounting::AssetsController < ApplicationController
     @assets = @assets.page(page).per(page_size)
   end
 
-  # GET /accounting/assets/1 or /accounting/assets/1.json
-  def show
-  end
-
-  # GET /accounting/assets/new
-  def new
-    @asset = Asset.new
-  end
-
-  # GET /accounting/assets/1/edit
-  def edit
-  end
-
-  # POST /accounting/assets or /accounting/assets.json
-  def create
-    @asset = Asset.new(asset_params)
-
-    respond_to do |format|
-      if @asset.save
-        format.html { redirect_to [:accounting, @asset], notice: "Asset was successfully created." }
-        format.json { render :show, status: :created, location: [:accounting, @asset] }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @asset.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /accounting/assets/1 or /accounting/assets/1.json
   def update
     respond_to do |format|
@@ -92,15 +62,6 @@ class Accounting::AssetsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @asset.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /accounting/assets/1 or /accounting/assets/1.json
-  def destroy
-    @asset.destroy
-    respond_to do |format|
-      format.html { redirect_to [:accounting, @asset], notice: "Asset was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -166,12 +127,8 @@ class Accounting::AssetsController < ApplicationController
       @asset = ids.kind_of?(Array) && ids.map{|id| Asset.find(id)} || Asset.find(ids)
     end
 
-    def set_back_url
-      session[:back_url] = request.url
-    end
-
     # Only allow a list of trusted parameters through.
     def asset_params
-      params.fetch(:asset, {}).permit(:name, :description, :cost, :date, :status, :inventory_number)
+      params.fetch(:asset, {}).permit(:employee_id, :location_id)
     end
 end

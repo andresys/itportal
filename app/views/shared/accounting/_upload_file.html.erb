@@ -1,9 +1,7 @@
-<button class="btn app-btn-primary" onclick="document.getElementById('<%= item.model_name.param_key %>_images').click()">
-  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-upload me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path>
-    <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"></path>
-  </svg><%= title %>
-</button>
 <%= form_with model: [:accounting, item], method: :patch, enctype: "multipart/form-data" do |f| %>
+  <button type="button" class="btn btn-primary" onclick="document.getElementById('<%= item.model_name.param_key %>_images').click()">
+    <%= bs_icon 'upload', nil, class: 'me-2' %>
+    <%= title %>
+  </button>
   <%= f.file_field :images, accept: "image/*", multiple: true, class: "d-none", onchange: "this.form.submit()" %>
 <% end %>

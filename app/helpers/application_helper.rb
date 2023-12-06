@@ -10,16 +10,12 @@ module ApplicationHelper
       options.merge!(class: ["nav-link", submenu && "submenu-toggle" || nil, active && "active" || nil].compact.join(" "))
       options.merge!('data-bs-toggle': "collapse", 'aria-expanded': active, 'data-bs-target': "##{submenu}") if submenu
       concat (link_to link || "#", options do
-        if icon.is_a? Hash
-          icon, icon_type, icon_options = icon.delete(:name), icon.delete(:type), icon
-          icon, icon_type = icon_options.delete(:svg), "svg" if icon_options.key?(:svg)
-        end
         concat (content_tag :span, class: "nav-icon" do
-          icon_tag icon, icon_type, icon_options
+          bs_icon icon
         end) if icon
         concat (content_tag :span, name, class: "nav-link-text")
         concat (content_tag :span, class: "submenu-arrow" do
-          icon_tag "chevron-down"
+          bs_icon "chevron-down"
         end) if submenu
       end)
       concat (content_tag :div, id: submenu, class: ["collapse submenu", active && "show" || nil].compact.join(" ") do
@@ -38,28 +34,20 @@ module ApplicationHelper
     end
   end
 
-  def icon_tag(icon, icon_type = nil, icon_options = {})
-    icon_type ||= "bootstrap"
-    icon_options ||= {}
-    case icon_type
-    when "bootstrap"
-      file = File.read("node_modules/bootstrap-icons/icons/#{icon}.svg")
-      doc = Nokogiri::HTML::DocumentFragment.parse file
-      svg = doc.at_css 'svg'
-      icon_options.each do |k,v|
-        svg[k] = v
-      end
-      doc.to_html.html_safe
-    when "svg"
-      raw icon
-    else
-      ""
-    end
-  end
-
   def status_tag(code)
     status = { '101.36' => 'on_balance', "101.34" => 'on_balance', '21.36' => 'out_balance', '21.34' => 'out_balance', '102' => 'storage' }[code]
     colors = { 'on_balance' => 'bg-success', 'out_balance' => 'bg-warning', 'storage' => 'bg-danger' }
     content_tag :span, t(status), class: ["badge", colors[status]].join(' ') if status
+  end
+
+  def page_title title, back_url = nil, &block
+    tag.div class: "d-flex flex-column flex-sm-row mb-4 justify-content-between" do
+      icon = bs_icon 'chevron-left', '1.2em'
+      concat (tag.div class: "d-flex align-items-center flex-nowrap mb-2 mb-sm-0" do
+        concat link_to icon, back_url, class: "btn app-btn-secondary me-2" if back_url
+        concat tag.h1 title, class: "app-page-title mb-0 text-truncate"
+      end)
+      concat tag.div class: "d-flex gap-2", &block
+    end
   end
 end

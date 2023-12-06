@@ -7,8 +7,8 @@ class Asset < ApplicationRecord
   end
   # belongs_to :item_type
   belongs_to :mol
-  belongs_to :location
-  belongs_to :employee
+  belongs_to :location, optional: true
+  belongs_to :employee, optional: true
   belongs_to :organization
   belongs_to :account
   has_many :uids, as: :uidable, dependent: :destroy
