@@ -18,8 +18,8 @@ Rails.application.routes.draw do
 
     resources :organizations, only: %i[index] do
       resource :staffing, on: :collection, only: %i[create show]
-      resources :departments, only: %i[new create]
-      resources :titles, only: %i[new create]
+      resources :departments, only: %i[new create show update destroy]
+      resources :titles, only: %i[new create show update destroy]
     end
     resources :locations, only: %i[index new create edit]
     resources :employees, only: %i[index new create edit import] do
@@ -35,15 +35,20 @@ Rails.application.routes.draw do
     get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :root
 
     resources :assets, only: %i[index show edit update] do
-      resources :notes, except: %i[index new edit]
+      resources :notes, except: %i[new edit]
     end
     resources :materials, only: %i[index show edit update] do
-      resources :notes, except: %i[index new edit]
+      resources :notes, except: %i[new edit]
     end
-    resources :notes, only: %i[index destroy]
+    resources :notes, only: %i[index show destroy]
     resources :prints, only: %i[index]
   end
   resources :users
 
-  root 'dashboard#index'
+  if Rails.env == "production"
+    get '/', to: redirect { |p, r| "#{r.url}/accounting" }, as: :root
+  else
+    root 'dashboard#index'
+  end
+  
 end

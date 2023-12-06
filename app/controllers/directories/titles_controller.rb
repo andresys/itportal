@@ -1,6 +1,7 @@
 class Directories::TitlesController < DirectoriesController
   layout "application"
   before_action :set_organization
+  before_action :set_title, only: %i[show update destroy]
 
   def new
     @title = Title.new title_params
@@ -18,6 +19,27 @@ class Directories::TitlesController < DirectoriesController
     end
   end
 
+  def show
+    render :edit
+  end
+
+  def update
+    respond_to do |format|
+      if @title.update(title_params)
+        format.html { redirect_to [:directories, @organization, :staffing], notice: "Title was successfully updated." }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @title.destroy
+    respond_to do |format|
+      format.html { redirect_to [:directories, @organization, :staffing], notice: "Title was successfully destroyed." }
+    end
+  end
+
 private
   def title_params
     params.fetch(:title, {}).permit(:name, :department_id).merge(organization: @organization)
@@ -25,5 +47,9 @@ private
 
   def set_organization
     @organization = Organization.find(params[:organization_id])
+  end
+
+  def set_title
+    @title = Title.find(params[:id])
   end
 end

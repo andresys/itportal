@@ -57,6 +57,8 @@ en:
       show:
         add_department: Add department
         add_title: Add title
+        edit_department: Edit department
+        edit_title: Edit title
     titles:
       form:
         name: Title

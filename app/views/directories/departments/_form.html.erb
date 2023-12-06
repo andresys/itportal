@@ -1,4 +1,4 @@
-<%= form_with model: [:directories, :organization, department] do |f| %>
+<%= form_with model: [:directories, @organization, department] do |f| %>
   <%= f.hidden_field :parent_id %>
 
   <% if department.errors.any? %>

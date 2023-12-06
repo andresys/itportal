@@ -58,6 +58,8 @@ ru:
       show:
         add_department: Добавить подразделение
         add_title: Добавить должность
+        edit_department: Редактировать подразделение
+        edit_title: Редактировать должность
     titles:
       form:
         name: Название должности

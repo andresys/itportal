@@ -1,6 +1,7 @@
 class Directories::DepartmentsController < DirectoriesController
   layout "application"
   before_action :set_organization
+  before_action :set_department, only: %i[show update destroy]
 
   def new
     @department = Department.new department_params
@@ -18,6 +19,27 @@ class Directories::DepartmentsController < DirectoriesController
     end
   end
 
+  def show
+    render :edit
+  end
+
+  def update
+    respond_to do |format|
+      if @department.update(department_params)
+        format.html { redirect_to [:directories, @organization, :staffing], notice: "Department was successfully updated." }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @department.destroy
+    respond_to do |format|
+      format.html { redirect_to [:directories, @organization, :staffing], notice: "Title was successfully destroyed." }
+    end
+  end
+
 private
   def department_params
     params.fetch(:department, {}).permit(:name, :parent_id)
@@ -26,5 +48,9 @@ private
 
   def set_organization
     @organization = Organization.find(params[:organization_id])
+  end
+
+  def set_department
+    @department = Department.find(params[:id])
   end
 end 

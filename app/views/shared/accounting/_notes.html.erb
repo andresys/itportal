@@ -15,26 +15,25 @@
           <%= tag.small l note.date, format: "%d.%m.%Y" %>
         </td>
         <td class="cell">
-          <em>
+          <div class="fst-italic">
             <% if note.text.empty? %>
-              <span>[нет содержимого]</span>
+              <p class="m-0">[нет содержимого]</p>
             <% else %>
-              <%= raw note.text.lines.map{|l| tag.span l}.join('<br/>') %>
+              <% note.text.lines.each do |line| %>
+                <%= tag.p line, class: "m-0" %>
+              <% end %>
             <% end %>
-          </em>
+          </div>
         </td>
         <td class="cell text-end">
-          <div class="d-flex gap-2">
-            <%= link_to bs_icon('pencil-square'), [:accounting, item, note] %>
-            <%= link_to bs_icon('trash'), [:accounting, item, note], method: :delete, data: { confirm: t(:confirm) } %>
-          </div>
+          <%= link_to bs_icon('pencil-square'), [:accounting, item, note] %>
         </td>
       </tr>
       <% end %>
       </table>
     <% end %>
 
-    <%= form_with model: [:accounting, item, Note.new], method: :post do |f| %>
+    <%= form_with model: [:accounting, item, Note.new(date: Date.current)], method: :post do |f| %>
       <div class="row">
         <div class="col-sm-auto mb-2">
           <%= f.date_field :date, class: "w-100 form-control" %>

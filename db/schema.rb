@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_04_135040) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_06_171155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -163,7 +163,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_135040) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.datetime "date", default: "2023-11-30 06:04:04"
+    t.datetime "date", null: false
     t.string "text", null: false
     t.json "details"
     t.string "noteble_type", null: false

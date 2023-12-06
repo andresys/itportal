@@ -2,15 +2,17 @@
   <td class="cell text-center"><%= tag.small l note.date, format: "%d.%m.%Y" %></td>
   <td class="cell">
     <%= link_to "#{note.noteble&.name}:", [:accounting, note.noteble] %>
-    <em class="d-block">
+    <div class="fst-italic">
       <% if note.text.empty? %>
-        <span>[нет содержимого]</span>
+        <p class="m-0">[нет содержимого]</p>
       <% else %>
-        <%= raw note.text.lines.map{|l| tag.span l}.join('<br/>') %>
+        <% note.text.lines.each do |line| %>
+          <%= tag.p line, class: "m-0" %>
+        <% end %>
       <% end %>
-    </em>
+    </div>
   </td>
   <td class="cell text-end">
-    <%= link_to bs_icon('trash'), [:accounting, note], method: :delete, data: { confirm: t(:confirm) } %>
+    <%= link_to bs_icon('pencil-square'), [:accounting, note] %>
   </td>
 </tr>
