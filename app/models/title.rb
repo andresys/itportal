@@ -8,4 +8,6 @@ class Title < ApplicationRecord
   validates :name, presence: true
   validates :organization, presence: true
   validates :department, presence: true
+
+  default_scope { order(sort: :asc) }
 end

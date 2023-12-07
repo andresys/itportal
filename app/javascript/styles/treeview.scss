@@ -1,4 +1,4 @@
-#treeview {
+.treeview {
   ul {
     list-style-type: none;
     padding-left: 30px;
@@ -11,6 +11,7 @@
 
   >ul {
     padding-left: 0;
+    margin: 0;
   }
 
   ul.ui-sortable:empty {
@@ -81,7 +82,9 @@
   ul:last-child:before,
   >ul:before,
   >ul>li:after,
-  >ul>li:first-child:before {
+  >ul>li:first-child:before,
+  >ul>li:last-child:before,
+  >ul>li:before {
     border: none;
   }
 

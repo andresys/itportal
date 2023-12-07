@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       resources :departments, only: %i[new create show update destroy]
       resources :titles, only: %i[new create show update destroy]
     end
-    resources :locations, only: %i[index new create edit]
+    resources :locations, only: %i[index new create show update destroy]
     resources :employees, only: %i[index new create edit import] do
       get 'import', on: :collection
     end

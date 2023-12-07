@@ -4,7 +4,7 @@ module NestedHelper
 
     return '' if objects.size == 0
 
-    output = "<ul class='#{options[:ul_class]}'>"
+    output = "<ul>"
     path = [nil]
 
     objects.each_with_index do |o, i|
@@ -16,15 +16,15 @@ module NestedHelper
             path.pop
             output << "</li></ul>"
           end
-          output << "</li><li id='#{o.id}' class='#{options[:li_class]}'>"
+          output << "</li><li id='#{o.id}'>"
         else
           path << o.parent_id
-          output << "<ul class='#{options[:ul_class]}'><li id='#{o.id}' class='#{options[:li_class]}'>"
+          output << "<ul><li id='#{o.id}'>"
         end
       elsif i != 0
-        output << "</li><li id='#{o.id}' class='#{options[:li_class]}'>"
+        output << "</li><li id='#{o.id}'>"
       else
-        output << "<li id='#{o.id}' class='#{options[:li_class]}'>"
+        output << "<li id='#{o.id}'>"
       end
       output << capture(o, path.size - 1, &block)
       # output << "<ul></ul>" unless objects[i+1] && (objects[i+1].parent_id == o.id)

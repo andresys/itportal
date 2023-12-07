@@ -1,11 +1,11 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <% department.self_and_ancestors.each do |d| %>
+    <% item&.self_and_ancestors&.each do |i| %>
       <li class="breadcrumb-item">
-        <% if department == d %>
-          <%= tag.span d.name %>
+        <% if item == i %>
+          <%= tag.span i.name %>
         <% else %>
-          <%= link_to d.name, link&.call(d) %>
+          <%= link_to i.name, link&.call(i) %>
         <% end %>
       </li>
     <% end %>

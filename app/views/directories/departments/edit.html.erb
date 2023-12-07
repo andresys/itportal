@@ -1,22 +1,21 @@
 <%= page_title @department.root.name, directories_organization_staffing_path(@organization) %>
 
 <div class="row justify-content-center mt-4">
-    <div class="col-lg-6">
-      <div class="app-card app-card-settings shadow-sm p-4">
-        <div class="app-card-body">
-          <h4 class="card-title mb-3 d-flex">
-            <span>Редактирование подразделения</span>
-            <%= link_to bs_icon('trash'), [:directories, @organization, @department], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
-          </h4>
+  <div class="col-lg-6">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <h4 class="card-title mb-3 d-flex">
+          <span>Редактирование подразделения</span>
+          <%= link_to bs_icon('trash'), [:directories, @organization, @department], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
+        </h4>
 
-          <div class="mb-3">
-            <%= label_tag :department, t(:parent_department), class: "form-label" %>
-            <%= render partial: 'shared/breadcrumb', locals: {department: @department.parent, link: lambda {|d| new_directories_organization_department_path(@organization, department: {parent_id: d})} } %>
-          </div>
-          
-          
-          <%= render 'form', department: @department %>
+        <div class="mb-3">
+          <%= label_tag :department, t(:parent_department), class: "form-label" %>
+          <%= render partial: 'shared/breadcrumb', locals: {item: @department.parent, link: lambda {|d| new_directories_organization_department_path(@organization, department: {parent_id: d})} } %>
         </div>
+        
+        
+        <%= render 'form', department: @department %>
       </div>
     </div>
   </div>

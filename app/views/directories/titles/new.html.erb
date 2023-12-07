@@ -1,18 +1,17 @@
 <%= page_title @title.organization.name, directories_organization_staffing_path(@organization) %>
 
 <div class="row justify-content-center mt-4">
-    <div class="col-lg-6">
-      <div class="app-card app-card-settings shadow-sm p-4">
-        <div class="app-card-body">
-          <h4 class="card-title mb-3">Создание нового штатной единици</h4>
+  <div class="col-lg-6">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <h4 class="card-title mb-3">Создание новой штатной единици</h4>
 
-          <div class="mb-3">
-            <%= label_tag :department, t(:department), class: "form-label" %>
-            <%= render partial: 'shared/breadcrumb', locals: {department: @title.department, link: lambda {|d| new_directories_organization_title_path(@organization, title: {department_id: d})} } %>
-          </div>
-
-          <%= render 'form', title: @title %>
+        <div class="mb-3">
+          <%= label_tag :department, t(:department), class: "form-label" %>
+          <%= render partial: 'shared/breadcrumb', locals: {item: @title.department, link: lambda {|d| new_directories_organization_title_path(@organization, title: {department_id: d})} } %>
         </div>
+
+        <%= render 'form', title: @title %>
       </div>
     </div>
   </div>
