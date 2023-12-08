@@ -1,4 +1,6 @@
 <% back_url = request.referer && session[:back_url] || accounting_materials_path %>
+<% provide :page_title, "Материальные запасы" %>
+
 <%= page_title @material.name, back_url do %>
   <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: "Загрузить фото"} %>
   <%= link_to edit_accounting_material_path(@material), class: "btn btn-primary mb-1 flex-fill" do %>

@@ -40,14 +40,19 @@ module ApplicationHelper
     content_tag :span, t(status), class: ["badge", colors[status]].join(' ') if status
   end
 
+  def full_title(page_title)
+    base_title = "itPortal"
+    page_title.present? ? "#{page_title} | #{base_title}" : base_title
+  end
+
   def page_title title, back_url = nil, &block
-    tag.div class: "d-flex flex-column flex-sm-row mb-4 justify-content-between" do
+    tag.div class: "d-flex flex-column d-sm-block mb-4 justify-content-between" do
       icon = bs_icon 'chevron-left', '1.2em'
-      concat (tag.div class: "d-flex align-items-center flex-nowrap mb-2 mb-sm-0" do
+      concat tag.div class: "order-2 float-end d-flex gap-2", &block
+      concat (tag.div class: "order-1 d-flex align-items-center flex-nowrap mb-2 mb-sm-0" do
         concat link_to icon, back_url, class: "btn app-btn-secondary me-2" if back_url
         concat tag.h1 title, class: "app-page-title mb-0 text-truncate"
       end)
-      concat tag.div class: "d-flex gap-2", &block
     end
   end
 end

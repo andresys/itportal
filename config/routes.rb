@@ -9,8 +9,11 @@ end
 Rails.application.routes.draw do
   mount Sidekiq::Web => 'sidekiq', constraints: AdminConstraint.new
 
-  resources :jobs, only: %i[index show]
+  concern :noteble do
+    resources :notes, except: %i[new edit]
+  end
 
+  resources :jobs, only: %i[index show]
   resources :images, only: %i[destroy]
 
   namespace :directories do
@@ -34,12 +37,8 @@ Rails.application.routes.draw do
   namespace :accounting do
     get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :root
 
-    resources :assets, only: %i[index show edit update] do
-      resources :notes, except: %i[new edit]
-    end
-    resources :materials, only: %i[index show edit update] do
-      resources :notes, except: %i[new edit]
-    end
+    resources :assets, only: %i[index show edit update], concerns: :noteble
+    resources :materials, only: %i[index show edit update], concerns: :noteble
     resources :notes, only: %i[index show destroy]
     resources :prints, only: %i[index]
   end
