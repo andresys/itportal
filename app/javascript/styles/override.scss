@@ -88,3 +88,8 @@ svg:not(:host).svg-inline--fa, svg:not(:root).svg-inline--fa {
   --bs-btn-hover-border-color: #128c54;
   --bs-btn-focus-shadow-rgb: 25, 135, 84;
 }
+
+.turbolinks-progress-bar {
+  height: 5px;
+  background-color: #15a362;
+}
