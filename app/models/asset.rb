@@ -1,5 +1,8 @@
 class Asset < ApplicationRecord
   extend FriendlyId
+
+  after_initialize :set_all_images
+
   friendly_id :uid, use: [:slugged, :finders]
 
   has_many_attached :images do |attachable|
@@ -21,10 +24,6 @@ class Asset < ApplicationRecord
 
   attr_reader :all_images
 
-  def all_images
-    images + notes.inject([]){|i, n| i + n.images}
-  end
-
   def qr_base64_string
     qrcode = RQRCode::QRCode.new("uid: %s" % uid)
     png = qrcode.as_png(
@@ -43,7 +42,12 @@ class Asset < ApplicationRecord
 
   default_scope { order(date: :desc, name: :asc, inventory_number: :desc) }
 
-private
+  private
+
+  def set_all_images
+    @all_images = (images + notes.inject([]){|i, n| i + n.images}).sort{|i| i.created_at}
+  end
+
   def set_uid
     uids << Uids.new(uid: SecureRandom.hex(4))
   end
