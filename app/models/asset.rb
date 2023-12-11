@@ -45,7 +45,7 @@ class Asset < ApplicationRecord
   private
 
   def set_all_images
-    @all_images = (images + notes.inject([]){|i, n| i + n.images}).sort{|i| i.created_at}
+    @all_images = (images + notes.inject([]){|i, n| i + n.images}).sort{|i| i.created_at}.reverse
   end
 
   def set_uid
