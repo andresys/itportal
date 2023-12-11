@@ -4,11 +4,6 @@
       <div class="app-card-body">
         <h4 class="card-title mb-3">Создание нового места хранения</h4>
 
-        <div class="mb-3">
-          <%= label_tag :location, t(:location), class: "form-label" %>
-          <%= render partial: 'shared/breadcrumb', locals: {item: @location.parent, link: lambda {|l| new_directories_location_path(@location, location: {parent_id: l})} } %>
-        </div>
-
         <%= render 'form', location: @location %>
       </div>
     </div>

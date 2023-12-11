@@ -10,13 +10,7 @@
           <span>Редактирование подразделения</span>
           <%= link_to bs_icon('trash'), [:directories, @organization, @department], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
         </h4>
-
-        <div class="mb-3">
-          <%= label_tag :department, t(:parent_department), class: "form-label" %>
-          <%= render partial: 'shared/breadcrumb', locals: {item: @department.parent, link: lambda {|d| new_directories_organization_department_path(@organization, department: {parent_id: d})} } %>
-        </div>
-        
-        
+       
         <%= render 'form', department: @department %>
       </div>
     </div>

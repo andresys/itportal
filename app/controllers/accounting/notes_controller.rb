@@ -12,6 +12,7 @@ class Accounting::NotesController < ApplicationController
   def create
     @note = Note.new(note_params)
     @note.noteble = @model
+    @note.images.attach(params[:note][:images]) if params.dig(:note, :images).present? && @note.valid?
 
     respond_to do |format|
       if @note.save
@@ -29,6 +30,8 @@ class Accounting::NotesController < ApplicationController
   def update
     respond_to do |format|
       if @note.update(note_params)
+        @note.images.attach(params[:note][:images]) if params.dig(:note, :images).present?
+
         format.html { redirect_to back_url, notice: "Note was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -7,11 +7,6 @@
           <%= link_to bs_icon('trash'), [:directories, @location], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
         </h4>
 
-        <div class="mb-3">
-          <%= label_tag :location, t(:location), class: "form-label" %>
-          <%= render partial: 'shared/breadcrumb', locals: {item: @location.parent, link: lambda {|l| new_directories_location_path(@location, location: {parent_id: l})} } %>
-        </div>
-
         <%= render 'form', location: @location %>
       </div>
     </div>

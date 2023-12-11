@@ -11,11 +11,6 @@
           <%= link_to bs_icon('trash'), [:directories, @organization, @title], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
         </h4>
 
-        <div class="mb-3">
-          <%= label_tag :department, t(:department), class: "form-label" %>
-          <%= render partial: 'shared/breadcrumb', locals: {item: @title.department, link: lambda {|d| new_directories_organization_title_path(@organization, title: {department_id: d})} } %>
-        </div>
-
         <%= render 'form', title: @title %>
       </div>
     </div>

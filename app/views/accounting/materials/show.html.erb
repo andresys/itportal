@@ -2,14 +2,14 @@
 <% provide :page_title, "Материальные запасы" %>
 
 <%= page_title @material.name, back_url do %>
-  <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: "Загрузить фото"} %>
+  <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: t('.upload')} %>
   <%= link_to edit_accounting_material_path(@material), class: "btn btn-primary mb-1 flex-fill" do %>
     <%= bs_icon 'pencil-square' %>
-    <%= t(:edit) %>
+    <%= t('.edit') %>
   <% end %>
 <% end %>
 
-<div class="row g-4">
+<div class="row">
   <%= render partial: "shared/accounting/image_card", collection: @material.images, as: :image %>
 </div>
 

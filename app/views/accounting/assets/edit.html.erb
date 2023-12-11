@@ -3,13 +3,12 @@
 <%= page_title @asset.name, accounting_asset_path(@asset) %>
 
 <div class="row justify-content-center mt-4">
-    <div class="col-lg-6">
-      <div class="app-card app-card-settings shadow-sm p-4">
-        <div class="app-card-body">
-          <h4 class="card-title mb-3">Редактирование</h4>
+  <div class="col-lg-6">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <h4 class="card-title mb-3">Редактирование</h4>
 
-          <%= render 'form', asset: @asset %>
-        </div>
+        <%= render 'form', asset: @asset %>
       </div>
     </div>
   </div>

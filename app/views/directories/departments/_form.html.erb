@@ -13,6 +13,11 @@
   <% end %>
 
   <div class="mb-3">
+    <%= f.label :department, class: "form-label" %>
+    <%= render partial: 'shared/breadcrumb', locals: {item: @department.parent, link: lambda {|d| new_directories_organization_department_path(@organization, department: {parent_id: d})} } %>
+  </div>
+
+  <div class="mb-3">
     <%= f.label :name, class: "form-label" %>
     <%= f.text_field :name, class: "form-control", placeholder: t('.name') %>
   </div>

@@ -37,6 +37,19 @@ en:
         on_balance: On balance
         out_balance: Out balance
         storage: "On storage"
+      show:
+        upload: Upload photo
+        edit: Edit
+      form:
+        employee: Employee
+        location: Location
+    materials:
+      show:
+        upload: Загрузить фото
+        edit: Редактировать
+      form:
+        employee: Employee
+        location: Location
 
   directories:
     locations:
@@ -80,6 +93,15 @@ en:
         status: Asset status
         description: Description
         staffing_tables: Staffing table
+        employee_id: Employee
+        location_id: Location
+      material:
+        employee_id: Employee
+        location_id: Location
+      note:
+        date: Date
+        text: Note
+        images: add photo
       location:
         name: Name
         parent: Parent
@@ -87,8 +109,10 @@ en:
         name: Name
       department:
         name: Department
-      titles:
+        department: Department
+      title:
         name: Title
+        department: Department
   helpers:
     submit:
       create: Create

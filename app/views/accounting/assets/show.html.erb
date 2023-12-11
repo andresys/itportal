@@ -2,15 +2,15 @@
 
 <% back_url = request.referer && session[:back_url] || accounting_assets_path %>
 <%= page_title @asset.name, back_url do %>
-  <%= render partial: "shared/accounting/upload_file", locals: {item: @asset, title: "Загрузить фото ОС"} %>
+  <%= render partial: "shared/accounting/upload_file", locals: {item: @asset, title: t('.upload')} %>
   <%= link_to edit_accounting_asset_path(@asset), class: "btn btn-primary mb-1 flex-fill" do %>
     <%= bs_icon 'pencil-square' %>
-    <%= t(:edit) %>
+    <%= t('.edit') %>
   <% end %>
 <% end %>
 
-<div class="row g-4">
-  <%= render partial: "shared/accounting/image_card", collection: @asset.images, as: :image %>
+<div class="row">
+  <%= render partial: "shared/accounting/image_card", collection: @asset.all_images, as: :image %>
 </div>
 
 <hr class="mb-4">

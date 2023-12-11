@@ -38,6 +38,19 @@ ru:
         on_balance: На балансе
         out_balance: За балансом
         storage: На хранении
+      show:
+        upload: Загрузить фото ОС
+        edit: Редактировать
+      form:
+        employee: Ответственный пользователь
+        location: Местонахождение
+    materials:
+      show:
+        upload: Загрузить фото
+        edit: Редактировать
+      form:
+        employee: Ответственный пользователь
+        location: Местонахождение
 
   directories:
     locations:
@@ -80,6 +93,15 @@ ru:
         cost: Балансовая стоимость
         status: Статус основного средства
         description: Дополнительное описание
+        employee_id: Ответственный пользователь
+        location_id: Местонахождение
+      material:
+        employee_id: Ответственный пользователь
+        location_id: Местонахождение
+      note:
+        date: Дата
+        text: Заметка
+        images: добавить фото
       location:
         name: Наименование
         parent: Родительский элемент
@@ -87,8 +109,10 @@ ru:
         name: ФИО сотрудника
       department:
         name: Название подразделения
-      titles:
+        department: Подразделение
+      title:
         name: Название должности
+        department: Подразделение
   helpers:
     submit:
       create: Создать

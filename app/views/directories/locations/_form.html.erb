@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="mb-3">
+    <%= f.label :parent, class: "form-label" %>
+    <%= render partial: 'shared/breadcrumb', locals: {item: @location.parent, link: lambda {|l| new_directories_location_path(@location, location: {parent_id: l})} } %>
+  </div>
+
+  <div class="mb-3">
     <%= f.label :name, class: "form-label" %>
     <%= f.text_field :name, class: "form-control", placeholder: t('.name') %>
   </div>

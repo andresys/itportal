@@ -19,6 +19,12 @@ class Asset < ApplicationRecord
 
   # after_initialize lambda { @uid = uids.last&.uid }
 
+  attr_reader :all_images
+
+  def all_images
+    images + notes.inject([]){|i, n| i + n.images}
+  end
+
   def qr_base64_string
     qrcode = RQRCode::QRCode.new("uid: %s" % uid)
     png = qrcode.as_png(
