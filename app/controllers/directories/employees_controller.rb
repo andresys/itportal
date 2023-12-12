@@ -3,7 +3,7 @@ class Directories::EmployeesController < DirectoriesController
     page_size = params[:per] || 10
     page = params[:page] || 0
 
-    @employees = Employee.page(page).per(page_size)
+    @employees = Employee.where.not(name: nil).page(page).per(page_size)
   end
 
   def new

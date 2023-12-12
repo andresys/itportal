@@ -40,8 +40,9 @@ private
   end
 
   def employee_params employee
+    name = employee['name'].strip.gsub(/( +-+|-+ +|^-+|-+$)/, '').gsub(/ {2,}/, ' ')
     return {
-      name: !employee['name'].blank? && employee['name'] || nil,
+      name: !name.blank? && name || nil,
       code: !employee['id'].blank? && employee['id'] || nil
     }
   end

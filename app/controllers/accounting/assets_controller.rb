@@ -30,7 +30,7 @@ class Accounting::AssetsController < ApplicationController
     end
 
     if @employee
-      query_parameters.merge!(employee: {id: @employee})
+      query_parameters.merge!(employees: {id: @employee})
     end
 
     page_size = params[:per] || 10
