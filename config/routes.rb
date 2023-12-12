@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     resources :notes, except: %i[new edit]
   end
 
+  concern :possessionable do
+    resources :possessions, except: %i[edit]
+  end
+
   resources :jobs, only: %i[index show]
   resources :images, only: %i[destroy]
 
@@ -24,7 +28,9 @@ Rails.application.routes.draw do
       resources :departments, only: %i[new create show update destroy]
       resources :titles, only: %i[new create show update destroy]
     end
-    resources :locations, only: %i[index new create show update destroy]
+    resources :locations, only: %i[index new create show update destroy] do
+      resources :rooms, only: %i[new create show update destroy]
+    end
     resources :employees, only: %i[index new create edit import] do
       get 'import', on: :collection
     end
@@ -37,8 +43,8 @@ Rails.application.routes.draw do
   namespace :accounting do
     get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :root
 
-    resources :assets, only: %i[index show edit update], concerns: :noteble
-    resources :materials, only: %i[index show edit update], concerns: :noteble
+    resources :assets, only: %i[index show edit update], concerns: %i[noteble possessionable]
+    resources :materials, only: %i[index show edit update], concerns: %i[noteble possessionable]
     resources :notes, only: %i[index show destroy]
     resources :prints, only: %i[index]
   end

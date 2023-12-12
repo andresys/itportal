@@ -10,12 +10,13 @@ class Material < ApplicationRecord
   end
 
   belongs_to :mol
-  belongs_to :location, optional: true
-  belongs_to :employee, optional: true
   belongs_to :organization
   belongs_to :account
   has_many :uids, as: :uidable, dependent: :destroy
   has_many :notes, as: :noteble, dependent: :destroy
+  has_many :possessions, as: :possessionable, dependent: :destroy
+  has_many :rooms, through: :possessions
+  has_many :employees, through: :possessions
 
   attr_accessor :uid
   attr_reader :all_images

@@ -1,6 +1,9 @@
 class Directories::MolsController < DirectoriesController
   def index
-    @mols = Mol.where({}).page(params[:page])
+    page_size = params[:per] || 10
+    page = params[:page] || 0
+
+    @mols = Mol.page(page).per(page_size)
   end
 
   def new

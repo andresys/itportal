@@ -5,12 +5,12 @@ document.addEventListener('turbolinks:load', () => {
   const i18n = Translations[document.querySelector('body').dataset.lang]
 
   document.querySelectorAll('.js-select').forEach((element) => {
-    let opts = {
+    var opts = {
       // valueField: 'id',
       // lebelField: 'name',
       // searchField: 'name',
       create: false,
-      onChange: () => { element.form.submit() },
+      onChange: () => { if(element.dataset.autoSubmit) { element.form.submit() } },
       plugins: {
         'clear_button':{
           'title': i18n['clear_button'],

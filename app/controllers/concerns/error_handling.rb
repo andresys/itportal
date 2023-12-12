@@ -2,7 +2,7 @@ module ErrorHandling
   extend ActiveSupport::Concern
 
   included do
-    rescue_from ActiveRecord::RecordNotFound, with: :notfound
+    rescue_from ActiveRecord::RecordNotFound, with: :notfound if Rails.env == "production"
 
     private
 

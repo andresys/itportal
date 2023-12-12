@@ -1,0 +1,47 @@
+<div class="row g-4 settings-section mb-3">
+  <div class="col-12 col-md-4">
+    <div class="section-intro">Ответственное владение (хранение)</div>
+  </div>
+  <div class="col-12 col-md-8">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body d-flex flex-column gap-4">
+        <% if item.count == 1 && item.possessions.any? %>
+          <div>
+            <%= link_to [:accounting, item, item.possessions.first], class: "float-end" do %>
+              <%= bs_icon('pencil-square') %>
+              <%= t('.edit') %>
+            <% end %>
+
+            <div class="mb-2"><strong>Нахождение:</strong> <%= link_to item.possessions.first.room.full_name, accounting_assets_path(location: item.possessions.first.room) %></div>
+            <div><strong>Ответственное лицо:</strong> <%= link_to item.possessions.first.employee.name, accounting_assets_path(employee: item.possessions.first.employee) %></div>
+          </div>
+        <% elsif item.possessions.any? %>
+          <table class="table table-striped table-sm m-0">
+          <% item.possessions.each do |possession| %>
+            <tr>
+              <%= tag.td "#{possession.count} шт.", class: "cell" %>
+              <td class="cell">
+                <%= link_to possession.employee.name, accounting_assets_path(employee: possession.employee) %>
+              </td>
+              <td class="cell">
+                <%= link_to possession.room.full_name, accounting_assets_path(location: possession.room) %>
+              </td>
+              <td class="cell text-end">
+                <%= link_to bs_icon('pencil-square'), [:accounting, item, possession] %>
+              </td>
+            </tr>
+          <% end %>
+          </table>
+        <% end %>
+
+        <% if item.possessions.map(&:count).sum < item.count %>
+          <div class="row justify-content-end">
+            <div class="col-auto">
+              <%= link_to t('.add_possession'), [:new, :accounting, item, :possession], class: "btn app-btn-secondary" %>
+            </div>
+          </div>
+        <% end %>
+      </div><!--//app-card-body-->
+    </div><!--//app-card-->
+  </div>
+</div>

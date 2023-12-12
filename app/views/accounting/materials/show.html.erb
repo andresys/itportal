@@ -3,10 +3,6 @@
 
 <%= page_title @material.name, back_url do %>
   <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: t('.upload')} %>
-  <%= link_to edit_accounting_material_path(@material), class: "btn btn-primary mb-1 flex-fill" do %>
-    <%= bs_icon 'pencil-square' %>
-    <%= t('.edit') %>
-  <% end %>
 <% end %>
 
 <div class="row">
@@ -28,6 +24,8 @@
     </div><!--//app-card-->
   </div>
 </div>
+
+<%= render partial: "shared/accounting/possessions", locals: { item: @material } %>
         
 <div class="row g-4 settings-section">
   <div class="col-12 col-md-4">
@@ -88,7 +86,3 @@
     <%= render partial: "shared/accounting/notes", locals: { item: @material } %>
   </div>
 </div>
-
-<p id="notice"><%= notice %></p>
-
-<%#= link_to 'Destroy',  accounting_material_path(@material), data: { confirm: 'Удалить?' }, method: :delete %>

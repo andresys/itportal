@@ -1,33 +1,20 @@
 <% content_for :title do %>
-  <%= link_to t('.new'), new_directories_location_path, class: "btn btn-sm btn-primary flex-fill" %>
+  <%= link_to new_directories_location_path, class: "btn btn-sm btn-primary flex-fill" do %>
+    <%= bs_icon 'building-add' %>
+    <%= t('.new') %>
+  <% end %>
 <% end %>
 
-<div class="app-card app-card-orders-table shadow-sm mb-5">
-  <div class="app-card-body p-3">
-    <div class="treeview">
-      <%= fields_for :locations do |f| %>
-        <%= nested_li Location do |location| %>
-          <%= tag.div do %>
-            <div class="float-start">
-              <%#= bs_icon 'dash-square' %>
-              <%#= f.check_box :id, class: "ms-2 align-middle"  %>
-              <%= bs_icon 'house' %>
-              <%= bs_icon 'grip-vertical' %>
-            </div>
+<div class="tab-content">
+  <div class="tab-pane fade show active">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+      <div class="app-card-body">
+        <ul class="list-group list-group-flush">
+          <%= render @locations %>
+        </ul>
+      </div><!--//app-card-body-->		
+    </div><!--//app-card-->
 
-            <div class="float-end d-flex gap-2">
-              <%= link_to new_directories_location_path(location: {parent_id: location}), title: t('.add_location') do %>
-                <%= bs_icon 'house-add' %>
-              <% end %>
-              <%= link_to directories_location_path(location), title: t('.edit_location') do %>
-                <%= bs_icon 'pencil-square' %>
-              <% end %>
-            </div>
-
-            <%= tag.div location.name, class: "text-truncate px-2", title: location.name %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</div>
+    <%= render partial: "shared/paginate", locals: { items: @locations, link: lambda {|q| directories_locations_path(q)} } %>
+  </div><!--//tab-pane-->
+</div><!--//tab-content-->

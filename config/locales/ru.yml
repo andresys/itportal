@@ -15,6 +15,9 @@ ru:
           location: Место хранения
           employee: Ответственное лицо
           photo: Наличие фото
+      possessions:
+        add_possession: Добавить ответственного
+        edit: Редактировать
     
   application:
     navigation:
@@ -26,7 +29,7 @@ ru:
       organizations: Организации
       employees: Сотрудники
       mols: Метериально-ответственные лица
-      locations: Места
+      locations: Места хранения
       titles: Должности
       departments: Подразделения
       staffing_tables: Штатное расписание
@@ -51,13 +54,24 @@ ru:
       form:
         employee: Ответственный пользователь
         location: Местонахождение
+    possessions:
+      form:
+        employee: Ответственный пользователь
+        room: Местонахождение
 
   directories:
     locations:
       index:
-        new: Новое место
+        new: Добавить адрес
       form:
-        name: Наименование
+        name: Адрес
+      location:
+        edit_location: Редактировать адрес
+        edit_room: Редактировать помещение
+        add_room: Добавить помещение
+    rooms:
+      form:
+        name: Название помещения
     employees:
       index:
         new: Добавить сотрудника
@@ -103,8 +117,7 @@ ru:
         text: Заметка
         images: добавить фото
       location:
-        name: Наименование
-        parent: Родительский элемент
+        name: Адрес
       employee:
         name: ФИО сотрудника
       department:
@@ -113,6 +126,12 @@ ru:
       title:
         name: Название должности
         department: Подразделение
+      room:
+        name: Помещение
+      possession:
+        employee_id: Ответственный пользователь
+        room_id: Местонахождение
+        count: Количество
   helpers:
     submit:
       create: Создать

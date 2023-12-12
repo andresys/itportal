@@ -2,8 +2,10 @@ class Directories::LocationsController < DirectoriesController
   before_action :set_location, only: %i[show update destroy]
 
   def index
-    # @locations = Location.where({}).page(params[:page])
-    @locations = params[:parent] && (!params[:parent].empty? && Location.where("parent_id = ?", params[:parent]) || Location.roots) || Location.all
+    page_size = params[:per] || 10
+    page = params[:page] || 0
+
+    @locations = Location.page(page).per(page_size)
   end
 
   def new
@@ -45,7 +47,7 @@ class Directories::LocationsController < DirectoriesController
 
 private
   def location_params
-    params.fetch(:location, {}).permit(:name, :parent_id)
+    params.fetch(:location, {}).permit(:name)
   end
 
   def set_location

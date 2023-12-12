@@ -10,7 +10,7 @@ class Accounting::AssetsController < ApplicationController
     @status = @statuses[params[:status]] && params[:status] || 'on_balance'
 
     @mol = Mol.find_by_id(params[:mol] ||= nil)
-    @location = Location.find_by_id(params[:location])
+    @room = Room.find_by_id(params[:location])
     @employee = Employee.find_by_id(params[:employee])
 
     query_parameters = {}
@@ -25,8 +25,8 @@ class Accounting::AssetsController < ApplicationController
       query_parameters.merge!(mol: {id: @mol})
     end
 
-    if @location
-      query_parameters.merge!(location: {id: @location})
+    if @room
+      query_parameters.merge!(rooms: {id: @room})
     end
 
     if @employee
@@ -36,7 +36,7 @@ class Accounting::AssetsController < ApplicationController
     page_size = params[:per] || 10
     page = params[:page] || 0
 
-    @assets = Asset.left_joins(:uids, :images_attachments, :account, :mol, :location, :employee)
+    @assets = Asset.left_joins(:uids, :images_attachments, :account, :mol, :rooms, :employees)
       .where(query_parameters)
       .where(matches_string.(:name).or(matches_string.(:inventory_number)))
       .group(:id)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_06_171155) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_12_142058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,16 +63,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_171155) do
     t.string "code"
     t.datetime "start_date", precision: nil
     t.integer "useful_life"
-    t.bigint "location_id"
     t.integer "count"
     t.bigint "account_id"
     t.bigint "organization_id"
     t.bigint "mol_id"
-    t.bigint "employee_id"
     t.index ["account_id"], name: "index_assets_on_account_id"
     t.index ["code", "inventory_number"], name: "index_assets_on_code_and_inventory_number", unique: true
-    t.index ["employee_id"], name: "index_assets_on_employee_id"
-    t.index ["location_id"], name: "index_assets_on_location_id"
     t.index ["mol_id"], name: "index_assets_on_mol_id"
     t.index ["organization_id"], name: "index_assets_on_organization_id"
     t.index ["slug"], name: "index_assets_on_slug", unique: true
@@ -121,14 +117,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_171155) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "parent_id"
-    t.integer "lft", null: false
-    t.integer "rgt", null: false
-    t.integer "depth", default: 0, null: false
-    t.integer "children_count", default: 0, null: false
-    t.index ["lft"], name: "index_locations_on_lft"
-    t.index ["parent_id"], name: "index_locations_on_parent_id"
-    t.index ["rgt"], name: "index_locations_on_rgt"
   end
 
   create_table "materials", force: :cascade do |t|
@@ -138,17 +126,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_171155) do
     t.float "cost"
     t.string "code"
     t.integer "count"
-    t.bigint "location_id"
     t.bigint "account_id"
     t.bigint "organization_id"
     t.bigint "mol_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "employee_id"
     t.index ["account_id"], name: "index_materials_on_account_id"
     t.index ["code"], name: "index_materials_on_code", unique: true
-    t.index ["employee_id"], name: "index_materials_on_employee_id"
-    t.index ["location_id"], name: "index_materials_on_location_id"
     t.index ["mol_id"], name: "index_materials_on_mol_id"
     t.index ["organization_id"], name: "index_materials_on_organization_id"
     t.index ["slug"], name: "index_materials_on_slug", unique: true
@@ -181,6 +165,27 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_171155) do
     t.index ["code"], name: "index_organizations_on_code", unique: true
   end
 
+  create_table "possessions", force: :cascade do |t|
+    t.bigint "room_id"
+    t.bigint "employee_id"
+    t.string "possessionable_type", null: false
+    t.bigint "possessionable_id", null: false
+    t.integer "count", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_possessions_on_employee_id"
+    t.index ["possessionable_type", "possessionable_id"], name: "index_possessions_on_possessionable"
+    t.index ["room_id"], name: "index_possessions_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.bigint "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_rooms_on_location_id"
+  end
+
   create_table "titles", force: :cascade do |t|
     t.string "name"
     t.integer "sort"
@@ -205,18 +210,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_171155) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assets", "accounts"
-  add_foreign_key "assets", "employees"
-  add_foreign_key "assets", "locations"
   add_foreign_key "assets", "mols"
   add_foreign_key "assets", "organizations"
   add_foreign_key "departments", "organizations"
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "titles"
   add_foreign_key "materials", "accounts"
-  add_foreign_key "materials", "employees"
-  add_foreign_key "materials", "locations"
   add_foreign_key "materials", "mols"
   add_foreign_key "materials", "organizations"
+  add_foreign_key "possessions", "employees"
+  add_foreign_key "possessions", "rooms"
+  add_foreign_key "rooms", "locations"
   add_foreign_key "titles", "departments"
   add_foreign_key "titles", "organizations"
 end

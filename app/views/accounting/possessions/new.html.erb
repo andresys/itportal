@@ -1,0 +1,17 @@
+<% provide :page_title, "Ответственное владение" %>
+
+<%= page_title @model.name, [:accounting, @model] %>
+
+<div class="row justify-content-center mt-4">
+  <div class="col-lg-6">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <h4 class="card-title mb-3 d-flex">
+          <span>Создание ответственного хранения</span>
+        </h4>
+
+        <%= render 'form', possession: @possession %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,10 +3,6 @@
 <% back_url = request.referer && session[:back_url] || accounting_assets_path %>
 <%= page_title @asset.name, back_url do %>
   <%= render partial: "shared/accounting/upload_file", locals: {item: @asset, title: t('.upload')} %>
-  <%= link_to edit_accounting_asset_path(@asset), class: "btn btn-primary mb-1 flex-fill" do %>
-    <%= bs_icon 'pencil-square' %>
-    <%= t('.edit') %>
-  <% end %>
 <% end %>
 
 <div class="row">
@@ -23,13 +19,13 @@
   <div class="col-12 col-md-8">
     <div class="app-card app-card-settings shadow-sm p-4">
       <div class="app-card-body">
-        <div class="mb-2"><strong>Наименование:</strong> <%= tag.span @asset.name %></div>
-        <div class="mb-2"><strong>Нахождение:</strong> <%= link_to @asset.location.name, accounting_assets_path(location: @asset.location) if @asset.location %></div>
-        <div><strong>Ответственное лицо:</strong> <%= link_to @asset.employee.name, accounting_assets_path(employee: @asset.employee) if @asset.employee %></div>
+        <div><strong>Наименование:</strong> <%= tag.span @asset.name %></div>
       </div><!--//app-card-body-->
     </div><!--//app-card-->
   </div>
 </div>
+
+<%= render partial: "shared/accounting/possessions", locals: { item: @asset } %>
         
 <div class="row g-4 settings-section mb-3">
   <div class="col-12 col-md-4">
@@ -100,13 +96,3 @@
     <%= render partial: "shared/accounting/notes", locals: { item: @asset } %>
   </div>
 </div>
-
-<%# <div class="app-card app-card-settings shadow-sm p-4">
-  <div class="app-card-body">
-    <div class="mb-2"></div>
-  </div>
-</div> %>
-
-<p id="notice"><%= notice %></p>
-
-<%#= link_to 'Destroy',  accounting_asset_path(@asset), data: { confirm: 'Удалить?' }, method: :delete %>

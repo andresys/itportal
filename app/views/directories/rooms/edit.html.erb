@@ -3,11 +3,11 @@
     <div class="app-card app-card-settings shadow-sm p-4">
       <div class="app-card-body">
         <h4 class="card-title mb-3 d-flex">
-          <span>Редактирование адреса</span>
-          <%= link_to bs_icon('trash'), [:directories, @location], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
+          <span>Редактирование помещения</span>
+          <%= link_to bs_icon('trash'), [:directories, @location, @room], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
         </h4>
 
-        <%= render 'form', location: @location %>
+        <%= render 'form', room: @room %>
       </div>
     </div>
   </div>

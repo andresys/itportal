@@ -15,6 +15,9 @@ en:
           location: Storage location
           employee: Employee
           photo: Photo availability
+      possessions:
+        add_possession: Add possession
+        edit: Edit
   
   application:
     navigation:
@@ -50,13 +53,24 @@ en:
       form:
         employee: Employee
         location: Location
+    possessions:
+      form:
+        employee: Employee
+        room: Location
 
   directories:
     locations:
       index:
-        new: New location
+        new: Add location
       form:
-        name: Name
+        name: Address
+      location:
+        edit_location: Edit location
+        edit_room: Edit room
+        add_room: Add room
+    rooms:
+      form:
+        name: Room name
     employees:
       index:
         new: New employee
@@ -103,8 +117,7 @@ en:
         text: Note
         images: add photo
       location:
-        name: Name
-        parent: Parent
+        name: Address
       employee:
         name: Name
       department:
@@ -113,6 +126,12 @@ en:
       title:
         name: Title
         department: Department
+      room:
+        name: Room
+      possession:
+        employee_id: Employee
+        room_id: Location
+        count: Count
   helpers:
     submit:
       create: Create

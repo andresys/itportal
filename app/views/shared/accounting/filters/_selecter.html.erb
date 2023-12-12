@@ -9,9 +9,9 @@
     <%= f.label t(".#{item}"), class: "col-sm-4 col-form-label" %>
     <div class="col-sm-8">
         <%= f.collection_select item,
-          items, :id, :name,
+          items, data.delete(:id) || :id, data.delete(:name) || :name,
           { selected: params[item], include_blank: true },
-          { class: "form-control js-select", placeholder: placeholder, autocomplete: "off", data: {}.merge(data) } %>
+          { class: "form-control js-select", placeholder: placeholder, autocomplete: "off", data: {'auto-submit': true}.merge(data) } %>
     </div>
   <% end %>
 <% end %>
