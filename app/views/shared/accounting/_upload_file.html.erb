@@ -1,5 +1,5 @@
-<%= form_with model: [:accounting, item], method: :patch, enctype: "multipart/form-data" do |f| %>
-  <button type="button" class="btn btn-primary" onclick="document.getElementById('<%= item.model_name.param_key %>_images').click()">
+<%= form_with model: [:accounting, item], method: :patch, enctype: "multipart/form-data", class: "flex-fill" do |f| %>
+  <button type="button" class="btn btn-primary w-100" onclick="document.getElementById('<%= item.model_name.param_key %>_images').click()">
     <%= bs_icon 'upload', nil, class: 'me-2' %>
     <%= title %>
   </button>

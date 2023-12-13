@@ -5,7 +5,7 @@
   <%= render partial: "shared/accounting/upload_file", locals: {item: @asset, title: t('.upload')} %>
 <% end %>
 
-<div class="row">
+<div class="table-responsive d-flex gap-2">
   <%= render partial: "shared/accounting/image_card", collection: @asset.all_images, as: :image %>
 </div>
 
