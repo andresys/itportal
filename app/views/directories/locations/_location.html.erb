@@ -15,7 +15,7 @@
 
     <%= tag.div class: "text-truncate px-2", title: location.name do %>
       <%= location.name %>
-      <div class="d-flex gap-2 py-1">
+      <div class="d-flex gap-2 py-1 flex-wrap">
         <% location.rooms.each do |room| %>
           <div class="img-thumbnail">
             <%= tag.span room.name %>

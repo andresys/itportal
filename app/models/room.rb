@@ -5,7 +5,7 @@ class Room < ApplicationRecord
 
   attr_reader :full_name
 
-  default_scope { order(Arel.sql("substring(name,'[0-9]+')::int ASC")) }
+  default_scope { order(Arel.sql("location_id ASC, substring(name,'[0-9]+')::int ASC")) }
 
   private
 
