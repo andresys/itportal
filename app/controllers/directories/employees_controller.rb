@@ -71,7 +71,7 @@ class Directories::EmployeesController < DirectoriesController
 
 private
   def employee_params
-    params.fetch(:employee, {}).permit(:name, :department_id, :title_id)
+    params.fetch(:employee, {}).permit(:name, :organization_id, :title_id)
   end
 
   def set_employee

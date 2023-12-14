@@ -78,8 +78,8 @@ en:
         edit_employee: Edit employee
       form:
         name: Name
-        department: Department
-        title: Title
+        organization: Organization
+        title: Department and title
     organizations:
       organization:
         staffing_table: Staffing table
@@ -124,8 +124,8 @@ en:
         name: Address
       employee:
         name: Name
-        department_id: Department
-        title_id: Title
+        organization_id: Organization
+        title_id: Department and title
         images: Upload photo
       department:
         name: Department

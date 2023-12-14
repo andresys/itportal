@@ -5,7 +5,7 @@ class Employee < ApplicationRecord
     attachable.variant :icon, :resize_to_fill => [34,34]
   end
 
-  belongs_to :department, optional: true
+  belongs_to :organization, optional: true
   belongs_to :title, optional: true
 
   default_scope { order(name: :asc) }

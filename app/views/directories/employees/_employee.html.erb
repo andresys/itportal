@@ -12,11 +12,15 @@
 
   <td class="cell" style="min-width: 600px">
     <%= employee.name %>
-    <% if employee.title %>
+    <% if employee.title || employee.organization %>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb m-0 text-nowrap">
-        <% employee.title&.department&.self_and_ancestors&.each do |dep| %>
-          <li class="breadcrumb-item d-flex"><%= tag.span dep.name %></li>
+        <% if employee.title %>
+          <% employee.title && employee.title.department&.self_and_ancestors&.each do |dep| %>
+            <li class="breadcrumb-item d-flex"><%= tag.span dep.name %></li>
+          <% end %>
+        <% elsif employee.organization %>
+          <li class="breadcrumb-item d-flex"><%= tag.span employee.organization.name %></li>
         <% end %>
         <li class="breadcrumb-item d-flex active"><%= tag.span employee.title&.name %></li>
       </ol>

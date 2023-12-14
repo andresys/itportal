@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_12_142058) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_14_121621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -95,10 +95,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_142058) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "code"
-    t.bigint "department_id"
     t.bigint "title_id"
+    t.bigint "organization_id"
     t.index ["code"], name: "index_employees_on_code", unique: true
-    t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["organization_id"], name: "index_employees_on_organization_id"
     t.index ["title_id"], name: "index_employees_on_title_id"
   end
 
@@ -213,7 +213,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_142058) do
   add_foreign_key "assets", "mols"
   add_foreign_key "assets", "organizations"
   add_foreign_key "departments", "organizations"
-  add_foreign_key "employees", "departments"
+  add_foreign_key "employees", "organizations"
   add_foreign_key "employees", "titles"
   add_foreign_key "materials", "accounts"
   add_foreign_key "materials", "mols"

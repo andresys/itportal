@@ -79,8 +79,8 @@ ru:
         edit_employee: Редактировать сотрудника
       form:
         name: ФИО
-        department: Подразделение
-        title: Должность
+        organization: Организация
+        title: Подразделение и должность
     organizations:
       organization:
         staffing_table: Штатное расписание
@@ -124,8 +124,8 @@ ru:
         name: Адрес
       employee:
         name: ФИО сотрудника
-        department_id: Подразделение
-        title_id: Должность
+        organization_id: Организация
+        title_id: Подразделение и должность
         images: Загрузить фото
       department:
         name: Название подразделения
