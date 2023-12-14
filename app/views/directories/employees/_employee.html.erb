@@ -1,36 +1,33 @@
-<tr>
-  <td class="cell text-center" style="width: 60px; min-width: 60px">
-    <% if employee.images.any? %>
-      <% image = employee.images.first %>
-      <%= link_to rails_storage_proxy_path(image), data: { fancybox: "gallery-#{employee.id}" } do %>
-        <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "thumb-image img-thumbnail" %>
-      <% end %>
-    <% else %>
-      <%= bs_icon 'person' %>
-    <% end %>
-  </td>
+<li class="list-group-item">
+  <div class="float-start">
+    <%= bs_icon 'person' %>
+  </div>
 
-  <td class="cell" style="min-width: 600px">
-    <%= employee.name %>
-    <% if employee.title || employee.organization %>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb m-0 text-nowrap">
-        <% if employee.title %>
-          <% employee.title && employee.title.department&.self_and_ancestors&.each do |dep| %>
-            <li class="breadcrumb-item d-flex"><%= tag.span dep.name %></li>
-          <% end %>
-        <% elsif employee.organization %>
-          <li class="breadcrumb-item d-flex"><%= tag.span employee.organization.name %></li>
-        <% end %>
-        <li class="breadcrumb-item d-flex active"><%= tag.span employee.title&.name %></li>
-      </ol>
-    </nav>
-    <% end %>
-  </td>
-
-  <td class="cell text-end ps-2">
+  <div class="float-end d-flex gap-2">
     <%= link_to directories_employee_path(employee), title: t('.edit_employee') do %>
       <%= bs_icon 'pencil-square' %>
     <% end %>
-  </td>
-</tr>
+  </div>
+
+  <%= tag.div class: "text-truncate px-2", title: employee.name do %>
+    <%= employee.name %>
+  <% end %>
+
+  <div class="d-flex gap-2 pt-2 align-items-center">
+    <% if employee.images.any? %>
+      <% image = employee.images.first %>
+      <%= link_to rails_storage_proxy_path(image), data: { fancybox: "gallery-#{employee.id}" } do %>
+        <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "thumb-image img-thumbnail", style: "max-width: inherit" %>
+      <% end %>
+    <% end %>
+
+    <small class="d-flex flex-fill flex-column fw-light">
+      <% if employee.title %>
+        <%= tag.div employee.title.department&.self_and_ancestors.map(&:name).join(" / ") %>
+      <% elsif employee.organization %>
+        <%= tag.div employee.organization&.name %>
+      <% end %>
+      <%= tag.div employee.title&.name %>
+    </small>
+  </div>
+</li>
