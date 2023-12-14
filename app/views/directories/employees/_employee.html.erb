@@ -15,7 +15,7 @@
 
   <div class="d-flex gap-2 pt-2 align-items-center">
     <% if employee.images.any? %>
-      <% image = employee.images.first %>
+      <% image = employee.images.last %>
       <%= link_to rails_storage_proxy_path(image), data: { fancybox: "gallery-#{employee.id}" } do %>
         <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "thumb-image img-thumbnail", style: "max-width: inherit" %>
       <% end %>
