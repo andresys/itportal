@@ -75,8 +75,12 @@ ru:
     employees:
       index:
         new: Добавить сотрудника
+      employee:
+        edit_employee: Редактировать сотрудника
       form:
         name: ФИО
+        department: Подразделение
+        title: Должность
     organizations:
       organization:
         staffing_table: Штатное расписание
@@ -120,6 +124,9 @@ ru:
         name: Адрес
       employee:
         name: ФИО сотрудника
+        department_id: Подразделение
+        title_id: Должность
+        images: Загрузить фото
       department:
         name: Название подразделения
         department: Подразделение

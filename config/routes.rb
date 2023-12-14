@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :locations, only: %i[index new create show update destroy] do
       resources :rooms, only: %i[new create show update destroy]
     end
-    resources :employees, only: %i[index new create edit import] do
+    resources :employees, only: %i[index new create show update destroy] do
       get 'import', on: :collection
     end
     resources :mols, only: %i[index]

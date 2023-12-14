@@ -15,16 +15,17 @@
 
     <%= tag.div class: "text-truncate px-2", title: location.name do %>
       <%= location.name %>
-      <div class="d-flex gap-2 py-1 flex-wrap">
-        <% location.rooms.each do |room| %>
-          <div class="img-thumbnail">
-            <%= tag.span room.name %>
-            <%= link_to directories_location_room_path(location, room), title: t('.edit_room') do %>
-              <%= bs_icon 'pencil-square' %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
     <% end %>
+
+    <div class="d-flex gap-2 pt-2 flex-wrap">
+      <% location.rooms.each do |room| %>
+        <div class="img-thumbnail">
+          <%= tag.span room.name %>
+          <%= link_to directories_location_room_path(location, room), title: t('.edit_room') do %>
+            <%= bs_icon 'pencil-square' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </li>

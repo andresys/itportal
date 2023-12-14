@@ -1,3 +1,32 @@
-<li class="list-group-item">
-  <%= employee.name %>
-</li>
+<tr>
+  <td class="cell text-center" style="width: 60px; min-width: 60px">
+    <% if employee.images.any? %>
+      <% image = employee.images.first %>
+      <%= link_to rails_storage_proxy_path(image), data: { fancybox: "gallery-#{employee.id}" } do %>
+        <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "thumb-image img-thumbnail" %>
+      <% end %>
+    <% else %>
+      <%= bs_icon 'person' %>
+    <% end %>
+  </td>
+
+  <td class="cell" style="min-width: 600px">
+    <%= employee.name %>
+    <% if employee.title %>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb m-0 text-nowrap">
+        <% employee.title&.department&.self_and_ancestors&.each do |dep| %>
+          <li class="breadcrumb-item d-flex"><%= tag.span dep.name %></li>
+        <% end %>
+        <li class="breadcrumb-item d-flex active"><%= tag.span employee.title&.name %></li>
+      </ol>
+    </nav>
+    <% end %>
+  </td>
+
+  <td class="cell text-end ps-2">
+    <%= link_to directories_employee_path(employee), title: t('.edit_employee') do %>
+      <%= bs_icon 'pencil-square' %>
+    <% end %>
+  </td>
+</tr>
