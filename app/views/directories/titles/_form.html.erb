@@ -24,7 +24,7 @@
   <div class="mb-3">
     <%= f.label :employee_id, class: "form-label" %>
     <%= f.collection_select :employee_id,
-          Employee.all, :id, :name,
+          Employee.where(organization: title.organization).or(Employee.where(organization: nil)), :id, :name,
           { include_blank: true },
           { class: "form-control js-select", placeholder: t('.employee'), autocomplete: "off" } %>
   </div>

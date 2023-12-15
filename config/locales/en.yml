@@ -99,6 +99,7 @@ en:
     titles:
       form:
         name: Title
+        employee: Employee
     departments:
       form:
         name: Department
@@ -139,6 +140,7 @@ en:
       title:
         name: Title
         department: Department
+        employee_id: Employee
       room:
         name: Room
       possession:

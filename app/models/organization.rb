@@ -4,6 +4,9 @@ class Organization < ApplicationRecord
   has_many :titles, dependent: :destroy
   has_many :employees
 
-  # default_scope { left_joins(:department).order(:name) }
-  default_scope { left_joins(:department).order(Arel.sql("organization_id ASC, name ASC")).group(:id, :organization_id) }
+  default_scope do
+    left_joins(:department)
+      .order(Arel.sql("CASE WHEN organization_id IS NULL THEN 0 ELSE 1 END DESC, name ASC"))
+      .group(:id, :organization_id)
+  end
 end

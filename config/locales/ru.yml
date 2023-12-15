@@ -100,6 +100,7 @@ ru:
     titles:
       form:
         name: Название должности
+        employee: ФИО сотрудника
     departments:
       form:
         name: Название подразделения
@@ -139,6 +140,7 @@ ru:
       title:
         name: Название должности
         department: Подразделение
+        employee_id: Сотрудник
       room:
         name: Помещение
       possession:
