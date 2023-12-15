@@ -81,9 +81,14 @@ en:
         organization: Organization
         title: Department and title
     organizations:
+      index:
+        new: Add organization
       organization:
         staffing_table: Staffing table
         create_staffing_table: Create staffing table
+        edit_organization: Edit organization
+      form:
+        name: Name
     staffings:
       show:
         add_department: Add department
@@ -139,6 +144,8 @@ en:
         employee_id: Employee
         room_id: Location
         count: Count
+      organization:
+        name: Name
   helpers:
     submit:
       create: Create

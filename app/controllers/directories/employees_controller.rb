@@ -1,4 +1,5 @@
 class Directories::EmployeesController < DirectoriesController
+  layout "application", except: :index
   before_action :set_employee, only: %i[show update destroy]
 
   def index
@@ -35,7 +36,7 @@ class Directories::EmployeesController < DirectoriesController
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to [:directories, :employees], notice: "Employee was successfully created." }
+        format.html { redirect_to @back_url, notice: "Employee was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -47,7 +48,7 @@ class Directories::EmployeesController < DirectoriesController
       if @employee.update(employee_params)
         @employee.images.attach(params[:employee][:images]) if params.dig(:employee, :images).present?
 
-        format.html { redirect_to [:directories, :employees], notice: "Employee was successfully updated." }
+        format.html { redirect_to @back_url, notice: "Employee was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -57,7 +58,7 @@ class Directories::EmployeesController < DirectoriesController
   def destroy
     @employee.destroy
     respond_to do |format|
-      format.html { redirect_to [:directories, @employee], notice: "Employee was successfully destroyed." }
+      format.html { redirect_to @back_url, notice: "Employee was successfully destroyed." }
     end
   end
 

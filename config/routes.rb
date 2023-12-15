@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   namespace :directories do
     get '/', to: redirect { |p, r| "#{r.url}/organizations" }, as: :root
 
-    resources :organizations, only: %i[index] do
+    resources :organizations, only: %i[index new create show update destroy] do
       resource :staffing, on: :collection, only: %i[create show]
       resources :departments, only: %i[new create show update destroy]
       resources :titles, only: %i[new create show update destroy]

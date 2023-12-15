@@ -82,9 +82,14 @@ ru:
         organization: Организация
         title: Подразделение и должность
     organizations:
+      index:
+        new: Добавить организацию
       organization:
         staffing_table: Штатное расписание
         create_staffing_table: Создать штатное расписание
+        edit_organization: Редактировать организацию
+      form:
+        name: Название организации
     staffings:
       show:
         add_department: Добавить подразделение
@@ -139,6 +144,8 @@ ru:
         employee_id: Ответственный пользователь
         room_id: Местонахождение
         count: Количество
+      organization:
+        name: Название организации
   helpers:
     submit:
       create: Создать
