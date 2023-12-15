@@ -4,11 +4,6 @@
   </div>
 
   <div class="float-end d-flex gap-2">
-    <% unless organization.department %>
-      <%= button_to t('.create_staffing_table'), directories_organization_staffing_path(organization), class: 'btn btn-sm btn-primary' %>
-    <% else %>
-      <%= link_to t('.staffing_table'), directories_organization_staffing_path(organization), class: 'btn btn-sm btn-primary' %>
-    <% end %>
     <%= link_to directories_organization_path(organization), title: t('.edit_organization') do %>
       <%= bs_icon 'pencil-square' %>
     <% end if organization.code.nil? %>
@@ -17,4 +12,15 @@
   <%= tag.div class: "text-truncate px-2", title: organization.name do %>
     <%= organization.name %>
   <% end %>
+
+  <div class="d-flex gap-2 pt-2 align-items-center justify-content-center">
+    <% unless organization.department %>
+      <%= button_to t('.create_staffing_table'), directories_organization_staffing_path(organization), class: 'btn btn-sm btn-primary' %>
+    <% else %>
+      <small class="d-flex flex-fill flex-column fw-light">
+        <%= tag.span "Сотрудников: #{organization.employees.count}, должностей: #{organization.titles.count}, подразделений: #{organization.department.children.count}" %>
+      </small>
+      <%= link_to t('.staffing_table'), directories_organization_staffing_path(organization), class: 'btn btn-sm btn-primary' %>
+    <% end %>
+  </div>
 </li>
