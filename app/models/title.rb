@@ -2,6 +2,9 @@ class Title < ApplicationRecord
   include RailsSortable::Model
   set_sortable :sort
 
+  after_find :set_employee_id
+  before_save :set_employee_and_organization
+
   belongs_to :organization
   belongs_to :department
   has_one :employee
@@ -10,5 +13,19 @@ class Title < ApplicationRecord
   validates :organization, presence: true
   validates :department, presence: true
 
+  attr_accessor :employee_id
+
   default_scope { order(sort: :asc) }
+
+  private
+  
+  def set_employee_id
+    @employee_id = self.employee&.id
+  end
+
+  def set_employee_and_organization
+    e = Employee.find(@employee_id)
+    e.update(organization: self.organization, title: nil)
+    self.employee = e
+  end
 end

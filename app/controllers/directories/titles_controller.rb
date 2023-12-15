@@ -9,7 +9,7 @@ class Directories::TitlesController < DirectoriesController
 
   def create
     @title = Title.new title_params
-    @title.employee = Employee.find(params[:title][:employee_id]) if params.dig(:title, :employee_id).present? && @title.valid?
+    # @title.employee = Employee.find(params[:title][:employee_id]) if params.dig(:title, :employee_id).present? && @title.valid?
     
     respond_to do |format|
       if @title.save
@@ -27,7 +27,7 @@ class Directories::TitlesController < DirectoriesController
   def update
     respond_to do |format|
       if @title.update(title_params)
-        @title.employee = Employee.find(params[:title][:employee_id]) if params.dig(:title, :employee_id).present? && @title.valid?
+        # @title.employee = Employee.find(params[:title][:employee_id]) if params.dig(:title, :employee_id).present? && @title.valid?
 
         format.html { redirect_to [:directories, @organization, :staffing], notice: "Title was successfully updated." }
       else
@@ -45,7 +45,7 @@ class Directories::TitlesController < DirectoriesController
 
 private
   def title_params
-    params.fetch(:title, {}).permit(:name, :department_id).merge(organization: @organization)
+    params.fetch(:title, {}).permit(:name, :department_id, :employee_id).merge(organization: @organization)
   end
 
   def set_organization
