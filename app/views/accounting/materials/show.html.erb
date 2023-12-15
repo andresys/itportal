@@ -1,7 +1,6 @@
-<% back_url = request.referer && session[:back_url] || accounting_materials_path %>
 <% provide :page_title, "Материальные запасы" %>
 
-<%= page_title @material.name, back_url do %>
+<%= page_title @material.name, @back_url do %>
   <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: t('.upload')} %>
 <% end %>
 
@@ -9,7 +8,7 @@
   <%= render partial: "shared/accounting/image_card", collection: @material.all_images, as: :image %>
 </div>
 
-<hr class="mb-4">
+<%= tag.hr class: "mb-4" if @material.images.any? %>
 
 <div class="row g-4 settings-section mb-3">
   <div class="col-12 col-md-4">

@@ -1,12 +1,12 @@
 <% provide :page_title, "Заметки" %>
 
-<%= page_title @note.noteble&.name, back_url %>
+<%= page_title @note.noteble&.name, @back_url %>
 
 <div class="row">
   <%= render partial: "shared/accounting/image_card", collection: @note.images, as: :image %>
 </div>
 
-<hr class="mb-4">
+<%= tag.hr class: "mb-4" if @note.images.any? %>
 
 <div class="row justify-content-center mt-4">
   <div class="col-lg-6">
@@ -17,7 +17,7 @@
           <%= link_to bs_icon('trash'), [:accounting, @note], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } %>
         </h4>
 
-        <%= render 'form', note: @note, back_url: back_url %>
+        <%= render 'form', note: @note %>
       </div>
     </div>
   </div>

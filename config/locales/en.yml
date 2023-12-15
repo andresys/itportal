@@ -8,13 +8,14 @@ en:
   confirm: Do you confirm that you want to delete?
 
   shared:
+    filters:
+      selecter:
+        mol: Financially responsible person
+        location: Storage location
+        employee: Employee
+        organization: Organization
+        photo: Photo availability
     accounting:
-      filters:
-        selecter:
-          mol: Financially responsible person
-          location: Storage location
-          employee: Employee
-          photo: Photo availability
       possessions:
         add_possession: Add possession
         edit: Edit

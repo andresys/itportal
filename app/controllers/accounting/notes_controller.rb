@@ -24,7 +24,7 @@ class Accounting::NotesController < ApplicationController
   end
 
   def show
-    render :edit, locals: {back_url: back_url}
+    render :edit
   end
 
   def update
@@ -32,7 +32,7 @@ class Accounting::NotesController < ApplicationController
       if @note.update(note_params)
         @note.images.attach(params[:note][:images]) if params.dig(:note, :images).present?
 
-        format.html { redirect_to back_url, notice: "Note was successfully updated." }
+        format.html { redirect_to @back_url, notice: "Note was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -42,7 +42,7 @@ class Accounting::NotesController < ApplicationController
   def destroy
     @note.destroy
     respond_to do |format|
-      format.html { redirect_to back_url, notice: "Note was successfully destroyed." }
+      format.html { redirect_to @back_url, notice: "Note was successfully destroyed." }
     end
   end
 
@@ -60,10 +60,10 @@ private
     @note = Note.find(params[:id])
   end
 
-  def back_url
-    if request.referer
+  def set_back_url
+    @back_url = if request.referer
       h = Rails.application.routes.recognize_path session[:back_url]
-      h[:controller] == 'accounting/notes' ? session[:back_url] : [:accounting, @note.noteble]
+      h[:controller] == 'accounting/notes' ? session[:back_url] : [:accounting, set_note.noteble]
     else
       [:accounting, :notes]
     end

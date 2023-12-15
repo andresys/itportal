@@ -8,13 +8,14 @@ ru:
   confirm: Вы подтверждаете, что хотите удалить?
 
   shared:
+    filters:
+      selecter:
+        mol: Материально ответственное лицо
+        location: Место хранения
+        employee: Ответственное лицо
+        organization: Организация
+        photo: Наличие фото
     accounting:
-      filters:
-        selecter:
-          mol: Материально ответственное лицо
-          location: Место хранения
-          employee: Ответственное лицо
-          photo: Наличие фото
       possessions:
         add_possession: Добавить ответственного
         edit: Редактировать

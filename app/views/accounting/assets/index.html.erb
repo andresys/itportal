@@ -1,18 +1,19 @@
 <% provide :page_title, "Основные средства" %>
 
 <%= page_title "Основные средства" do %>
-  <%= render partial: "shared/accounting/filters/search" %>
+  <%= render partial: "shared/filters/search" %>
   <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#searchOptions" aria-expanded="false" aria-controls="searchOptions">
     <%= bs_icon 'funnel' %>
   </button>
 <% end %>
 
-<div class="collapse" id="searchOptions">
+<% filters = params[:mol] || params[:location] || params[:employee] || params[:photo] %>
+<div class="collapse<%= filters && ' show' %>" id="searchOptions">
   <div class="card card-body mb-4">
-    <%= render partial: "shared/accounting/filters/selecter", locals: { items: Mol.all, item: :mol, placeholder: "Материально ответственное лицо", html_class: "mb-3" } %>
-    <%= render partial: "shared/accounting/filters/selecter", locals: { items: Room.all, item: :location, placeholder: "Место хранения", html_class: "mb-3", data: {name: "full_name"} } %>
-    <%= render partial: "shared/accounting/filters/selecter", locals: { items: Employee.all, item: :employee, placeholder: "Ответственное лицо", html_class: "mb-3" } %>
-    <%= render partial: "shared/accounting/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
+    <%= render partial: "shared/filters/selecter", locals: { items: Mol.all, item: :mol, placeholder: "Материально ответственное лицо", html_class: "mb-3" } %>
+    <%= render partial: "shared/filters/selecter", locals: { items: Room.all, item: :location, placeholder: "Место хранения", html_class: "mb-3", data: {name: "full_name"} } %>
+    <%= render partial: "shared/filters/selecter", locals: { items: Employee.all, item: :employee, placeholder: "Ответственное лицо", html_class: "mb-3" } %>
+    <%= render partial: "shared/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
   </div>
 </div>
 
