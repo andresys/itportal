@@ -21,10 +21,13 @@
     <%= f.text_field :name, class: "form-control", placeholder: t('.name') %>
   </div>
 
-  <%# <div class="mb-3"> %>
-    <%#= f.label :department_id, class: "form-label" %>
-    <%#= f.collection_select :department_id, @organization.department.self_and_descendants, :id, :name, { include_blank: true }, { class: "form-control" } %>
-  <%# </div> %>
+  <div class="mb-3">
+    <%= f.label :employee_id, class: "form-label" %>
+    <%= f.collection_select :employee_id,
+          Employee.all, :id, :name,
+          { include_blank: true },
+          { class: "form-control js-select", placeholder: t('.employee'), autocomplete: "off" } %>
+  </div>
   
   <div class="form-actions text-center">
     <%= link_to t(:cancel), directories_organization_staffing_path(@organization), class: "btn app-btn-secondary" %>

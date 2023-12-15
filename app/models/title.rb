@@ -4,6 +4,7 @@ class Title < ApplicationRecord
 
   belongs_to :organization
   belongs_to :department
+  has_one :employee
 
   validates :name, presence: true
   validates :organization, presence: true
