@@ -10,23 +10,25 @@
     <div class="treeview">
       <%= fields_for :asset_types do |f| %>
         <%= nested_li @asset_types do |asset_type| %>
-          <div class="float-start">
-            <%#= bs_icon 'dash-square' %>
-            <%#= f.check_box :id, class: "ms-2 align-middle"  %>
-            <%= bs_icon 'folder' %>
-            <%= bs_icon 'grip-vertical' %>
-          </div>
+          <div>
+            <div class="float-start">
+              <%#= bs_icon 'dash-square' %>
+              <%#= f.check_box :id, class: "ms-2 align-middle"  %>
+              <%= bs_icon 'folder' %>
+              <%= bs_icon 'grip-vertical' %>
+            </div>
 
-          <div class="float-end d-flex gap-2">
-            <%= link_to new_directories_asset_type_path(asset_type: {parent_id: asset_type}), title: t('.add_asset_type') do %>
-              <%= bs_icon 'folder-plus' %>
-            <% end %>
-            <%= link_to directories_asset_type_path(asset_type), title: t('.edit_asset_type') do %>
-              <%= bs_icon 'pencil-square' %>
-            <% end %>
-          </div>
+            <div class="float-end d-flex gap-2">
+              <%= link_to new_directories_asset_type_path(asset_type: {parent_id: asset_type}), title: t('.add_asset_type') do %>
+                <%= bs_icon 'folder-plus' %>
+              <% end %>
+              <%= link_to directories_asset_type_path(asset_type), title: t('.edit_asset_type') do %>
+                <%= bs_icon 'pencil-square' %>
+              <% end %>
+            </div>
 
-          <%= tag.div asset_type.name, class: "text-truncate px-2", title: asset_type.name %>
+            <%= tag.div asset_type.name, class: "text-truncate px-2", title: asset_type.name %>
+          </div>
         <% end %>
       <% end %>
     </div>
