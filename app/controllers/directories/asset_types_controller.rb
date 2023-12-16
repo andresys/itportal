@@ -3,7 +3,7 @@ class Directories::AssetTypesController < DirectoriesController
   before_action :set_asset_type, only: %i[show update destroy]
 
   def index
-    @asset_types = params[:parent] && (!params[:parent].empty? && AssetType.where("parent_id = ?", params[:parent]) || AssetType.roots) || AssetType.all
+    @asset_types = AssetType.all
   end
 
   def new
