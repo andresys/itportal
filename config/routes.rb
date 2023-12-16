@@ -36,8 +36,7 @@ Rails.application.routes.draw do
     end
     resources :mols, only: %i[index]
     resources :staffing_tables, only: %i[index new create edit]
-    # resources :departments, only: %i[index]
-    # resources :titles, only: %i[index]
+    resources :asset_types, only: %i[index new create show update destroy]
   end
 
   namespace :accounting do

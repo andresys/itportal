@@ -34,6 +34,7 @@ ru:
       titles: Должности
       departments: Подразделения
       staffing_tables: Штатное расписание
+      asset_types: Типы ресурсов
 
   accounting:
     assets:
@@ -104,6 +105,13 @@ ru:
     departments:
       form:
         name: Название подразделения
+    asset_types:
+      index:
+        new: Новый тип
+        edit_asset_type: Редактировать тип ресурса
+        add_asset_type: Добавить подтип ресурса
+      form:
+        name: Название типа ресурса
 
   activerecord:
     models:
@@ -149,6 +157,9 @@ ru:
         count: Количество
       organization:
         name: Название организации
+      asset_type:
+        name: Название типа ресурса
+        asset_type: Родительский тип
   helpers:
     submit:
       create: Создать

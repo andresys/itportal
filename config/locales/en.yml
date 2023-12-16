@@ -33,6 +33,7 @@ en:
       locations: Locations
       titles: Titles
       departments: Departments
+      asset_types: Asset types
 
   accounting:
     assets:
@@ -103,6 +104,14 @@ en:
     departments:
       form:
         name: Department
+    asset_types:
+      index:
+        new: New type
+        edit_asset_type: Edit asset type
+        add_asset_type: Add asset subtype
+      form:
+        name: Name
+
 
   activerecord:
     models:
@@ -149,6 +158,9 @@ en:
         count: Count
       organization:
         name: Name
+      asset_type:
+        name: Name
+        asset_type: Parent type
   helpers:
     submit:
       create: Create

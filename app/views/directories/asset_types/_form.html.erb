@@ -1,0 +1,31 @@
+<%= form_with model: [:directories, asset_type] do |f| %>
+  <%= f.hidden_field :parent_id %>
+
+  <% if asset_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(asset_type.errors.count, "error") %> prohibited this asset type from being saved:</h2>
+      <ul>
+        <% asset_type.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @asset_type.parent %>
+  <div class="mb-3">
+    <%= f.label :asset_type, class: "form-label" %>
+    <%= render partial: 'shared/breadcrumb', locals: {item: @asset_type.parent, link: lambda {|d| new_directories_asset_type_path(asset_type: {parent_id: d})} } %>
+  </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control", placeholder: t('.name') %>
+  </div>
+
+  <div class="form-actions text-center">
+    <%= link_to t(:cancel), @back_url, class: "btn app-btn-secondary" %>
+    <%= f.button :submit, class: "btn app-btn-primary" %>
+  </div>
+<% end %>

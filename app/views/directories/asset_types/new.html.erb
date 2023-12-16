@@ -1,0 +1,15 @@
+<% provide :page_title, "Тип ресурса" %>
+
+<%= page_title "Создание нового типа", @back_url %>
+
+<div class="row justify-content-center mt-4">
+  <div class="col-lg-6">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <h4 class="card-title mb-3">Создание нового типа</h4>
+
+        <%= render 'form', asset_type: @asset_type %>
+      </div>
+    </div>
+  </div>
+</div>
