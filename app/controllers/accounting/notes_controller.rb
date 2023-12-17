@@ -50,10 +50,7 @@ private
   def set_model
     @model = Asset.find(params[:asset_id]) if params[:asset_id]
     @model = Material.find(params[:material_id]) if params[:material_id]
-
-    if params[:asset_id] || params[:material_id]
-      raise "Model not found" unless @model
-    end
+    @model
   end
 
   def set_note
