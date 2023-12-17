@@ -63,7 +63,7 @@ private
   def set_back_url
     @back_url = if request.referer
       h = Rails.application.routes.recognize_path session[:back_url]
-      h[:controller] == 'accounting/notes' ? session[:back_url] : [:accounting, set_note.noteble]
+      h[:controller] == 'accounting/notes' ? session[:back_url] : [:accounting, set_model || set_note.noteble]
     else
       [:accounting, :notes]
     end
