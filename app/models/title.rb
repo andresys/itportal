@@ -35,6 +35,6 @@ class Title < ApplicationRecord
   end
 
   def unset_employee
-    self.employee.update(title: nil)
+    self.employee.update(title: nil) if self.employee
   end
 end
