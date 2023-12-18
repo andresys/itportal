@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get '/', to: redirect { |p, r| "#{r.url}/organizations" }, as: :root
 
     resources :organizations, only: %i[index new create show update destroy] do
-      resource :staffing, on: :collection, only: %i[create show]
+      resource :staffing, on: :collection, only: %i[create show destroy]
       resources :departments, only: %i[new create show update destroy]
       resources :titles, only: %i[new create show update destroy]
     end

@@ -15,6 +15,9 @@
 
   <div class="d-flex gap-2 pt-2 align-items-center justify-content-center">
     <% unless organization.department %>
+      <small class="d-flex flex-fill flex-column fw-light">
+        <%= tag.span "Сотрудников: #{organization.employees.count}" %>
+      </small>
       <%= button_to t('.create_staffing_table'), directories_organization_staffing_path(organization), class: 'btn btn-sm btn-primary' %>
     <% else %>
       <small class="d-flex flex-fill flex-column fw-light">

@@ -14,6 +14,13 @@ class Directories::StaffingsController < DirectoriesController
     end
   end
 
+  def destroy
+    @organization.department.destroy
+    respond_to do |format|
+      format.html { redirect_to @back_url, notice: "Staffing was successfully destroyed." }
+    end
+  end
+
 private
   def set_organization
     @organization = Organization.find(params[:organization_id])
