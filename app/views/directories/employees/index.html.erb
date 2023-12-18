@@ -10,13 +10,15 @@
   <%#= link_to t('.import'), import_directories_employees_path, class: "btn btn-sm btn-secondary flex-fill" %>
 <% end %>
 
-<% filters = params[:organization] || params[:photo] %>
-<div class="collapse<%= filters && ' show' %>" id="searchOptions">
-  <div class="card card-body mb-4">
-    <%= render partial: "shared/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: '[Без организации]'})] + Organization.all, item: :organization, placeholder: "Организация", html_class: "mb-3" } %>
-    <%= render partial: "shared/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
+<% content_for :filter do %>
+  <% filters = params[:organization] || params[:photo] %>
+  <div class="collapse<%= filters && ' show' %>" id="searchOptions">
+    <div class="app-card app-card-body shadow-sm p-3 mb-4">
+      <%= render partial: "shared/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: '[Без организации]'})] + Organization.all, item: :organization, placeholder: "Организация", html_class: "mb-3" } %>
+      <%= render partial: "shared/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="tab-content">
   <div class="tab-pane fade show active">

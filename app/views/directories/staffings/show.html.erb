@@ -4,7 +4,7 @@
   <%= link_to [:directories, @organization, :staffing], class: "btn btn-danger flex-fill", method: :delete, data: { confirm: t(:confirm) } do %>
     <%= bs_icon('trash') %>
     <%= t('.remove') %>
-  <% end if @departments.count == 1 %>
+  <% end unless @organization.department.children.any? || @organization.department.titles.any? %>
 <% end %>
 
 <div class="app-card app-card-orders-table shadow-sm mb-5">

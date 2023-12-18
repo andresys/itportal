@@ -77,6 +77,6 @@ class Accounting::AssetsController < ApplicationController
     end
 
     def asset_params
-      params.fetch(:asset, {}).permit(:employee_id, :location_id)
+      params.fetch(:asset, {}).permit(:name, :type_id)
     end
 end

@@ -4,6 +4,7 @@ class Title < ApplicationRecord
 
   after_find :set_employee_id
   before_save :set_employee_and_organization
+  before_destroy :unset_employee
 
   belongs_to :organization
   belongs_to :department
@@ -24,8 +25,16 @@ class Title < ApplicationRecord
   end
 
   def set_employee_and_organization
-    e = Employee.find(@employee_id)
-    e.update(organization: self.organization, title: nil)
-    self.employee = e
+    if @employee_id.present?
+      e = Employee.find(@employee_id)
+      e.update(organization: self.organization, title: nil)
+      self.employee = e
+    else
+      self.employee = nil
+    end
+  end
+
+  def unset_employee
+    self.employee.update(title: nil)
   end
 end

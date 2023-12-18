@@ -17,6 +17,7 @@ class Asset < ApplicationRecord
   has_many :possessions, as: :possessionable, dependent: :destroy
   has_many :rooms, through: :possessions
   has_many :employees, through: :possessions
+  belongs_to :type, class_name: "AssetType", optional: true
 
   attr_accessor :uid
   enum status: { on_balance: 0, out_balance: 1, storage: 2 }

@@ -69,6 +69,6 @@ class Accounting::MaterialsController < ApplicationController
     end
 
     def material_params
-      params.fetch(:material, {}).permit(:employee_id, :location_id)
+      params.fetch(:material, {}).permit(:name, :type_id)
     end
 end

@@ -47,15 +47,15 @@ ru:
         upload: Загрузить фото ОС
         edit: Редактировать
       form:
-        employee: Ответственный пользователь
-        location: Местонахождение
+        name: Название
+        type: Тип ресурса
     materials:
       show:
         upload: Загрузить фото
         edit: Редактировать
       form:
-        employee: Ответственный пользователь
-        location: Местонахождение
+        name: Название
+        type: Тип ресурса
     possessions:
       form:
         employee: Ответственный пользователь
@@ -121,16 +121,10 @@ ru:
     attributes:
       asset:
         name: Название
-        inventory_number: Инвентарный номер
-        date: Дата ввода в эксплуатацию
-        cost: Балансовая стоимость
-        status: Статус основного средства
-        description: Дополнительное описание
-        employee_id: Ответственный пользователь
-        location_id: Местонахождение
+        type_id: Тип ресурса
       material:
-        employee_id: Ответственный пользователь
-        location_id: Местонахождение
+        name: Название
+        type_id: Тип ресурса
       note:
         date: Дата
         text: Заметка

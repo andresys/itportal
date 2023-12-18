@@ -17,6 +17,7 @@ class Material < ApplicationRecord
   has_many :possessions, as: :possessionable, dependent: :destroy
   has_many :rooms, through: :possessions
   has_many :employees, through: :possessions
+  belongs_to :type, class_name: "AssetType", optional: true
 
   attr_accessor :uid
   attr_reader :all_images

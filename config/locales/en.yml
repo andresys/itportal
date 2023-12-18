@@ -46,15 +46,15 @@ en:
         upload: Upload photo
         edit: Edit
       form:
-        employee: Employee
-        location: Location
+        name: Name
+        type: Asset type
     materials:
       show:
         upload: Загрузить фото
         edit: Редактировать
       form:
-        employee: Employee
-        location: Location
+        name: Name
+        type: Asset type
     possessions:
       form:
         employee: Employee
@@ -121,17 +121,10 @@ en:
     attributes:
       asset:
         name: Name
-        inventory_number: Inventory number
-        date: Commissioning date
-        cost: Balance cost
-        status: Asset status
-        description: Description
-        staffing_tables: Staffing table
-        employee_id: Employee
-        location_id: Location
+        type_id: Asset type
       material:
-        employee_id: Employee
-        location_id: Location
+        name: Name
+        type_id: Asset type
       note:
         date: Date
         text: Note
