@@ -1,0 +1,9 @@
+<tr>
+  <td class="cell text-center"><%= tag.small l job.start_time.localtime, format: "%d.%m.%Y %H:%M:%S" %></td>
+  <td class="cell text-center"><%= tag.small l job.end_time.localtime, format: "%d.%m.%Y  %H:%M:%S" if job.end_time %></td>
+  <td class="cell">
+    <%= job.job_type %><br/>
+    <small><%= job.job_id %></small>
+  </td>
+  <td class="cell"></td>
+</tr>

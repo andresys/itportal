@@ -1,0 +1,25 @@
+<%= form_with model: job do |f| %>
+  <% if job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
+      <ul>
+        <% job.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :type, class: "form-label" %>
+    <%= f.collection_select :type,
+          Job.job_types.map{|k,v| OpenStruct.new({id: k, name: t(".#{k}")})}, :id, :name,
+          { include_blank: true },
+          { class: "form-control js-select", placeholder: t('.type'), autocomplete: "off" } %>
+  </div>
+
+  <div class="form-actions text-center">
+    <%= link_to t(:cancel), @back_url, class: "btn app-btn-secondary" %>
+    <%= f.button :submit, class: "btn app-btn-primary" %>
+  </div>
+<% end %>

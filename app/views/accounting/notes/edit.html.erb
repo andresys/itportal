@@ -2,7 +2,7 @@
 
 <%= page_title @note.noteble&.name, @back_url %>
 
-<div class="row">
+<div class="table-responsive d-flex gap-2">
   <%= render partial: "shared/accounting/image_card", collection: @note.images, as: :image %>
 </div>
 

@@ -71,14 +71,6 @@ class Directories::EmployeesController < DirectoriesController
     end
   end
 
-  def import
-    @job = ImportEmployeesJob.perform_later
-    respond_to do |format|
-      format.html { redirect_to directories_employees_path, notice: "Job import Employees was successfully created." }
-      format.json { render show: @job, status: :ok }
-    end
-  end
-
 private
   def employee_params
     params.fetch(:employee, {}).permit(:name, :organization_id, :title_id)

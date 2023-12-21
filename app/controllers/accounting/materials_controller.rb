@@ -52,23 +52,15 @@ class Accounting::MaterialsController < ApplicationController
     end
   end
 
-  def import
-    @job = ImportMaterialsFrom1cJob.perform_later
-    respond_to do |format|
-      format.html { redirect_to accounting_materials_path, notice: "Run job: import assets from 1c." }
-      # format.html { redirect_to job_path(@job.job_id), notice: "Run job: import assets from 1c." }
-      format.json { render show: @job, status: :ok }
-    end
+
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_material
+    ids = params[:ids] && JSON.parse(params[:ids]) || params[:id]
+    @material = ids.kind_of?(Array) && ids.map{|id| Material.find(id)} || Material.find(ids)
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_material
-      ids = params[:ids] && JSON.parse(params[:ids]) || params[:id]
-      @material = ids.kind_of?(Array) && ids.map{|id| Material.find(id)} || Material.find(ids)
-    end
-
-    def material_params
-      params.fetch(:material, {}).permit(:name, :type_id)
-    end
+  def material_params
+    params.fetch(:material, {}).permit(:name, :type_id)
+  end
 end

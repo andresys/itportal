@@ -16,7 +16,12 @@ class ImportAssetsFrom1cJob < ApplicationJob
       p "Save assets to database"
 
       # binding.pry
-      Asset.import assets, ignore: true
+      begin
+        Asset.import assets, ignore: true
+      rescue => exception
+        binding.pry
+        raise StandardError.new "This is an exception: #{exception}"
+      end
       status.update(step: "Ok")
       p "Ok"
     end

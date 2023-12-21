@@ -61,22 +61,13 @@ class Accounting::AssetsController < ApplicationController
     end
   end
 
-  def import
-    @job = ImportAssetsFrom1cJob.perform_later
-    respond_to do |format|
-      format.html { redirect_to accounting_assets_path, notice: "Run job: import assets from 1c." }
-      # format.html { redirect_to job_path(@job.job_id), notice: "Run job: import assets from 1c." }
-      format.json { render show: @job, status: :ok }
-    end
+private
+  def set_asset
+    ids = params[:ids] && JSON.parse(params[:ids]) || params[:id]
+    @asset = ids.kind_of?(Array) && ids.map{|id| Asset.find(id)} || Asset.find(ids)
   end
 
-  private
-    def set_asset
-      ids = params[:ids] && JSON.parse(params[:ids]) || params[:id]
-      @asset = ids.kind_of?(Array) && ids.map{|id| Asset.find(id)} || Asset.find(ids)
-    end
-
-    def asset_params
-      params.fetch(:asset, {}).permit(:name, :type_id)
-    end
+  def asset_params
+    params.fetch(:asset, {}).permit(:name, :type_id)
+  end
 end

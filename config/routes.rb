@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :possessions, except: %i[edit]
   end
 
-  resources :jobs, only: %i[index show]
+  resources :jobs, only: %i[index new create]
   resources :images, only: %i[destroy]
 
   namespace :directories do

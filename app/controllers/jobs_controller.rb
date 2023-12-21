@@ -1,28 +1,45 @@
 class JobsController < ApplicationController
-  def show
-    p "=========="
-    p status = ActiveJob::Status.get(params[:id]).status
-    render json: { status: status }
+  def index
+    page_size = params[:per] || 10
+    page = params[:page] || 0
+
+    @jobs = Job.page(page).per(page_size)
   end
 
-  def index
-    p "==========="
-    p stats = Sidekiq::Stats.new
-    p stats.queues
-    p stats.enqueued
-    p stats.processed
-    p stats.failed
+  def new
+    @job = Job.new
+  end
 
-    p scheduled_queue = Sidekiq::ScheduledSet.new
-    p retry_queue = Sidekiq::RetrySet.new
-
-    default_queue = Sidekiq::Queue.new("default")
-
-    default_queue.each do | job |
-      class_arg = job.args[0].split('-').select { | arg  | arg.match(' !ruby/class')  }[0]
-      
-      p class_arg.split[1].gsub '\'', '' unless class_arg.nil?
+  def create
+    case job_params[:type]
+    when 'import_assets_from_1c'
+      @job = ImportAssetsFrom1cJob.perform_later
+      respond_to do |format|
+        format.html { redirect_to @back_url, notice: "Job import Assets was successfully created." }
+        format.json { render show: @job, status: :ok }
+      end
+    when 'import_materials_from_1c'
+      @job = ImportMaterialsFrom1cJob.perform_later
+      respond_to do |format|
+        format.html { redirect_to @back_url, notice: "Job import Materials was successfully created." }
+        format.json { render show: @job, status: :ok }
+      end
+    when 'import_employees'
+      @job = ImportEmployeesJob.perform_later
+      respond_to do |format|
+        format.html { redirect_to @back_url, notice: "Job import Employees was successfully created." }
+        format.json { render show: @job, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @back_url, notice: "Job type not found" }
+        format.json { render json: {error: "Job type not found"}, status: :unprocessable_entity }
+      end
     end
-    render json: { status: status }
+  end
+
+private
+  def job_params
+    params.fetch(:job, {}).permit(:type)
   end
 end
