@@ -1,8 +1,4 @@
 class ImportMaterialsFrom1cJob < ApplicationJob
-  include ActiveJob::Status
-  
-  queue_as :default
-
   def perform(*args)
     status.update(step: "Import materials from 1c HTTP service")
     p "Import materials from 1c HTTP service"

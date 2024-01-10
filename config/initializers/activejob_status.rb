@@ -9,3 +9,6 @@
 # if Rails.cache.is_a?(ActiveSupport::Cache::NullStore)
 #   ActiveJob::Status.store = :mem_cache_store
 # end
+
+ActiveJob::Status.store = :file_store, "tmp/cache/jobstatus"
+ActiveJob::Status.options = { expires_in: 30.days.to_i }

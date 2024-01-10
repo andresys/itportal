@@ -130,11 +130,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_085202) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.integer "job_type"
+    t.string "job_id", null: false
+    t.integer "job_type", null: false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.string "job_id"
-    t.string "status"
+    t.jsonb "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

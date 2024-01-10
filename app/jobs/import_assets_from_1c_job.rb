@@ -1,8 +1,4 @@
 class ImportAssetsFrom1cJob < ApplicationJob
-  include ActiveJob::Status
-  
-  queue_as :default
-
   def perform(*args)
     status.update(step: "Import assets from 1c HTTP service")
     p "Import assets from 1c HTTP service"
@@ -14,14 +10,7 @@ class ImportAssetsFrom1cJob < ApplicationJob
       assets = assets_from(data)
       status.update(step: "Save assets to database")
       p "Save assets to database"
-
-      # binding.pry
-      begin
-        Asset.import assets, ignore: true
-      rescue => exception
-        binding.pry
-        raise StandardError.new "This is an exception: #{exception}"
-      end
+      Asset.import assets, ignore: true
       status.update(step: "Ok")
       p "Ok"
     end

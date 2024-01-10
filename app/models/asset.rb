@@ -42,7 +42,7 @@ class Asset < ApplicationRecord
     Base64.strict_encode64(png.to_s)
   end
 
-  default_scope { order(date: :desc, name: :asc, inventory_number: :desc) }
+  default_scope { order(date: :desc, inventory_number: :desc, name: :asc) }
 
   private
 

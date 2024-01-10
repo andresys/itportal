@@ -1,8 +1,4 @@
 class ImportEmployeesJob < ApplicationJob
-  include ActiveJob::Status
-  
-  queue_as :default
-
   def perform(*args)
     status.update(step: "Import employees from HTTP service")
     p "Import employees from HTTP service"
