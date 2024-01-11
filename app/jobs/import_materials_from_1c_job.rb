@@ -56,7 +56,7 @@ private
   end
 
   def update_finded_material material
-    finded = Material.find_by("code = ?", material['code'])
+    finded = Material.find_by(code: !material['code'].blank? && material['code'] || nil)
     finded&.update(material_params material)
     finded
   end

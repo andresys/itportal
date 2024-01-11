@@ -30,7 +30,7 @@ private
   end
 
   def update_finded_employee employee
-    finded = Employee.find_by("code = ?", employee['id'])
+    finded = Employee.find_by(code: !employee['id'].blank? && employee['id'] || nil)
     finded&.update(employee_params employee)
     finded
   end

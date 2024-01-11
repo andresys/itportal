@@ -54,7 +54,7 @@ private
   end
 
   def update_finded_asset asset
-    finded = Asset.find_by(code: asset['code'], inventory_number: asset['inventory_number'])
+    finded = Asset.find_by(code: !asset['code'].blank? && asset['code'] || nil, inventory_number: !asset['inventory_number'].blank? && asset['inventory_number'] || nil)
     finded&.update(asset_params asset)
     finded
   end
