@@ -54,7 +54,7 @@ private
   end
 
   def update_finded_asset asset
-    finded = Asset.find_by("code = ? OR inventory_number = ?", asset['code'], asset['inventory_number'])
+    finded = Asset.find_by("code = ? AND inventory_number = ?", asset['code'], asset['inventory_number'])
     finded&.update(asset_params asset)
     finded
   end
