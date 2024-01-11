@@ -4,10 +4,8 @@ class ApplicationService
     new.call *args
   end
 
-  protected
-
+protected
   def set_status status
-    p status
     @@status&.call status
   end
 end

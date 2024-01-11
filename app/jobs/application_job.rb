@@ -21,4 +21,10 @@ class ApplicationJob < ActiveJob::Base
     Job.find_by(job_id: @job_id)&.update(end_time: DateTime.now, status: status.to_h)
     raise e
   end
+
+protected
+  def set_step step
+    status[:step] = (status[:step] || []).push({time: DateTime.now, name: step})
+    p step
+  end
 end

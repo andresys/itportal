@@ -9,8 +9,8 @@
   <td class="cell">
     <div class="d-flex flex-column gap-2">
       <div class="">
-        <%= job.status['step'] %>
-        <%= "[#{job.status['progress']} / #{job.status['total']}]" if job.status['progress'] %>
+        <%= job_status job %>
+        <%= job_progress job %>
       </div>
       <% if job.status['exception'] %>
       <small class="alert alert-danger m-0 p-2">

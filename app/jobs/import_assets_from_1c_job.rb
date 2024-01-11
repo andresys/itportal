@@ -1,18 +1,14 @@
 class ImportAssetsFrom1cJob < ApplicationJob
   def perform(*args)
-    status.update(step: "Import assets from 1c HTTP service")
-    p "Import assets from 1c HTTP service"
+    set_step "Import assets from 1c HTTP service"
+    data = AccountingImportService.call("/hs/itportal/assets") {|step| set_step step}
 
-    data = AccountingImportService.call("/hs/itportal/assets") {|step| status.update(step: step)}
     if data.respond_to?(:any?) && data.any?
-      status.update(step: "Parsing data from JSON")
-      p "Parsing data from JSON"
+      set_step "Parsing data from JSON"
       assets = assets_from(data)
-      status.update(step: "Save assets to database")
-      p "Save assets to database"
+
+      set_step "Save assets to database"
       Asset.import assets, ignore: true
-      status.update(step: "Ok")
-      p "Ok"
     end
   end
 

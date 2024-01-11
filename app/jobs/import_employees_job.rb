@@ -1,19 +1,14 @@
 class ImportEmployeesJob < ApplicationJob
   def perform(*args)
-    status.update(step: "Import employees from HTTP service")
-    p "Import employees from HTTP service"
+    set_step "Import employees from HTTP service"
+    data = PhonebookImportService.call("/api/v1/contacts?from=0&limit=1000") {|step| set_step step}
 
-    data = PhonebookImportService.call("/api/v1/contacts?from=0&limit=1000") {|step| status.update(step: step)}
     if data.respond_to?(:any?) && data.any?
-      status.update(step: "Parsing data from JSON")
-      p "Parsing data from JSON"
+      set_step "Parsing data from JSON"
       employees = employees_from(data['contacts'])
-      status.update(step: "Save materials to database")
-      p "Save materials to database"
 
+      set_step "Save materials to database"
       Employee.import employees, ignore: true
-      status.update(step: "Ok")
-      p "Ok"
     end
   end
 
