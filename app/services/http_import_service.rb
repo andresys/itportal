@@ -17,8 +17,9 @@ class HttpImportService < ApplicationService
   end
 
   def call
-    p "Loading data from #{@@config['protocol'] || 'http'}://#{@@config['host']}#{@path}"
+    set_status "Loading data from #{@@config['protocol'] || 'http'}://#{@@config['host']}#{@path}"
     response = self.class.get(@path, { verify: false })
+    set_status "Loading status is #{response.code}"
     response.code == "OK" ? response : response
   end
 end

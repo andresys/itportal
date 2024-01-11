@@ -3,8 +3,8 @@ class ImportAssetsFrom1cJob < ApplicationJob
     status.update(step: "Import assets from 1c HTTP service")
     p "Import assets from 1c HTTP service"
 
-    data = AccountingImportService.call("/hs/itportal/assets")
-    if data.any?
+    data = AccountingImportService.call("/hs/itportal/assets") {|step| status.update(step: step)}
+    if data.respond_to?(:any?) && data.any?
       status.update(step: "Parsing data from JSON")
       p "Parsing data from JSON"
       assets = assets_from(data)
