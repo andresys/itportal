@@ -3,7 +3,7 @@ class ImportEmployeesJob < ApplicationJob
     status.update(step: "Import employees from HTTP service")
     p "Import employees from HTTP service"
 
-    data = PhonebookImportService.call {|step| status.update(step: step)}
+    data = PhonebookImportService.call("/api/v1/contacts?from=0&limit=1000") {|step| status.update(step: step)}
     if data.respond_to?(:any?) && data.any?
       status.update(step: "Parsing data from JSON")
       p "Parsing data from JSON"

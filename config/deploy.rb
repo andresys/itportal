@@ -62,19 +62,13 @@ task :setup do
     # Create http1c.yml if it doesn't exist
     path_http1c_yml = "config/http1c.yml"
     http1c_yml = %[production:
-    host: 1c_server_ip
-    protocol: https
-    https_verify: false
-    path: /PATH/TO/HTTP/SERVICE]
+    base_uri: PATH/TO/HTTP/SERVICE]
     command %[test -e #{path_http1c_yml} || echo "#{http1c_yml}" > #{path_http1c_yml}]
 
     # Create phonebook.yml if it doesn't exist
     path_phonebook_yml = "config/phonebook.yml"
     phonebook_yml = %[production:
-    host: phonebook.adm.tver.ru
-    protocol: https
-    https_verify: false
-    path: /PATH/TO/PHONEBOOK/SERVICE]
+    base_uri: PATH/TO/HTTP/SERVICE]
     command %[test -e #{path_phonebook_yml} || echo "#{phonebook_yml}" > #{path_phonebook_yml}]
     
     # Remove others-permission for config directory

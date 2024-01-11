@@ -1,23 +1,11 @@
 development:
-  host: 10.10.2.31
-  protocol: https
-  https_verify: false
-  path: /TEST
+  base_uri: https://10.10.2.31/TEST
+  verify: false
   username: admin
   password: inf24!sp
 
 test:
-  host: 10.10.2.31
-  path: /TEST
-  protocol: https
-  https_verify: false
-  username: admin
-  password: inf24!sp
-
-production:
-  host: 10.10.2.31
-  protocol: https
-  https_verify: false
-  path: /BGU
+  base_uri: https://10.10.2.31/TEST
+  verify: false
   username: admin
   password: inf24!sp

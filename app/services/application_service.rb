@@ -1,7 +1,7 @@
 class ApplicationService
   def self.call(*args, &block)
     @@status = block
-    new(*args).call
+    new.call *args
   end
 
   protected

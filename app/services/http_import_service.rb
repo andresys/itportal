@@ -2,23 +2,19 @@ class HttpImportService < ApplicationService
   include HTTParty
 
   def self.config_file filename
-    @@config = YAML.load_file(File.join('config', "#{filename}.yml"))[Rails.env]
+    config = YAML.load_file(File.join('config', "#{filename}.yml"))[Rails.env]
 
-    base_uri "#{@@config['protocol'] || 'http'}://#{@@config['host']}"
-    basic_auth @@config['username'], @@config['password']
+    base_uri config.delete('base_uri')
+    basic_auth config.delete('username'), config.delete('password')
     headers 'Content-Type' => 'application/json'
+    default_options[:options] = config.symbolize_keys
     # headers 'X-Requested-With' => 'XMLHttpRequest'
   end
 
-  attr_reader :path, :options
-
-  def initialize(api_path = '')
-    @path = "#{@@config['path']}/#{api_path}".gsub(/\/+/, '/').gsub(/\/+$/, '')
-  end
-
-  def call
-    set_status "Loading data from #{@@config['protocol'] || 'http'}://#{@@config['host']}#{@path}"
-    response = self.class.get(@path, { verify: false })
-    response.code == "OK" ? response : raise("Error data loading. Response code #{response.code}.")
+  def call(path, options = {})
+    set_status "Loading data from #{self.class.default_options[:base_uri]}#{path}"
+    options = self.class.default_options[:options].merge(options)
+    response = self.class.get(path, options)
+    response.code == 200 ? response : raise("Error data loading. Response code #{response.code}.")
   end
 end

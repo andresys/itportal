@@ -1,23 +1,9 @@
 development:
-  host: phonebook.adm.tver.ru
-  protocol: https
-  https_verify: false
-  path: /api/v1/contacts?from=0&limit=1000
+  base_uri: https://phonebook.adm.tver.ru
   username: admin
   password: inf24!sp
 
 test:
-  host: phonebook.adm.tver.ru
-  path: /api/v1/contacts?from=0&limit=1000
-  protocol: https
-  https_verify: false
-  username: admin
-  password: inf24!sp
-
-production:
-  host: phonebook.adm.tver.ru
-  protocol: https
-  https_verify: false
-  path: /api/v1/contacts?from=0&limit=1000
+  base_uri: https://phonebook.adm.tver.ru
   username: admin
   password: inf24!sp
