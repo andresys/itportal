@@ -111,6 +111,11 @@ en:
         add_asset_type: Add asset subtype
       form:
         name: Name
+  jobs:
+    index:
+      new: New task
+    form:
+      type: Task type
 
 
   activerecord:
@@ -154,6 +159,8 @@ en:
       asset_type:
         name: Name
         asset_type: Parent type
+      job:
+        type: Task type
   helpers:
     submit:
       create: Create

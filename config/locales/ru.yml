@@ -6,6 +6,11 @@ ru:
   out_balance: За балансом
   storage: На хранении
   confirm: Вы подтверждаете, что хотите удалить?
+  job:
+    types:
+      import_assets_from_1c: Импорт основных средств из 1С
+      import_materials_from_1c: Импорт материалов из 1С
+      import_employees: Импорт пользователей
 
   shared:
     filters:
@@ -112,6 +117,11 @@ ru:
         add_asset_type: Добавить подтип ресурса
       form:
         name: Название типа ресурса
+  jobs:
+    index:
+      new: Новая задача
+    form:
+      type: Тип задачи
 
   activerecord:
     models:
@@ -154,6 +164,9 @@ ru:
       asset_type:
         name: Название типа ресурса
         asset_type: Родительский тип
+      job:
+        type: Тип задачи
+          
   helpers:
     submit:
       create: Создать
