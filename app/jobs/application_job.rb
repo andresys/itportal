@@ -3,7 +3,16 @@ class ApplicationJob < ActiveJob::Base
   
   queue_as :default
 
-  before_enqueue { |job| job.status[:status] = :queued }
+  attr_accessor :job
+
+  before_enqueue do |job|
+    job.status[:status] = :queued
+    job_type = self.class.name.gsub(/::/, '/')
+        .gsub(/([0-9A-Z]+)([0-9A-Z][a-z])/,'\1_\2')
+        .gsub(/([a-z\d])([0-9A-Z])/,'\1_\2')
+        .tr("-", "_").downcase.gsub(/_job$/, "").to_sym
+    Job.create(job_type: job_type, job_id: @job_id)
+  end
 
   before_perform do |job|
     job.status[:status] = :working

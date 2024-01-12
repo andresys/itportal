@@ -14,21 +14,18 @@ class JobsController < ApplicationController
     case job_params[:type]
     when 'import_assets_from_1c'
       @job = ImportAssetsFrom1cJob.perform_later
-      Job.create(job_type: 'import_assets_from_1c', job_id: @job.job_id)
       respond_to do |format|
         format.html { redirect_to @back_url, notice: "Job import Assets was successfully created." }
         format.json { render show: @job, status: :ok }
       end
     when 'import_materials_from_1c'
       @job = ImportMaterialsFrom1cJob.perform_later
-      Job.create(job_type: 'import_materials_from_1c', job_id: @job.job_id)
       respond_to do |format|
         format.html { redirect_to @back_url, notice: "Job import Materials was successfully created." }
         format.json { render show: @job, status: :ok }
       end
     when 'import_employees'
       @job = ImportEmployeesJob.perform_later
-      Job.create(job_type: 'import_employees', job_id: @job.job_id)
       respond_to do |format|
         format.html { redirect_to @back_url, notice: "Job import Employees was successfully created." }
         format.json { render show: @job, status: :ok }

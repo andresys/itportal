@@ -1,27 +1,57 @@
 <% job.status ||= ActiveJob::Status.get(job.job_id).to_h %>
-<%= tag.tr class: "job-#{job.status['status']}" do %>
-  <td class="cell text-center"><%= tag.small l job.start_time.localtime, format: "%d.%m.%Y %H:%M:%S" if job.start_time %></td>
-  <td class="cell text-center"><%= tag.small l job.end_time.localtime, format: "%d.%m.%Y  %H:%M:%S" if job.end_time %></td>
-  <td class="cell">
-    <%= t ".#{job.job_type}" %><br/>
-    <small><%= job.job_id %></small>
-  </td>
-  <td class="cell">
-    <div class="d-flex flex-column gap-2">
-      <div class="">
-        <%= job_status job %>
-        <%= job_progress job %>
-      </div>
-      <% if job.status['exception'] %>
-      <small class="alert alert-danger m-0 p-2">
-        <h6 class="d-flex align-items-center gap-2">
-          <%= bs_icon "exclamation-triangle-fill" %>
-          <span>Ошибка при выполнении задания!</span>
-        </h6>
-        <strong><%= job.status['exception']['class'] %>:</strong>
-        <%= job.status['exception']['message'] %>
-      </small>
-      <% end %>
+
+<%= tag.li class: "list-group-item" do %>
+  <div class="d-flex gap-2 align-items-center">
+    <div>
+      <%= bs_icon 'boxes' %>
     </div>
-  </td>
+
+    <%= tag.div class: "flex-fill text-truncate px-2", title: "#{job.job_type} [#{job.job_id}]" do %>
+      <div class="row">
+        <div class="col">
+          <%= t ".#{job.job_type}" %><br/>
+          <small>[<%= job.job_id %>]</small>
+        </div>
+        <div class="col d-flex gap-2 align-items-center">
+          <%= tag.small l job.start_time.localtime, format: "%d.%m.%Y %H:%M:%S" if job.start_time %>
+          <%= tag.small l job.end_time.localtime, format: "%d.%m.%Y  %H:%M:%S" if job.end_time %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="d-flex gap-2">
+      <%= job_status job %>
+
+      <%= link_to "#job-#{job.job_id}", data: {'bs-toggle': "collapse" } do %>
+        <%= bs_icon 'arrow-down-left-square' %>
+      <% end unless job['status'] == :queued %>
+    </div>
+  </div>
+
+  <%= tag.div id: "job-#{job.job_id}", class: "collapse job-#{job.status['status']}" do %>
+    <div class="pt-2">
+      <div class="d-flex flex-column gap-2">
+        <% if job.status['exception'] %>
+          <small class="alert alert-danger m-0 p-2">
+            <h6 class="d-flex align-items-center gap-2">
+              <%= bs_icon "exclamation-triangle-fill" %>
+              <span>Ошибка при выполнении задания!</span>
+            </h6>
+            <strong><%= job.status['exception']['class'] %>:</strong>
+            <%= job.status['exception']['message'] %>
+            <% if job.status['step'] %>
+              <hr class="my-1">
+              <%= job_logs job %>
+            <% end %>
+          </small>
+        <% else %>
+          <small class="alert alert-info m-0 p-2">
+            <%= job_logs job %>
+          </small>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
+
+<%= job_progress job %>
