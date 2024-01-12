@@ -26,7 +26,7 @@
 
       <%= link_to "#job-#{job.job_id}", data: {'bs-toggle': "collapse" } do %>
         <%= bs_icon 'arrow-down-left-square' %>
-      <% end unless job['status'] == :queued %>
+      <% end unless job.status['status'] == 'queued' %>
     </div>
   </div>
 

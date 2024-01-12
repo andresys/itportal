@@ -9,7 +9,7 @@
       <%= sub_item_tag "Печать этикеток", accounting_prints_path unless Rails.env == "production" %>
     <% end %>
     <%= nav_item_tag t('.directories'), directories_root_path, icon: "files" %>
-    <%= nav_item_tag "Задачи", jobs_path, icon: "boxes" %>
+    <%= nav_item_tag "Фоновые задачи", jobs_path, icon: "boxes" %>
     <%#= nav_item_tag "Страницы", nil, icon: "folder" do %>
       <%#= sub_item_tag "Notifications", "notifications.html" %>
       <%#= sub_item_tag "Account", "account.html" %>
