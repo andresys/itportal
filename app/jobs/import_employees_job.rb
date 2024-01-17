@@ -5,7 +5,7 @@ class ImportEmployeesJob < ApplicationJob
 
     return unless data.respond_to?(:any?) && data.any?
 
-    progress.total = data.count
+    progress.total = data['contacts'].count
     job = Job.find_by(job_id: @job_id)
     ids = []
     histories = []
