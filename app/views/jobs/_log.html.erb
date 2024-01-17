@@ -1,0 +1,19 @@
+<% return unless job.status%>
+<% if job.status['exception'] %>
+  <small class="alert alert-danger m-0 p-2">
+    <h6 class="d-flex align-items-center gap-2">
+      <%= bs_icon "exclamation-triangle-fill" %>
+      <span>Ошибка при выполнении задания!</span>
+    </h6>
+    <strong><%= job.status['exception']['class'] %>:</strong>
+    <%= job.status['exception']['message'] %>
+    <% if job.status['step'] || job.start_time || job.end_time %>
+      <hr class="my-1">
+      <%= job_logs job %>
+    <% end %>
+  </small>
+<% else %>
+  <small class="alert alert-success m-0 p-2">
+    <%= job_logs job %>
+  </small>
+<% end %>

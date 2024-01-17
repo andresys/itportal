@@ -1,0 +1,44 @@
+<% provide :page_title, "Фоновые задачи" %>
+
+<%= page_title t("job.types.#{@job.job_type}"), @back_url %>
+
+<% @job.status ||= ActiveJob::Status.get(@job.job_id).to_h %>
+
+<div class="app-card app-card-settings shadow-sm p-4">
+  <div class="app-card-body">
+
+    <div class="d-flex gap-2 align-items-center">
+      <div>
+        <%= bs_icon 'boxes' %>
+      </div>
+
+      <%= tag.div class: "flex-fill text-truncate px-2", title: t("job.types.#{@job.job_type}") + " [#{@job.job_id}]" do %>
+        <div class="row align-items-center">
+          <div class="col-auto col-sm-8 col-md-7 text-truncate">
+            <strong>UID:</strong>
+            <%= @job.job_id %>
+          </div>
+          
+          <div class="col-auto col-sm text-truncate">
+            <div class="d-flex flex-wrap mt-2 mt-sm-0 justify-content-end">
+              <%= render partial: 'short_history', locals: {job: @job} %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pt-3 mb-3">
+      <div class="d-flex flex-column gap-2">
+        <%= render partial: 'log', locals: {job: @job} %>
+      </div>
+    </div>
+
+    <div class="accordion" id="recordsHistory">
+      <%= render partial: "history", locals: {job_histories: @add_histories, action: 'add', title: "Список добавленных записей", parent: "recordsHistory"} %>
+      <%= render partial: "history", locals: {job_histories: @remove_histories, action: 'remove', title: "Список удаляемых записей", parent: "recordsHistory"} %>
+      <%= render partial: "history", locals: {job_histories: @change_histories, action: 'change', title: "Список измененных записей", parent: "recordsHistory"} %>
+    </div>
+   
+  </div>
+</div>

@@ -114,6 +114,11 @@ en:
   jobs:
     index:
       new: New task
+    short_history:
+      added: Added
+      removed: Removed
+      changed: Changed
+      all_records: All records
     form:
       type: Task type
 

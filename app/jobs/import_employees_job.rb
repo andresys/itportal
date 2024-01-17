@@ -3,33 +3,43 @@ class ImportEmployeesJob < ApplicationJob
     set_step "Import employees from HTTP service"
     data = PhonebookImportService.call("/api/v1/contacts?from=0&limit=1000") {|step| set_step step}
 
-    if data.respond_to?(:any?) && data.any?
-      set_step "Parsing data from JSON"
-      employees = employees_from(data['contacts'])
+    return unless data.respond_to?(:any?) && data.any?
 
-      set_step "Save materials to database"
-      Employee.import employees, ignore: true
+    progress.total = data.count
+    job = Job.find_by(job_id: @job_id)
+    ids = []
+    histories = []
+    
+    set_step "Parsing data from JSON and save employees to database"
+    
+    data['contacts'].each do |employee|
+      progress.increment
+
+      values = employee_params employee
+      if finded = Employee.find_by(code: values[:code])
+        values.delete_if {|k,v| v == finded[k]}
+        if values.any?
+          histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys))
+          finded.update(values)
+        end
+        ids << finded.id
+      else
+        created = Employee.create(values)
+        histories << JobHistory.new(job: job, record: created, action: 'add')
+        ids << created.id
+      end
     end
+
+    set_step "Removing removed employees from database"
+    removed_employees = Employee.where(delete_mark: false).where.not(id: ids)
+    removed_employees.each { |employee| histories << JobHistory.new(job: job, record: employee, action: 'remove') }
+    removed_employees.update_all(delete_mark: true)
+
+    set_step "Saving employees histories"
+    JobHistory.import histories
   end
 
 private 
-
-  def employees_from(employees)
-    progress.total = employees.count
-
-    employees.map do |employee|
-      progress.increment
-
-      update_finded_employee(employee) || Employee.new(employee_params employee)
-    end
-  end
-
-  def update_finded_employee employee
-    finded = Employee.find_by(code: !employee['id'].blank? && employee['id'] || nil)
-    finded&.update(employee_params employee)
-    finded
-  end
-
   def employee_params employee
     name = employee['name'].strip.gsub(/( +-+|-+ +|^-+|-+$)/, '').gsub(/ {2,}/, ' ')
     return {

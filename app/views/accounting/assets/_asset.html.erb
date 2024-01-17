@@ -7,7 +7,7 @@
   <td class="cell text-center">#</td>
   <td class="cell">
     <% name_with_count = (asset.count <= 1) ? asset.name : "#{asset.name} (#{asset.count} шт.)" %>
-    <%= tag.span name_with_count, class: "truncate1", title: name_with_count %>
+    <%= link_to name_with_count, [:accounting, asset], class: "truncate1", title: name_with_count %>
   </td>
   <td class="cell text-center"><%= asset.inventory_number %></td>
 
@@ -22,5 +22,4 @@
     <%= human_cost.call(asset.cost) %>
     <%= "<br/><small class=\"text-nowrap\">(#{human_cost.call(asset.cost / asset.count)}/шт)</small>".html_safe if asset.count > 1 %>
   </td>
-  <td class="cell text-end"><%= link_to "Подробнее", accounting_asset_path(asset), class: "btn-sm app-btn-secondary btn-flash" %></td>
 </tr>

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :possessions, except: %i[edit]
   end
 
-  resources :jobs, only: %i[index new create]
+  resources :jobs, only: %i[index new create show]
   resources :images, only: %i[destroy]
 
   namespace :directories do
@@ -42,8 +42,8 @@ Rails.application.routes.draw do
   namespace :accounting do
     get '/', to: redirect { |p, r| "#{r.url}/assets" }, as: :root
 
-    resources :assets, only: %i[index show edit update], concerns: %i[noteble possessionable]
-    resources :materials, only: %i[index show edit update], concerns: %i[noteble possessionable]
+    resources :assets, only: %i[index show edit update destroy], concerns: %i[noteble possessionable]
+    resources :materials, only: %i[index show edit update destroy], concerns: %i[noteble possessionable]
     resources :notes, only: %i[index show destroy]
     resources :prints, only: %i[index]
   end

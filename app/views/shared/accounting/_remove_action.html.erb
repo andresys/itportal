@@ -1,0 +1,11 @@
+<%= tag.div class: "alert alert-danger d-flex align-items-center gap-2" do %>
+  <%= bs_icon "exclamation-triangle-fill" %>
+  <strong>Внимание:</strong>
+  Элемент помечен для удаления
+  <div class="ms-auto">
+    <%= button_to [:accounting, item], class: "btn btn-outline-danger", method: :delete, data: { confirm: t(:confirm) } do %>
+      <%= bs_icon('trash') %>
+      Удалить сейчас?
+    <% end %>
+  </div>
+<% end if item.delete_mark %>

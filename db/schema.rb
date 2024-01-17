@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_19_085202) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_15_112912) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_085202) do
     t.bigint "organization_id"
     t.bigint "mol_id"
     t.bigint "type_id"
+    t.boolean "delete_mark", default: false, null: false
     t.index ["account_id"], name: "index_assets_on_account_id"
     t.index ["code", "inventory_number"], name: "index_assets_on_code_and_inventory_number", unique: true
     t.index ["mol_id"], name: "index_assets_on_mol_id"
@@ -113,6 +114,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_085202) do
     t.integer "code"
     t.bigint "title_id"
     t.bigint "organization_id"
+    t.boolean "delete_mark", default: false, null: false
     t.index ["code"], name: "index_employees_on_code", unique: true
     t.index ["organization_id"], name: "index_employees_on_organization_id"
     t.index ["title_id"], name: "index_employees_on_title_id"
@@ -127,6 +129,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_085202) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "job_histories", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.integer "action"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.jsonb "values"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_job_histories_on_job_id"
+    t.index ["record_type", "record_id"], name: "index_job_histories_on_record"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -158,6 +172,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_085202) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "type_id"
+    t.boolean "delete_mark", default: false, null: false
     t.index ["account_id"], name: "index_materials_on_account_id"
     t.index ["code"], name: "index_materials_on_code", unique: true
     t.index ["mol_id"], name: "index_materials_on_mol_id"

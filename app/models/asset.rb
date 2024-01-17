@@ -1,10 +1,8 @@
 class Asset < ApplicationRecord
   extend FriendlyId
 
-  after_initialize :set_all_images
-
   friendly_id :uid, use: [:slugged, :finders]
-
+  
   has_many_attached :images do |attachable|
     attachable.variant :thumb, :resize_to_fill => [200,200]
   end
@@ -18,13 +16,14 @@ class Asset < ApplicationRecord
   has_many :rooms, through: :possessions
   has_many :employees, through: :possessions
   belongs_to :type, class_name: "AssetType", optional: true
-
+  
   attr_accessor :uid
   enum status: { on_balance: 0, out_balance: 1, storage: 2 }
-
-  # after_initialize lambda { @uid = uids.last&.uid }
-
   attr_reader :all_images
+  
+  after_initialize :set_all_images
+  # after_initialize lambda { @uid = uids.last&.uid }
+  before_destroy :permit_desdroy?
 
   def qr_base64_string
     qrcode = RQRCode::QRCode.new("uid: %s" % uid)
@@ -56,5 +55,11 @@ class Asset < ApplicationRecord
 
   def should_generate_new_friendly_id?
     slug.blank?
+  end
+
+  def permit_desdroy?
+    return if delete_mark
+    errors[:base] << "Asset don't mark for removing."
+    throw :abort
   end
 end

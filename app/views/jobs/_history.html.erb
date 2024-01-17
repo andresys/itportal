@@ -1,0 +1,30 @@
+<% job_histories ||= [] %>
+
+<%= tag.div class: "accordion-item" do %>
+  <small class="accordion-header">
+    <%= tag.div class: "accordion-button collapsed p-2", type: "button", data: {'bs-toggle': "collapse", 'bs-target': "##{action}Records"} do %>
+      <% sign = {add: '+', remove: '-'}[action.to_sym] || '' %>
+      <% css_class = {add: 'text-bg-success', remove: 'text-bg-danger', change: 'text-bg-secondary'}[action.to_sym] || '' %>
+      <%= tag.span "#{sign}#{job_histories.count}", class: "badge rounded-pill #{css_class}" %>
+      <%= tag.span title, class: "ms-2" %>
+    <% end %>
+  </small>
+  <% html_data = parent && {'bs-parent': "##{parent}"} || {} %>
+  <%= tag.div id: "#{action}Records", class: "accordion-collapse collapse", data: html_data do %>
+    <div class="accordion-body p-0">
+      <ul class="list-group list-group-flush">
+        <%= render partial: "item", collection: job_histories, as: :history %>
+
+        <%= tag.li class: "list-group-item" do %>
+          <div class="d-flex gap-2 align-items-center">
+            <%= tag.div class: "flex-fill text-truncate px-2" do %>
+              <div class="col text-truncate">
+                <div class="text-center text-danger fst-italic">Все записи были удалены</div>
+              </div>
+            <% end %>
+          </div>
+        <% end unless job_histories.select{|h| h.record}.any? %>
+      </ul>
+    </div>
+  <% end %>
+<% end if job_histories.any? %>

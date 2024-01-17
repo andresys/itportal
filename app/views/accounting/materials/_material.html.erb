@@ -1,11 +1,9 @@
 <tr>
   <td class="cell text-center">#</td>
   <td class="cell">
-    <%= tag.span material.name, class: "truncate1", title: material.name %>
+    <%= link_to material.name, [:accounting, material], class: "truncate1", title: material.name %>
   </td>
   <td class="cell text-center"><%= number_to_currency(material.cost / material.count, separator: ',', unit: '₽') %></td>
   <td class="cell text-center"><%= material.count %></td>
   <td class="cell text-center"><%= number_to_currency(material.cost, separator: ',', unit: '₽') %></td>
-
-  <td class="cell text-end"><%= link_to "Подробнее", accounting_material_path(material), class: "btn-sm app-btn-secondary btn-flash" %></td>
 </tr>

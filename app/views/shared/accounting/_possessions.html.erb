@@ -40,7 +40,7 @@
           </div>
         <% end %>
 
-        <% if item.possessions.map(&:count).sum < item.count %>
+        <% if item.possessions.map(&:count).sum < (item.count || 0) %>
           <div class="row justify-content-center justify-content-sm-end">
             <div class="col-auto">
               <%= link_to [:new, :accounting, item, :possession], class: "btn app-btn-secondary" do %>

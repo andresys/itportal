@@ -1,0 +1,8 @@
+<% number_of_stories = job.job_histories.group('job_histories.action').pluck(:action, 'COUNT(job_histories.id)').to_h %>
+<% action ||= nil %>
+<div class="text-truncate">
+  <%= tag.span "+#{number_of_stories['add']}", class: "badge rounded-pill text-bg-success", title: t(".added") if number_of_stories['add'] %>
+  <%= tag.span "-#{number_of_stories['remove']}", class: "badge rounded-pill text-bg-danger", title: t(".removed") if number_of_stories['remove'] %>
+  <%= tag.span "#{number_of_stories['change']}", class: "badge rounded-pill text-bg-warning", title: t(".changed") if number_of_stories['change'] %>
+  <%= tag.span job.status['total'], class: "badge rounded-pill text-bg-secondary", title: t(".all_records") if job.status && job.status['total'] %>
+</div>

@@ -1,5 +1,5 @@
 class Accounting::AssetsController < ApplicationController
-  before_action :set_asset, only: %i[show edit update]
+  before_action :set_asset, only: %i[show edit update destroy]
   
   def index
     asset = Asset.arel_table
@@ -13,7 +13,7 @@ class Accounting::AssetsController < ApplicationController
     @room = Room.find_by_id(params[:location])
     @employee = Employee.find_by_id(params[:employee])
 
-    query_parameters = {}
+    query_parameters = {delete_mark: false}
 
     if @status
       accounts = { 'on_balance' => ["101.36", "101.34"], 'out_balance' => ["21.36", "21.34"], 'storage' => ["102"] }
@@ -56,6 +56,18 @@ class Accounting::AssetsController < ApplicationController
         format.json { render :show, status: :ok, location: [:accounting, @asset] }
       else
         format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @asset.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      if @asset.destroy
+        format.html { redirect_to @back_url, notice: "Asset was successfully destroyed." }
+        format.json { render status: :ok }
+      else
+        format.html { redirect_to [:account, @asset], notice: "Error! Asset don't mark for removing." }
         format.json { render json: @asset.errors, status: :unprocessable_entity }
       end
     end

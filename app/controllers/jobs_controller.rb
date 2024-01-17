@@ -2,12 +2,19 @@ class JobsController < ApplicationController
   def index
     page_size = params[:per] || 10
     page = params[:page] || 0
-
-    @jobs = Job.page(page).per(page_size)
+    
+    @jobs = Job.left_joins(:job_histories).group(:id).page(page).per(page_size)
   end
-
+  
   def new
     @job = Job.new
+  end
+  
+  def show
+    @job = Job.left_joins(:job_histories).find(params[:id])
+    @add_histories = JobHistory.includes(:record).where(job: @job, action: 'add')
+    @remove_histories = JobHistory.includes(:record).where(job: @job, action: 'remove')
+    @change_histories = JobHistory.includes(:record).where(job: @job, action: 'change')
   end
 
   def create

@@ -1,23 +1,32 @@
 <% job.status ||= ActiveJob::Status.get(job.job_id).to_h %>
-
 <%= tag.li class: "list-group-item" do %>
   <div class="d-flex gap-2 align-items-center">
     <div>
       <%= bs_icon 'boxes' %>
     </div>
 
-    <%= tag.div class: "flex-fill text-truncate px-2", title: t("job.types.#{job.job_type}") + " [#{job.job_id}]" do %>
+    <%= tag.div class: "flex-fill text-truncate px-2" do %>
       <div class="row align-items-center">
-        <div class="col-auto col-sm-8 col-md-6 text-truncate">
-          <%= t "job.types.#{job.job_type}" %><br/>
-          <small>[<%= job.job_id %>]</small>
-        </div>
-        <div class="col-auto col-sm text-truncate">
-          <div class="d-flex flex-wrap mt-2 mt-sm-0">
-            <%= tag.small l(job.start_time.localtime, format: "%d.%m.%Y %H:%M:%S"), class: "me-2" if job.start_time %>
-            <%= tag.small l(job.end_time.localtime, format: "%d.%m.%Y  %H:%M:%S") if job.end_time %>
-          </div>
-        </div>
+        <%= tag.div class: "col-12 #{job.status['status'] == 'working' ? 'col-md-auto' : 'col-sm-8 col-md-7 col-lg-6'} text-truncate" do %>
+          <%= link_to t("job.types.#{job.job_type}"), job, class: "d-block text-truncate" %>
+          <small>
+            <%= "[#{job.job_id}]" %>
+          </small>
+        <% end %>
+        <%= tag.div class: "#{job.status['status'] == 'working' ? 'col' : 'col-sm-4 col-md-3'} text-truncate" do %>
+          <%= tag.div class: "d-flex flex-nowrap mt-2 #{job.status['status'] == 'working' ? 'mt-md-0 justify-content-md-center' : 'mt-sm-0 justify-content-sm-center'}" do %>
+            <% if job.status['status'] == 'working' %>
+              <%= tag.div class: "d-flex align-items-center me-2" do %>
+                <%= tag.span class: "spinner-border spinner-border-sm text-secondary" do %>
+                  <%= tag.span "Loading...", class: "visually-hidden" %>
+                <% end %>
+              <% end %>
+              <%= job_current_log_step job %>
+            <% else %>
+              <%= render partial: 'short_history', locals: {job: job} %>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     <% end %>
 
@@ -26,34 +35,17 @@
 
       <%= link_to "#job-#{job.job_id}", data: {'bs-toggle': "collapse" } do %>
         <%= bs_icon 'arrow-down-left-square' %>
-      <% end unless job.status['status'] == 'queued' %>
+      <% end unless job.status && job.status['status'] == 'queued' %>
     </div>
   </div>
 
-  <%= tag.div id: "job-#{job.job_id}", class: "collapse job-#{job.status['status']}" do %>
+  <%= tag.div id: "job-#{job.job_id}", class: "collapse" do %>
     <div class="pt-2">
       <div class="d-flex flex-column gap-2">
-        <% if job.status['exception'] %>
-          <small class="alert alert-danger m-0 p-2">
-            <h6 class="d-flex align-items-center gap-2">
-              <%= bs_icon "exclamation-triangle-fill" %>
-              <span>Ошибка при выполнении задания!</span>
-            </h6>
-            <strong><%= job.status['exception']['class'] %>:</strong>
-            <%= job.status['exception']['message'] %>
-            <% if job.status['step'] %>
-              <hr class="my-1">
-              <%= job_logs job %>
-            <% end %>
-          </small>
-        <% else %>
-          <small class="alert alert-success m-0 p-2">
-            <%= job_logs job %>
-          </small>
-        <% end %>
+        <%= render partial: 'log', locals: {job: job} %>
       </div>
     </div>
-  <% end %>
+  <% end if job.status %>
 <% end %>
 
 <%= job_progress job %>

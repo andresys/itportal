@@ -3,25 +3,20 @@ class ImportMaterialsFrom1cJob < ApplicationJob
     set_step "Import materials from 1c HTTP service"
     data = AccountingImportService.call("/hs/itportal/materials") {|step| set_step step}
 
-    if data.respond_to?(:any?) && data.any?
-      set_step "Parsing data from JSON"
-      materials = materials_from(data)
+    return unless data.respond_to?(:any?) && data.any?
 
-      set_step "Save materials to database"
-      Material.import materials, ignore: true
-    end
-  end
+    progress.total = data.count
+    job = Job.find_by(job_id: @job_id)
+    ids = []
+    histories = []
 
-private
-
-  def materials_from(materials)
-    progress.total = materials.count
+    set_step "Parsing data from JSON and save material to database"
 
     @organizations = {}
     @mols = {}
     @accounts = {}
 
-    materials.map do |material|
+    data.each do |material|
       progress.increment
 
       unless @organizations.has_key? material['organization_code']
@@ -45,25 +40,40 @@ private
         @accounts[material['account_number']] = account
       end
 
-      update_finded_material(material) || Material.new(material_params material)
+      values = material_params material
+      if finded = Material.find_by(code: values[:code], mol_id: values[:mol_id])
+        values.delete_if {|k,v| v == finded[k]}
+        if values.any?
+          histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys))
+          finded.update(values)
+        end
+        ids << finded.id
+      else
+        created = Material.create(values)
+        histories << JobHistory.new(job: job, record: created, action: 'add')
+        ids << created.id
+      end
     end
+
+    set_step "Removing removed materials from database"
+    removed_materials = Material.where(delete_mark: false).where.not(id: ids)
+    removed_materials.each { |material| histories << JobHistory.new(job: job, record: material, action: 'remove') }
+    removed_materials.update_all(delete_mark: true)
+
+    set_step "Saving materials histories"
+    JobHistory.import histories
   end
 
-  def update_finded_material material
-    finded = Material.find_by(code: !material['code'].blank? && material['code'] || nil)
-    finded&.update(material_params material)
-    finded
-  end
-
+private
   def material_params material
     return {
       name: !material['name'].blank? && material['name'] || nil,
       code: !material['code'].blank? && material['code'] || nil,
       cost: !material['cost'].blank? && material['cost']&.to_f || nil,
       count: !material['count'].blank? && material['count']&.to_i || 1,
-      account: !material['account_number'].blank? && @accounts[material['account_number']] || nil,
-      organization: !material['organization_code'].blank? && @organizations[material['organization_code']] || nil,
-      mol: !material['mol_code'].blank? && @mols[material['mol_code']] || nil
+      account_id: !material['account_number'].blank? && @accounts[material['account_number']].id || nil,
+      organization_id: !material['organization_code'].blank? && @organizations[material['organization_code']].id || nil,
+      mol_id: !material['mol_code'].blank? && @mols[material['mol_code']].id || nil
     }
   end
 end

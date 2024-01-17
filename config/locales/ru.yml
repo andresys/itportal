@@ -120,6 +120,11 @@ ru:
   jobs:
     index:
       new: Новая задача
+    short_history:
+      added: Добавлено
+      removed: Удалено
+      changed: Изменено
+      all_records: Всего записей
     form:
       type: Тип задачи
 

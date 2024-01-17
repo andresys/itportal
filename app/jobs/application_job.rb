@@ -3,8 +3,6 @@ class ApplicationJob < ActiveJob::Base
   
   queue_as :default
 
-  attr_accessor :job
-
   before_enqueue do |job|
     job.status[:status] = :queued
     job_type = self.class.name.gsub(/::/, '/')
