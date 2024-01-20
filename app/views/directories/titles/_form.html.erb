@@ -1,15 +1,7 @@
+<%= render "shared/errors", model: title %>
+
 <%= form_with model: [:directories, @organization, title] do |f| %>
   <%= f.hidden_field :department_id %>
-  <% if title.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(title.errors.count, "error") %> prohibited this title from being saved:</h2>
-      <ul>
-        <% title.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="mb-3">
     <%= f.label :department, class: "form-label" %>

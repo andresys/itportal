@@ -1,0 +1,27 @@
+<%= form_with model: [:accounting, item, note], method: :post, enctype: "multipart/form-data" do |f| %>
+  <%= render "shared/errors", model: note %>
+
+  <div class="row">
+    <div class="col-sm-auto mb-2 text-center">
+      <%= f.date_field :date, class: "w-100 form-control" %>
+
+      <span class="d-inline-block my-3">
+        <%= f.label :images, class: "btn btn-sm" do |lebel| %>
+          <%= bs_icon :upload %>
+          <%= lebel %>
+        <% end %>
+      </span>
+    </div>
+    <div class="col-sm mb-2 order-2 order-sm-1">
+      <%= f.text_area :text, class: "w-100 form-control", rows: "3" %>
+    </div>
+    <div class="col-12 order-1 order-sm-2">
+      <%= f.file_field :images, accept: "image/*", multiple: true, class: "d-none image-preview" %>
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <div class="col-auto">
+      <%= f.button :add, class: "btn app-btn-secondary" %>
+    </div>
+  </div>
+<% end %>

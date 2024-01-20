@@ -1,16 +1,16 @@
 <% provide :page_title, "Материальные запасы" %>
 
-<%= page_title @material.name, @back_url do %>
-  <%= render partial: "shared/accounting/upload_file", locals: {item: @material, title: t('.upload')} %>
+<%= page_title @accounting.name, @back_url do %>
+  <%= render partial: "shared/accounting/upload_file", locals: {item: @accounting, title: t('.upload')} %>
 <% end %>
 
-<%= render partial: "shared/accounting/remove_action", locals: {item: @material}%>
+<%= render partial: "shared/accounting/remove_action", locals: {item: @accounting}%>
 
 <div class="table-responsive d-flex gap-2">
-  <%= render partial: "shared/accounting/image_card", collection: @material.all_images, as: :image %>
+  <%= render partial: "shared/accounting/image_card", collection: @accounting.all_images, as: :image %>
 </div>
 
-<%= tag.hr class: "mb-4" if @material.images.any? %>
+<%= tag.hr class: "mb-4" if @accounting.images.any? %>
 
 <div class="row g-4 settings-section mb-3">
   <div class="col-12 col-md-4">
@@ -20,25 +20,15 @@
   <div class="col-12 col-md-8 mt-1 mt-sm-4">
     <div class="app-card app-card-settings shadow-sm p-4">
       <div class="app-card-body">
-        <div>
-          <div class="row mb-2"><strong class="col-auto">Наименование:</strong> <%= tag.span @material.name, class: "col-auto" %></div>
-          <div class="row mb-2"><strong class="col-auto">Тип оборудования:</strong> <%= tag.span @material.type&.name || "[не установлен]", class: "col-auto" %></div>
-
-          <div class="row justify-content-center justify-content-sm-end">
-            <div class="col-auto">
-              <%= link_to [:edit, :accounting, @material], class: "float-end", class: "btn app-btn-secondary" do %>
-                <%= bs_icon('pencil-square') %>
-                <%= t('.edit') %>
-              <% end %>
-            </div>
-          </div>
-        </div>
+        <%= turbo_frame_tag "accounting" do %>
+          <%= render "accounting/materials/accounting" %>
+        <% end %>
       </div><!--//app-card-body-->
     </div><!--//app-card-->
   </div>
 </div>
 
-<%= render partial: "shared/accounting/possessions", locals: { item: @material } %>
+<%= render "accounting/possessions/accounting_possessions", item: @accounting %>
         
 <div class="row g-4 settings-section">
   <div class="col-12 col-md-4">
@@ -49,20 +39,20 @@
       <div class="app-card-body">
         <div class="row mb-4">
           <div class="col-lg">
-            <div class="mb-2"><strong>Цена:</strong> <%= tag.span number_to_currency(@material.cost / @material.count, separator: ',', unit: '₽') %></div>
-            <div class="mb-2"><strong>Количество:</strong> <%= tag.span @material.count %></div>
-            <%= tag.div class: @material.description && "mb-2 mb-lg-0" do %>
+            <div class="mb-2"><strong>Цена:</strong> <%= tag.span number_to_currency(@accounting.cost / @accounting.count, separator: ',', unit: '₽') %></div>
+            <div class="mb-2"><strong>Количество:</strong> <%= tag.span @accounting.count %></div>
+            <%= tag.div class: @accounting.description && "mb-2 mb-lg-0" do %>
               <strong>Cтоимость:</strong>
-              <%= tag.span number_to_currency(@material.cost, separator: ',', unit: '₽') %>
+              <%= tag.span number_to_currency(@accounting.cost, separator: ',', unit: '₽') %>
             <% end %>
           </div>
 
-          <% if @material.description %>
+          <% if @accounting.description %>
           <div class="col-lg">
             <div class="card text-bg-light">
               <div class="card-body">
                 <h6 class="card-title">Информация:</h6>
-                <%= tag.p @material.description %>
+                <%= tag.p @accounting.description %>
               </div>
             </div>
           </div>
@@ -70,16 +60,16 @@
         </div>
 
 
-        <div class="mb-2"><strong>Организация:</strong> <%= link_to @material.organization.name, accounting_materials_path(organization: @material.organization) %></div>
-        <div class="mb-4"><strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong> <%= link_to @material.mol.name, accounting_materials_path(mol: @material.mol) %></div>
+        <div class="mb-2"><strong>Организация:</strong> <%= link_to @accounting.organization.name, accounting_materials_path(organization: @accounting.organization) %></div>
+        <div class="mb-4"><strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong> <%= link_to @accounting.mol.name, accounting_materials_path(mol: @accounting.mol) %></div>
         
         <div class="row">
           <div class="col-auto">
             <div class="mb-2">
               <strong>Счет учета:</strong>
-              <%= tag.abbr @material.account.code, title: @material.account.name, class: "initialism" %>
+              <%= tag.abbr @accounting.account.code, title: @accounting.account.name, class: "initialism" %>
             </div>
-            <div class="mb-2"><strong>Код материала:</strong> <%= tag.span @material.code %></div>
+            <div class="mb-2"><strong>Код материала:</strong> <%= tag.span @accounting.code %></div>
           </div>
           <div class="col-auto">
           </div>
@@ -87,7 +77,7 @@
 
         <div class="row justify-content-between">
           <div class="col-auto">
-            <%#= render partial: "add_edit_material", locals: { model: @material, text: "Изменить", title: "Редактирование основного средства (ОС)" } %>
+            <%#= render partial: "add_edit_material", locals: { model: @accounting, text: "Изменить", title: "Редактирование основного средства (ОС)" } %>
           </div>
           <%# <div class="col-auto">
             <a class="btn app-btn-secondary" href="#">Cancel Plan</a>
@@ -96,6 +86,6 @@
       </div><!--//app-card-body-->
     </div><!--//app-card-->
 
-    <%= render partial: "shared/accounting/notes", locals: { item: @material } %>
+    <%= render "accounting/notes/accounting_notes", item: @accounting %>
   </div>
 </div>

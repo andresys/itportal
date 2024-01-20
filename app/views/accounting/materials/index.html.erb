@@ -30,17 +30,17 @@
                 <th class="cell">Название</th>
                 <th class="cell text-center">Цена</th>
                 <th class="cell text-center">Количество</th>
-                <th class="cell text-end">Стоимость</th>
+                <th class="cell text-center">Стоимость</th>
               </tr>
             </thead>
             <tbody>
-              <%= render @materials %>
+              <%= render @accountings %>
             </tbody>
           </table>
         </div><!--//table-responsive-->
       </div><!--//app-card-body-->		
     </div><!--//app-card-->
 
-    <%= render partial: "shared/paginate", locals: { items: @materials, link: lambda {|q| accounting_materials_path(q)} } %>
+    <%= render partial: "shared/paginate", locals: { items: @accountings, link: lambda {|q| accounting_materials_path(q)} } %>
   </div><!--//tab-pane-->
 </div><!--//tab-content-->

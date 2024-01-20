@@ -1,9 +1,11 @@
 class Room < ApplicationRecord
-  belongs_to :location
-
+  attr_reader :full_name
+  
   after_initialize :set_full_name
 
-  attr_reader :full_name
+  belongs_to :location
+
+  validates :name, presence: true
 
   default_scope { order(Arel.sql("location_id ASC, substring(name,'[0-9]+')::int ASC")) }
 

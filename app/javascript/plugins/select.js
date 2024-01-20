@@ -1,10 +1,12 @@
 import TomSelect from 'tom-select/dist/js/tom-select.complete'
 import Translations from '../i18n/select.json'
 
-document.addEventListener('turbolinks:load', () => {
+const rerender = () => {
   const i18n = Translations[document.querySelector('body').dataset.lang]
 
-  document.querySelectorAll('.js-select').forEach((element) => {
+  document.querySelectorAll('select.js-select').forEach((element) => {
+    if(element.classList.contains('tomselected')) { return }
+
     var opts = {
       // valueField: 'id',
       // lebelField: 'name',
@@ -36,4 +38,8 @@ document.addEventListener('turbolinks:load', () => {
 
     new TomSelect(element, opts)
   })
-})
+}
+
+document.addEventListener('turbo:load', rerender)
+document.addEventListener('turbo:frame-render', rerender)
+document.addEventListener('turbo:render', rerender)

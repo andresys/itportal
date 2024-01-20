@@ -1,34 +1,27 @@
-<%= form_with model: [:accounting, @note.noteble, note], enctype: "multipart/form-data" do |f| %>
-  <% if note.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
-      <ul>
-        <% note.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<%= turbo_frame_tag note do %>
+  <%= form_with model: [:accounting, @note.noteble, note], enctype: "multipart/form-data" do |f| %>
+    <%= render "shared/errors", model: note %>
+    
+    <div class="mb-3">
+      <%= f.label :date, class: "form-label" %>
+      <%= f.date_field :date, class: "w-100 form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <span class="float-end">
+        <%= f.label :images, class: "btn btn-sm" do |lebel| %>
+          <%= bs_icon :upload %>
+          <%= lebel %>
         <% end %>
-      </ul>
+      </span>
+      <%= f.label :text, class: "form-label" %>
+      <%= f.file_field :images, accept: "image/*", multiple: true, class: "d-none image-preview" %>
+      <%= f.text_area :text, class: "w-100 form-control", rows: "3" %>
+    </div>
+
+    <div class="form-actions text-center">
+      <%= link_to t(:cancel), @back_url, class: "btn app-btn-secondary", data: { turbo: turbo_frame_request? } %>
+      <%= f.button :submit, class: "btn app-btn-primary", data: { turbo: turbo_frame_request? } %>
     </div>
   <% end %>
-
-  <div class="mb-3">
-    <%= f.label :date, class: "form-label" %>
-    <%= f.date_field :date, class: "w-100 form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <span class="float-end">
-      <%= f.label :images, class: "btn btn-sm" do |lebel| %>
-        <%= bs_icon :upload %>
-        <%= lebel %>
-      <% end %>
-    </span>
-    <%= f.label :text, class: "form-label" %>
-    <%= f.file_field :images, accept: "image/*", multiple: true, class: "d-none image-preview" %>
-    <%= f.text_area :text, class: "w-100 form-control", rows: "3" %>
-  </div>
-
-  <div class="form-actions text-center">
-    <%= link_to t(:cancel), @back_url, class: "btn app-btn-secondary" %>
-    <%= f.button :submit, class: "btn app-btn-primary" %>
-  </div>
 <% end %>

@@ -1,6 +1,6 @@
 <% provide :page_title, "Основные средства" %>
 
-<%= page_title @asset.name, @back_url %>
+<%= page_title @accounting.name, [:accounting, @accounting] %>
 
 <div class="row justify-content-center mt-4">
   <div class="col-lg-6">
@@ -8,10 +8,10 @@
       <div class="app-card-body">
         <h4 class="card-title mb-3 d-flex">
           <span>Редактирование основного средства</span>
-          <%= link_to bs_icon('trash'), [:accounting, @asset], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } unless @asset.code.present? %>
+          <%= link_to bs_icon('trash'), [:accounting, @accounting], class: "ms-auto", turbo_method: :delete, data: { turbo_confirm: t(:confirm) } unless @accounting.code.present? %>
         </h4>
 
-        <%= render 'form', asset: @asset %>
+        <%= render 'form', asset: @accounting %>
       </div>
     </div>
   </div>

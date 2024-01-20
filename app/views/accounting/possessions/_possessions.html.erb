@@ -1,0 +1,49 @@
+<% if item.possessions.any? && item.count > 1 %>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm m-0" data-turbo="false">
+      <% item.possessions.each do |possession| %>
+        <tr>
+          <%= tag.td "#{possession.count} шт.", class: "cell" %>
+          <td class="cell">
+            <%= link_to possession.employee.name, accounting_assets_path(employee: possession.employee) %>
+          </td>
+          <td class="cell">
+            <%= link_to possession.room.full_name, accounting_assets_path(location: possession.room) %>
+          </td>
+          <td class="cell text-end">
+            <%= link_to bs_icon('pencil-square'), [:accounting, item, possession] %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+
+<% if item.possessions.map(&:count).sum < (item.count || 0) %>
+  <%= turbo_frame_tag "possessions_form" do %>
+    <div class="row justify-content-center justify-content-sm-end">
+      <div class="col-auto">
+        <%= link_to [:new, :accounting, item, :possession], class: "btn app-btn-secondary", data: { turbo_frame: "possessions_form" } do %>
+          <%= bs_icon('plus-square') %>
+          <%= t('.add_possession') %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% elsif item.count == 1 %>
+  <%= turbo_frame_tag "possessions_form" do %>
+    <div>
+      <div class="row mb-2"><strong class="col-auto">Нахождение:</strong> <%= link_to item.possessions.first.room.full_name, accounting_assets_path(location: item.possessions.first.room), class: "col-auto" %></div>
+      <div class="row mb-2"><strong class="col-auto">Ответственное лицо:</strong> <%= link_to item.possessions.first.employee.name, accounting_assets_path(employee: item.possessions.first.employee), class: "col-auto" %></div>
+    </div>
+
+    <div class="row justify-content-center justify-content-sm-end">
+      <div class="col-auto">
+        <%= link_to [:accounting, item, item.possessions.first], class: "float-end", class: "btn app-btn-secondary", data: { turbo_frame: "possessions_form" } do %>
+          <%= bs_icon('pencil-square') %>
+          <%= t('.edit') %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

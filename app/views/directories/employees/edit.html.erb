@@ -14,7 +14,7 @@
       <div class="app-card-body">
         <h4 class="card-title mb-3 d-flex">
           <span>Редактирование сотрудника</span>
-          <%= link_to bs_icon('trash'), [:directories, @employee], class: "ms-auto", method: :delete, data: { confirm: t(:confirm) } if @employee.code.nil? %>
+          <%= link_to bs_icon('trash'), [:directories, @employee], class: "ms-auto", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } if @employee.code.nil? %>
         </h4>
 
         <%= render 'form', employee: @employee %>

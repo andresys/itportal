@@ -1,15 +1,6 @@
-<%= form_with model: job do |f| %>
-  <% if job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
-      <ul>
-        <% job.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= render "shared/errors", model: job %>
 
+<%= form_with model: job do |f| %>
   <div class="mb-3">
     <%= f.label :type, class: "form-label" %>
     <%= f.collection_select :type,

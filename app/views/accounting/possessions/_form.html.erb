@@ -1,41 +1,36 @@
-<%= form_with model: [:accounting, @model, possession] do |f| %>
-  <% if possession.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(possession.errors.count, "error") %> prohibited this possession from being saved:</h2>
-      <ul>
-        <% possession.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= turbo_frame_tag "possessions_form" do %>
+  <%= link_to bs_icon('trash'), [:accounting, @possession.possessionable, @possession], class: "float-end", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } if turbo_frame_request? && @possession.persisted? %>
+
+  <%= form_with model: [:accounting, @accounting, possession] do |f| %>
+    <%= render "shared/errors", model: possession %>
+    
+    <% max = @accounting.count - @accounting.possessions.map(&:count).sum + (possession.id && possession.count || 0) %>
+    <% if max > 1 %>
+    <div class="mb-3">
+      <%= f.label :count, class: "form-label" %>
+      <%= f.number_field :count, min: 1, max: max, class: "w-100 form-control" %>
+    </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= f.label :employee, class: "form-label" %>
+      <%= f.collection_select :employee,
+          Employee.all, :id, :name,
+          { include_blank: true, selected: possession.employee&.id },
+          { class: "form-control js-select", placeholder: t('.employee'), autocomplete: "off", name: "possession[employee_id]" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :room, class: "form-label" %>
+      <%= f.collection_select :room,
+          Room.all, :id, :full_name,
+          { include_blank: true, selected: possession.room&.id },
+          { class: "form-control js-select", placeholder: t('.room'), autocomplete: "off", name: "possession[room_id]" } %>
+    </div>
+
+    <div class="form-actions text-center">
+      <%= link_to t(:cancel), [:accounting, @accounting], class: "btn app-btn-secondary", data: { turbo: turbo_frame_request? } %>
+      <%= f.button :submit, class: "btn app-btn-primary", data: { turbo: turbo_frame_request? } %>
     </div>
   <% end %>
-
-  <% max = @model.count - @model.possessions.map(&:count).sum + (possession.id && possession.count || 0) %>
-  <% if max > 1 %>
-  <div class="mb-3">
-    <%= f.label :count, class: "form-label" %>
-    <%= f.number_field :count, min: 1, max: max, class: "w-100 form-control" %>
-  </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= f.label :employee_id, class: "form-label" %>
-    <%= f.collection_select :employee_id,
-        Employee.all, :id, :name,
-        { include_blank: true },
-        { class: "form-control js-select", placeholder: t('.employee'), autocomplete: "off" } %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :room_id, class: "form-label" %>
-    <%= f.collection_select :room_id,
-        Room.all, :id, :full_name,
-        { include_blank: true },
-        { class: "form-control js-select", placeholder: t('.room'), autocomplete: "off" } %>
-  </div>
-
-  <div class="form-actions text-center">
-    <%= link_to t(:cancel), [:accounting, @model], class: "btn app-btn-secondary" %>
-    <%= f.button :submit, class: "btn app-btn-primary" %>
-  </div>
 <% end %>

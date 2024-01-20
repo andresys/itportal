@@ -1,18 +1,18 @@
 <% provide :page_title, "Основные средства" %>
 
-<%= page_title @asset.name, @back_url do %>
-  <%= render partial: "shared/accounting/upload_file", locals: {item: @asset, title: t('.upload')} %>
+<%= page_title @accounting.name, @back_url do %>
+  <%= render partial: "shared/accounting/upload_file", locals: {item: @accounting, title: t('.upload')} %>
 <% end %>
 
-<%= render partial: "shared/accounting/remove_action", locals: {item: @asset}%>
+<%= render partial: "shared/accounting/remove_action", locals: {item: @accounting}%>
 
 <div class="table-responsive">
   <div class="d-flex gap-2">
-    <%= render partial: "shared/accounting/image_card", collection: @asset.all_images, as: :image %>
+    <%= render partial: "shared/accounting/image_card", collection: @accounting.all_images, as: :image %>
   </div>
 </div>
 
-<%= tag.hr class: "mb-4" if @asset.images.any? %>
+<%= tag.hr class: "mb-4" if @accounting.images.any? %>
 
 <div class="row g-4 settings-section mb-3">
   <div class="col-12 col-md-4">
@@ -22,25 +22,15 @@
   <div class="col-12 col-md-8 mt-1 mt-sm-4">
     <div class="app-card app-card-settings shadow-sm p-4">
       <div class="app-card-body">
-        <div>
-          <div class="row mb-2"><strong class="col-auto">Наименование:</strong> <%= tag.span @asset.name, class: "col-auto" %></div>
-          <div class="row mb-2"><strong class="col-auto">Тип оборудования:</strong> <%= tag.span @asset.type&.name || "[не установлен]", class: "col-auto" %></div>
-
-          <div class="row justify-content-center justify-content-sm-end">
-            <div class="col-auto">
-              <%= link_to [:edit, :accounting, @asset], class: "float-end", class: "btn app-btn-secondary" do %>
-                <%= bs_icon('pencil-square') %>
-                <%= t('.edit') %>
-              <% end %>
-            </div>
-          </div>
-        </div>
+        <%= turbo_frame_tag "accounting" do %>
+          <%= render "accounting/assets/accounting" %>
+        <% end %>
       </div><!--//app-card-body-->
     </div><!--//app-card-->
   </div>
 </div>
 
-<%= render partial: "shared/accounting/possessions", locals: { item: @asset } %>
+<%= render "accounting/possessions/accounting_possessions", item: @accounting %>
         
 <div class="row g-4 settings-section mb-3">
   <div class="col-12 col-md-4">
@@ -51,22 +41,22 @@
       <div class="app-card-body">
         <div class="row mb-4">
           <div class="col-lg">
-            <div class="mb-2"><strong>Инвентарный номер:</strong> <%= tag.span @asset.inventory_number %></div>
-            <div class="mb-2"><strong>Количество:</strong> <%= tag.span @asset.count %></div>
-            <div class="mb-4"><strong>Балансовая стоимость:</strong> <%= tag.span number_to_currency(@asset.cost, separator: ',', unit: '₽') %></div>
+            <div class="mb-2"><strong>Инвентарный номер:</strong> <%= tag.span @accounting.inventory_number %></div>
+            <div class="mb-2"><strong>Количество:</strong> <%= tag.span @accounting.count %></div>
+            <div class="mb-4"><strong>Балансовая стоимость:</strong> <%= tag.span number_to_currency(@accounting.cost, separator: ',', unit: '₽') %></div>
 
-            <%= tag.div class: @asset.description && "mb-4 mb-lg-0" do %>
+            <%= tag.div class: @accounting.description && "mb-4 mb-lg-0" do %>
               <strong>Статус:</strong>
-              <%= status_tag @asset.account&.code %>
+              <%= status_tag @accounting.account&.code %>
             <% end %>
           </div>
 
-          <% if @asset.description %>
+          <% if @accounting.description %>
           <div class="col-lg mb-3">
             <div class="card text-bg-light">
               <div class="card-body">
                 <h6 class="card-title">Информация:</h6>
-                <%= tag.p @asset.description %>
+                <%= tag.p @accounting.description %>
               </div>
             </div>
           </div>
@@ -75,31 +65,31 @@
 
         <div class="mb-2">
           <strong>Организация:</strong>
-          <%= link_to @asset.organization.name, accounting_assets_path(organization: @asset.organization) if @asset.organization %>
+          <%= link_to @accounting.organization.name, accounting_assets_path(organization: @accounting.organization) if @accounting.organization %>
         </div>
         <div class="mb-4">
           <strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong>
-          <%= link_to @asset.mol.name, accounting_assets_path(mol: @asset.mol) if @asset.mol %>
+          <%= link_to @accounting.mol.name, accounting_assets_path(mol: @accounting.mol) if @accounting.mol %>
         </div>
         
         <div class="row">
           <div class="col-lg">
             <div class="mb-2">
               <strong>Счет учета:</strong>
-              <%= tag.abbr @asset.account&.code, title: @asset.account&.name, class: "initialism" %>
+              <%= tag.abbr @accounting.account&.code, title: @accounting.account&.name, class: "initialism" %>
             </div>
-            <div class="mb-2"><strong>Код учета в 1С:</strong> <%= tag.span @asset.code %></div>
+            <div class="mb-2"><strong>Код учета в 1С:</strong> <%= tag.span @accounting.code %></div>
           </div>
           <div class="col-lg">
-            <div class="mb-2"><strong>Дата принятия к учету:</strong> <%= tag.span l @asset.start_date, format: "%e %B %Y год" if @asset.start_date %></div>
-            <div class="mb-2"><strong>Дата ввода в эксплуатацию:</strong> <%= tag.span l @asset.date, format: "%e %B %Y год" if @asset.date %></div>
-            <div class="mb-2"><strong>Срок полезного использования:</strong> <%= tag.span "#{@asset.useful_life} мес." if @asset.useful_life %></div>
+            <div class="mb-2"><strong>Дата принятия к учету:</strong> <%= tag.span l @accounting.start_date, format: "%e %B %Y год" if @accounting.start_date %></div>
+            <div class="mb-2"><strong>Дата ввода в эксплуатацию:</strong> <%= tag.span l @accounting.date, format: "%e %B %Y год" if @accounting.date %></div>
+            <div class="mb-2"><strong>Срок полезного использования:</strong> <%= tag.span "#{@accounting.useful_life} мес." if @accounting.useful_life %></div>
           </div>
         </div>
 
         <div class="row justify-content-between">
           <div class="col-auto">
-            <%#= render partial: "add_edit_asset", locals: { model: @asset, text: "Изменить", title: "Редактирование основного средства (ОС)" } %>
+            <%#= render partial: "add_edit_asset", locals: { model: @accounting, text: "Изменить", title: "Редактирование основного средства (ОС)" } %>
           </div>
           <%# <div class="col-auto">
             <a class="btn app-btn-secondary" href="#">Cancel Plan</a>
@@ -108,6 +98,6 @@
       </div><!--//app-card-body-->
     </div><!--//app-card-->
 
-    <%= render partial: "shared/accounting/notes", locals: { item: @asset } %>
+    <%= render "accounting/notes/accounting_notes", item: @accounting %>
   </div>
 </div>

@@ -1,16 +1,7 @@
+<%= render "shared/errors", model: asset_type %>
+
 <%= form_with model: [:directories, asset_type] do |f| %>
   <%= f.hidden_field :parent_id %>
-
-  <% if asset_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(asset_type.errors.count, "error") %> prohibited this asset type from being saved:</h2>
-      <ul>
-        <% asset_type.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <% if @asset_type.parent %>
   <div class="mb-3">

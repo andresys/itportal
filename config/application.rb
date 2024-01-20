@@ -23,5 +23,7 @@ module Portal
     config.active_storage.variant_processor = :mini_magick
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.action_view.preload_links_header = false
   end
 end

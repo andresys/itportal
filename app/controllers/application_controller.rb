@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include ErrorHandling
 
+  helper_method :turbo_frame_request?
+  
   layout proc { false if request.xhr? }
   before_action :save_back_url, :only => :index
   before_action :set_back_url

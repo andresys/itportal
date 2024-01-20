@@ -1,5 +1,5 @@
 <% job.status ||= ActiveJob::Status.get(job.job_id).to_h %>
-<%= tag.li class: "list-group-item" do %>
+<%= tag.li class: "list-group-item", data: {job_id: job.job_id} do %>
   <div class="d-flex gap-2 align-items-center">
     <div>
       <%= bs_icon 'boxes' %>

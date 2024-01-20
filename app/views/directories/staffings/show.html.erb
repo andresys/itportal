@@ -1,7 +1,7 @@
 <% provide :page_title, "Штатное расписание" %>
 
 <%= page_title "Штатное расписание", @back_url do %>
-  <%= link_to [:directories, @organization, :staffing], class: "btn btn-danger flex-fill", method: :delete, data: { confirm: t(:confirm) } do %>
+  <%= link_to [:directories, @organization, :staffing], class: "btn btn-danger flex-fill", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } do %>
     <%= bs_icon('trash') %>
     <%= t('.remove') %>
   <% end unless @organization.department.children.any? || @organization.department.titles.any? %>

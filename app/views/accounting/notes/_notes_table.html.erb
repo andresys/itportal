@@ -1,0 +1,10 @@
+<% if item.notes.any? %>
+  <table class="table table-striped table-sm mb-4">
+    <colgroup>
+      <col>
+      <col class="w-100">
+      <col>
+    </colgroup>
+    <%= render item.notes %>
+  </table>
+<% end %>

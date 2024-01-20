@@ -31,6 +31,7 @@ class ApplicationJob < ActiveJob::Base
 
 protected
   def set_step step
+    ActionCable.server.broadcast "job_channel", { status: step }
     status[:step] = (status[:step] || []).push({time: DateTime.now, name: step})
     p step
   end

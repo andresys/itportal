@@ -1,6 +1,6 @@
 import { Fancybox } from "@fancyapps/ui"
 
-window.addEventListener('turbolinks:load', () => {
+window.addEventListener('turbo:load', () => {
   let opts = {}
 
   Fancybox.bind('[data-fancybox]', opts)

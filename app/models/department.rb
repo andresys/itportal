@@ -4,4 +4,5 @@ class Department < ApplicationRecord
   has_many :titles, dependent: :destroy
   
   validates :parent_id, presence: true, if: Proc.new { |d| d.organization_id.blank? }
+  validates :name, presence: true
 end

@@ -7,8 +7,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%#= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application' %>
+    <%#= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application', nonce: true %>
   </head>
 
   <body class="app" data-lang="<%= I18n.locale %>">
@@ -23,6 +23,6 @@
       </div>
 
       <%= render :partial => "footer" %>
-    </div><!--//app-wrapper-->    					
+    </div><!--//app-wrapper-->
   </body>
 </html>

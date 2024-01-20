@@ -20,10 +20,6 @@ ru:
         employee: Ответственное лицо
         organization: Организация
         photo: Наличие фото
-    accounting:
-      possessions:
-        add_possession: Добавить ответственного
-        edit: Редактировать
     
   application:
     navigation:
@@ -50,18 +46,23 @@ ru:
         storage: На хранении
       show:
         upload: Загрузить фото ОС
+      accounting:
         edit: Редактировать
       form:
-        name: Название
-        type: Тип ресурса
+        name: Наименование
+        type: Тип оборудования
     materials:
       show:
         upload: Загрузить фото
+      accounting:
         edit: Редактировать
       form:
-        name: Название
-        type: Тип ресурса
+        name: Наименование
+        type: Тип оборудования
     possessions:
+      possessions:
+        add_possession: Добавить ответственного
+        edit: Редактировать
       form:
         employee: Ответственный пользователь
         room: Местонахождение
@@ -129,20 +130,25 @@ ru:
       type: Тип задачи
 
   activerecord:
+    errors:
+      messages:
+        required: не может быть пустым
     models:
       asset: 
         one: основное средство
         other: основные средства
     attributes:
       asset:
-        name: Название
-        type_id: Тип ресурса
+        name: Наименование
+        type: Тип оборудования
+        type_id: Тип оборудования
       material:
-        name: Название
-        type_id: Тип ресурса
+        name: Наименование
+        type: Тип оборудования
+        type_id: Тип оборудования
       note:
         date: Дата
-        text: Заметка
+        text: Текст заметки
         images: добавить фото
       location:
         name: Адрес
@@ -161,7 +167,9 @@ ru:
       room:
         name: Помещение
       possession:
+        employee: Ответственный пользователь
         employee_id: Ответственный пользователь
+        room:  Местонахождение
         room_id: Местонахождение
         count: Количество
       organization:

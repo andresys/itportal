@@ -1,7 +1,9 @@
 <tr>
-  <td class="cell text-center"><%= tag.small l note.date, format: "%d.%m.%Y" %></td>
+  <td class="cell text-center">
+    <%= tag.small l note.date, format: "%d.%m.%Y" %>
+  </td>
   <td class="cell">
-    <%= link_to "#{note.noteble&.name}:", [:accounting, note.noteble] %>
+    <%= link_to "#{note.noteble&.name}:", [:accounting, note.noteble] unless @accounting.present? %>
     <div class="fst-italic">
       <% if note.text.empty? && note.images.empty? %>
         <p class="m-0">[нет содержимого]</p>
@@ -9,17 +11,19 @@
         <% note.text.lines.each do |line| %>
           <%= tag.p line, class: "m-0" %>
         <% end %>
-        <div class="mt-1 d-flex gap-1 flex-wrap">
-          <% note.images.each do |image| %>
-            <%= link_to rails_storage_proxy_path(image), data: { fancybox: "gallery-#{note.id}" } do %>
-              <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "thumb-image img-thumbnail" %>
+        <% if note.images.any? %>
+          <div class="mt-1 d-flex gap-1 flex-wrap">
+            <% note.images.each do |image| %>
+              <%= link_to rails_storage_proxy_path(image), data: { fancybox: "gallery-#{note.id}" } do %>
+                <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "thumb-image img-thumbnail" %>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </td>
   <td class="cell text-end">
-    <%= link_to bs_icon('pencil-square'), [:accounting, note] %>
+    <%= link_to bs_icon('pencil-square'), [:accounting, note], data: { turbo: false } %>
   </td>
 </tr>

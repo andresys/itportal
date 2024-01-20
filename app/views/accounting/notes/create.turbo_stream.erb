@@ -1,0 +1,7 @@
+<%= turbo_stream.update "notes_table" do %>
+  <%= render "notes_table", item: @accounting %>
+<% end %>
+
+<%= turbo_stream.update "notes_form" do %>
+  <%= render "notes_form", note: @note, item: @accounting %>
+<% end %>

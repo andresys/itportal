@@ -6,5 +6,9 @@ class Note < ApplicationRecord
     attachable.variant :icon, :resize_to_fill => [34,34]
   end
 
+  validates :text, presence: true
+
+  # after_create_commit -> { broadcast_append_to "notes", partial: "shared/accounting/note", locals: { note: self }, target: "notes" }
+
   default_scope { order(date: :asc, created_at: :asc) }
 end

@@ -184,7 +184,7 @@ var barChartConfig = {
 }
 
 // Generate charts on load
-window.addEventListener('turbolinks:load', () => {
+window.addEventListener('turbo:load', () => {
 	var lineChart = document.getElementById('canvas-linechart')
 	if(lineChart) {
 		window.myLine = new Chart(lineChart.getContext('2d'), lineChartConfig)

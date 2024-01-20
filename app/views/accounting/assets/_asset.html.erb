@@ -18,7 +18,7 @@
   </td>
   <td class="cell text-center"><%= status_tag asset.account&.code %></td>
 
-  <td class="cell text-end">
+  <td class="cell text-center">
     <%= human_cost.call(asset.cost) %>
     <%= "<br/><small class=\"text-nowrap\">(#{human_cost.call(asset.cost / asset.count)}/шт)</small>".html_safe if asset.count > 1 %>
   </td>

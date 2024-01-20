@@ -1,5 +1,9 @@
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
+import "@hotwired/turbo-rails"
+// import { Turbo } from "@hotwired/turbo-rails"
+// import RoleModelConfirm from "@rolemodel/turbo-confirm"
+// Turbo.setConfirmMethod(RoleModelConfirm.confirm)
+// RoleModelConfirm.init()
+
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
@@ -15,6 +19,4 @@ import "../plugins/itportal"
 import "../plugins/select"
 import "../plugins/fancybox"
 
-Rails.start()
-Turbolinks.start()
 ActiveStorage.start()

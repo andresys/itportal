@@ -81,7 +81,16 @@ svg:not(:host).svg-inline--fa, svg:not(:root).svg-inline--fa {
   --bs-btn-focus-shadow-rgb: 25, 135, 84;
 }
 
-.turbolinks-progress-bar {
+.turbo-progress-bar {
   height: 5px;
   background-color: #15a362;
+}
+
+.field_with_errors {
+  .form-control {
+    border-color: $red;
+  }
+  label {
+    color: $red;
+  }
 }

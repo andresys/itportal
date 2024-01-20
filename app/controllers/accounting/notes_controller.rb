@@ -1,5 +1,5 @@
 class Accounting::NotesController < ApplicationController
-  before_action :set_model, only: %i[create]
+  before_action :set_accounting, only: %i[create]
   before_action :set_note, only: %i[show update destroy]
 
   def index
@@ -10,15 +10,15 @@ class Accounting::NotesController < ApplicationController
   end
 
   def create
-    @note = Note.new(note_params)
-    @note.noteble = @model
+    @note = @accounting.notes.build note_params
     @note.images.attach(params[:note][:images]) if params.dig(:note, :images).present? && @note.valid?
 
     respond_to do |format|
       if @note.save
-        format.html { redirect_to [:accounting, @model], notice: "Note was successfully created." }
+        format.html { redirect_to [:accounting, @accounting], notice: "Note was successfully created." }
+        format.turbo_stream { @note = Note.new(date: Date.current)  }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render "accounting/#{@accounting.class.name.underscore}s/show", status: :unprocessable_entity }
       end
     end
   end
@@ -47,10 +47,10 @@ class Accounting::NotesController < ApplicationController
   end
 
 private
-  def set_model
-    @model = Asset.find(params[:asset_id]) if params[:asset_id]
-    @model = Material.find(params[:material_id]) if params[:material_id]
-    @model
+  def set_accounting
+    @accounting = Asset.find(params[:asset_id]) if params[:asset_id]
+    @accounting = Material.find(params[:material_id]) if params[:material_id]
+    @accounting
   end
 
   def set_note
@@ -60,7 +60,7 @@ private
   def set_back_url
     @back_url = if request.referer
       h = Rails.application.routes.recognize_path session[:back_url]
-      h[:controller] == 'accounting/notes' ? session[:back_url] : [:accounting, set_model || set_note.noteble]
+      h[:controller] == 'accounting/notes' ? session[:back_url] : [:accounting, set_accounting || set_note.noteble]
     else
       [:accounting, :notes]
     end

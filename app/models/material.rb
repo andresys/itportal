@@ -17,6 +17,7 @@ class Material < ApplicationRecord
   has_many :employees, through: :possessions
   belongs_to :type, class_name: "AssetType", optional: true
   
+  validates :type, presence: true
   
   attr_accessor :uid
   attr_reader :all_images

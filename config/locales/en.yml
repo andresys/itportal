@@ -15,10 +15,6 @@ en:
         employee: Employee
         organization: Organization
         photo: Photo availability
-    accounting:
-      possessions:
-        add_possession: Add possession
-        edit: Edit
   
   application:
     navigation:
@@ -44,18 +40,23 @@ en:
         storage: "On storage"
       show:
         upload: Upload photo
+      accounting:
         edit: Edit
       form:
         name: Name
-        type: Asset type
+        type: Accounting type
     materials:
       show:
         upload: Загрузить фото
+      accounting:
         edit: Редактировать
       form:
         name: Name
-        type: Asset type
+        type: Accounting type
     possessions:
+      possessions:
+        add_possession: Add possession
+        edit: Edit
       form:
         employee: Employee
         room: Location
@@ -124,6 +125,9 @@ en:
 
 
   activerecord:
+    errors:
+      messages:
+        required: cannot be empty
     models:
       asset: 
         one: Asset
@@ -131,13 +135,15 @@ en:
     attributes:
       asset:
         name: Name
-        type_id: Asset type
+        type: Accounting type
+        type_id: Accounting type
       material:
         name: Name
-        type_id: Asset type
+        type: Accounting type
+        type_id: Accounting type
       note:
         date: Date
-        text: Note
+        text: Note text
         images: add photo
       location:
         name: Address
@@ -156,7 +162,9 @@ en:
       room:
         name: Room
       possession:
+        employee: Employee
         employee_id: Employee
+        room: Location
         room_id: Location
         count: Count
       organization:

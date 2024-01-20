@@ -1,7 +1,7 @@
 import * as Alert from "bootstrap/js/dist/alert"
 import * as Toast from "bootstrap/js/dist/toast"
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener('turbo:load', () => {
 	/* ===== Enable Bootstrap Popover (on element  ====== */
 	var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="popover"]'))
 	var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {

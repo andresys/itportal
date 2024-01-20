@@ -48,11 +48,12 @@ Rails.application.routes.draw do
     resources :prints, only: %i[index]
   end
   resources :users
+  
+  mount ActionCable.server => '/cable'
 
   if Rails.env == "production"
     get '/', to: redirect { |p, r| "#{r.url}/accounting" }, as: :root
   else
     root 'dashboard#index'
   end
-  
 end

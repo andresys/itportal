@@ -18,6 +18,7 @@ class Employee < ApplicationRecord
   belongs_to :organization, optional: true
   belongs_to :title, optional: true
 
+  validates :name, presence: true
   validates_with EmployeeValidator
 
   default_scope { order(name: :asc) }
