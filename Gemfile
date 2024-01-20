@@ -42,7 +42,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   # gem 'spring'
   gem 'progress_bar'
-  gem 'turbo-rails'
 end
 
 group :test do
@@ -64,6 +63,7 @@ gem 'securerandom'
 gem 'net-ldap'
 gem 'activeldap'
 gem 'bindata', '~> 2'
+gem 'turbo-rails'
 
 gem 'simple_form'
 #gem 'easy_table'
