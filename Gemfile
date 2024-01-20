@@ -26,6 +26,8 @@ gem 'sprockets-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'turbo-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -63,10 +65,7 @@ gem 'securerandom'
 gem 'net-ldap'
 gem 'activeldap'
 gem 'bindata', '~> 2'
-gem 'turbo-rails'
 
-gem 'simple_form'
-#gem 'easy_table'
 gem 'friendly_id', '~> 5.5.1'
 
 #gem 'http_accept_language'
@@ -78,7 +77,6 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'cupsffi'
 gem 'kaminari'
-
 gem 'sidekiq'
 gem 'httparty'
 gem 'json'
