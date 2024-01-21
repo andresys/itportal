@@ -1,8 +1,4 @@
 import "@hotwired/turbo-rails"
-// import { Turbo } from "@hotwired/turbo-rails"
-// import RoleModelConfirm from "@rolemodel/turbo-confirm"
-// Turbo.setConfirmMethod(RoleModelConfirm.confirm)
-// RoleModelConfirm.init()
 
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"

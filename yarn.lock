@@ -1164,11 +1164,6 @@
     webpack-cli "^3.3.12"
     webpack-sources "^1.4.3"
 
-"@rolemodel/turbo-confirm@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@rolemodel/turbo-confirm/-/turbo-confirm-1.1.2.tgz#aba14175d20fd3ab3c6b7019972712a430e2c438"
-  integrity sha512-95JAMBP9+/ZagYdam7Uqjgnvow9hU/ectDB1xFcZR+kwVuKHjsZ2hbopnHNjfg1/sTzBUi1qkv8zUeVuR5+IlA==
-
 "@types/glob@^7.1.1":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.2.0.tgz#bc1b5bf3aa92f25bd5dd39f35c57361bdce5b2eb"
