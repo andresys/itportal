@@ -63,6 +63,7 @@ ru:
       possessions:
         add_possession: Добавить ответственного
         edit: Редактировать
+        not_set: "[не установлено]"
       form:
         employee: Ответственный пользователь
         room: Местонахождение
@@ -133,6 +134,7 @@ ru:
     errors:
       messages:
         required: не может быть пустым
+        employee_or_location_must_not_be_empty: Сотрудник или местоположение должны быть не пустыми
     models:
       asset: 
         one: основное средство

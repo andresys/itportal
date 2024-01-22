@@ -25,8 +25,5 @@ module Portal
     config.active_job.queue_adapter = :sidekiq
 
     config.action_view.preload_links_header = false
-
-    # config.action_cable.allowed_request_origins = ['https://itportal.adm.tver.ru']
-    # config.action_cable.disable_request_forgery_protection = true
   end
 end

@@ -57,6 +57,7 @@ en:
       possessions:
         add_possession: Add possession
         edit: Edit
+        not_set: "[not set]"
       form:
         employee: Employee
         room: Location
@@ -128,6 +129,7 @@ en:
     errors:
       messages:
         required: cannot be empty
+        employee_or_location_must_not_be_empty: Employee or location must not be empty
     models:
       asset: 
         one: Asset

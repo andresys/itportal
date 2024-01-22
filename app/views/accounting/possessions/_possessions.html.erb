@@ -32,9 +32,23 @@
   <% end %>
 <% elsif item.count == 1 %>
   <%= turbo_frame_tag "possessions_form" do %>
-    <div>
-      <div class="row mb-2"><strong class="col-auto">Нахождение:</strong> <%= link_to item.possessions.first.room.full_name, accounting_assets_path(location: item.possessions.first.room), class: "col-auto" %></div>
-      <div class="row mb-2"><strong class="col-auto">Ответственное лицо:</strong> <%= link_to item.possessions.first.employee.name, accounting_assets_path(employee: item.possessions.first.employee), class: "col-auto" %></div>
+    <div data-turbo="false">
+      <div class="row mb-2">
+        <strong class="col-auto">Ответственное лицо:</strong>
+        <% if item.possessions.first.employee %>
+          <%= link_to item.possessions.first.employee&.name, accounting_assets_path(employee: item.possessions.first.employee), class: "col-auto" %>
+        <% else %>
+          <%= tag.span t('.not_set'), class: "col-auto" %>
+        <% end %>
+      </div>
+      <div class="row mb-2">
+        <strong class="col-auto">Нахождение:</strong>
+        <% if item.possessions.first.room %>
+          <%= link_to item.possessions.first.room&.full_name, accounting_assets_path(location: item.possessions.first.room), class: "col-auto" %>
+        <% else %>
+          <%= tag.span t('.not_set'), class: "col-auto" %>
+        <% end %>
+      </div>
     </div>
 
     <div class="row justify-content-center justify-content-sm-end">
