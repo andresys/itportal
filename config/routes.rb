@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   end
   resources :users
   
-  mount ActionCable.server => '/cable'
+  # mount ActionCable.server => '/cable'
 
   if Rails.env == "production"
     get '/', to: redirect { |p, r| "#{r.url}/accounting" }, as: :root
