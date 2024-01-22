@@ -31,9 +31,10 @@ class Accounting::MaterialsController < ApplicationController
     @accountings = Material.left_joins(:uids, :images_attachments, :account, :mol, :rooms, :employees)
       .where(query_parameters)
       .where(matches_string.(:name))
+      .group(:id)
 
-    @accountings = @accountings.group(:id).having("COUNT(active_storage_attachments) > 0") if params[:photo] == 1.to_s
-    @accountings = @accountings.group(:id).having("COUNT(active_storage_attachments) = 0") if params[:photo] == 2.to_s
+    @accountings = @accountings.having("COUNT(active_storage_attachments) > 0") if params[:photo] == 1.to_s
+    @accountings = @accountings.having("COUNT(active_storage_attachments) = 0") if params[:photo] == 2.to_s
 
     @accountings = @accountings.page(page).per(page_size)
   end

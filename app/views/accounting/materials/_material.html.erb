@@ -1,7 +1,8 @@
 <tr>
   <td class="cell text-center">#</td>
   <td class="cell">
-    <%= link_to material.name, [:accounting, material], class: "truncate1", title: material.name %>
+    <%= link_to material.name, [:accounting, material], class: "d-block", title: material.name %>
+    <%= tag.span material.rooms.map(&:full_name).join(', '), class: "d-block text-truncate" %>
   </td>
   <td class="cell text-center"><%= number_to_currency(material.cost / material.count, separator: ',', unit: '₽') %></td>
   <td class="cell text-center"><%= material.count %></td>
