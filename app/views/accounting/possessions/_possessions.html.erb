@@ -1,14 +1,28 @@
 <% if item.possessions.any? && item.count > 1 %>
   <div class="table-responsive">
-    <table class="table table-striped table-sm m-0" data-turbo="false">
+    <table class="table table-striped table-sm text-nowrap m-0" data-turbo="false">
+      <tr>
+        <th>Кол-во</th>
+        <th>Ответственное лицо</th>
+        <th>Нахождение</th>
+        <th></th>
+      </tr>
       <% item.possessions.each do |possession| %>
         <tr>
           <%= tag.td "#{possession.count} шт.", class: "cell" %>
           <td class="cell">
-            <%= link_to possession.employee.name, accounting_assets_path(employee: possession.employee) %>
+            <% if possession.employee %>
+              <%= link_to possession.employee&.name, accounting_assets_path(employee: possession.employee) %>
+            <% else %>
+              <%= tag.span t('.not_set'), class: "col-auto" %>
+            <% end %>
           </td>
           <td class="cell">
-            <%= link_to possession.room.full_name, accounting_assets_path(location: possession.room) %>
+            <% if possession.room %>
+              <%= link_to possession.room&.full_name, accounting_assets_path(location: possession.room) %>
+            <% else %>
+              <%= tag.span t('.not_set'), class: "col-auto" %>
+            <% end %>
           </td>
           <td class="cell text-end">
             <%= link_to bs_icon('pencil-square'), [:accounting, item, possession] %>

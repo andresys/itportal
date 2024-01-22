@@ -1,0 +1,52 @@
+ru:
+  activerecord:
+    errors:
+      messages:
+        required: не может быть пустым
+        employee_or_location_must_not_be_empty: Сотрудник или местоположение должны быть не пустыми
+    models:
+      asset: 
+        one: основное средство
+        other: основные средства
+    attributes:
+      asset:
+        name: Наименование
+        type: Тип оборудования
+        type_id: Тип оборудования
+      material:
+        name: Наименование
+        type: Тип оборудования
+        type_id: Тип оборудования
+      note:
+        date: Дата
+        text: Текст заметки
+        images: добавить фото
+      location:
+        name: Адрес
+      employee:
+        name: ФИО сотрудника
+        organization_id: Организация
+        title_id: Подразделение и должность
+        images: Загрузить фото
+      department:
+        name: Название подразделения
+        department: Подразделение
+      title:
+        name: Название должности
+        department: Подразделение
+        employee_id: Сотрудник
+      room:
+        name: Помещение
+      possession:
+        employee: Ответственный пользователь
+        employee_id: Ответственный пользователь
+        room:  Местонахождение
+        room_id: Местонахождение
+        count: Количество
+      organization:
+        name: Название организации
+      asset_type:
+        name: Название типа ресурса
+        asset_type: Родительский тип
+      job:
+        type: Тип задачи

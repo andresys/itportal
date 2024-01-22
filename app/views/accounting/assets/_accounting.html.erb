@@ -1,5 +1,5 @@
 <div class="row mb-2"><strong class="col-auto">Наименование:</strong> <%= tag.span @accounting.name, class: "col-auto" %></div>
-<div class="row mb-2"><strong class="col-auto">Тип оборудования:</strong> <%= tag.span @accounting.type&.name || "[не установлен]", class: "col-auto" %></div>
+<div class="row mb-2"><strong class="col-auto">Тип оборудования:</strong> <%= tag.span @accounting.type&.name || t('.not_set'), class: "col-auto" %></div>
 
 <div class="row justify-content-center justify-content-sm-end">
   <div class="col-auto">

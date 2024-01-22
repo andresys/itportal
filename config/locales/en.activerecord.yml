@@ -1,0 +1,52 @@
+en:
+  activerecord:
+    errors:
+      messages:
+        required: cannot be empty
+        employee_or_location_must_not_be_empty: Employee or location must not be empty
+    models:
+      asset: 
+        one: Asset
+        other: Assets
+    attributes:
+      asset:
+        name: Name
+        type: Accounting type
+        type_id: Accounting type
+      material:
+        name: Name
+        type: Accounting type
+        type_id: Accounting type
+      note:
+        date: Date
+        text: Note text
+        images: add photo
+      location:
+        name: Address
+      employee:
+        name: Name
+        organization_id: Organization
+        title_id: Department and title
+        images: Upload photo
+      department:
+        name: Department
+        department: Department
+      title:
+        name: Title
+        department: Department
+        employee_id: Employee
+      room:
+        name: Room
+      possession:
+        employee: Employee
+        employee_id: Employee
+        room: Location
+        room_id: Location
+        count: Count
+      organization:
+        name: Name
+      asset_type:
+        name: Name
+        asset_type: Parent type
+      job:
+        type: Task type
