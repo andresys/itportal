@@ -1,5 +1,5 @@
 development:
-  base_uri: https://10.10.2.31/TEST
+  base_uri: https://10.10.2.31/BGU
   verify: false
   username: admin
   password: inf24!sp

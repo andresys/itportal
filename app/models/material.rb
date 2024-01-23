@@ -17,7 +17,7 @@ class Material < ApplicationRecord
   has_many :employees, through: :possessions
   belongs_to :type, class_name: "AssetType", optional: true
   
-  validates :type, presence: true
+  # validates :type, presence: true
   
   attr_accessor :uid
   attr_reader :all_images
@@ -36,6 +36,6 @@ class Material < ApplicationRecord
   def permit_desdroy?
     return if delete_mark
     errors[:base] << "Material don't mark for removing."
-    throw :abort
+    # throw :abort
   end
 end

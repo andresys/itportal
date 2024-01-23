@@ -3,9 +3,9 @@
   <strong>Внимание:</strong>
   Элемент помечен для удаления
   <div class="ms-auto">
-    <%= button_to [:accounting, item], class: "btn btn-outline-danger", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } do %>
+    <%= button_to [:accounting, item], class: "btn btn-outline-danger", method: :delete, data: { turbo_confirm: t(:confirm) } do %>
       <%= bs_icon('trash') %>
       Удалить сейчас?
     <% end %>
   </div>
-<% end if item.delete_mark %>
+<% end #if item.delete_mark %>
