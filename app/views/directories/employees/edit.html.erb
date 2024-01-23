@@ -3,8 +3,10 @@
 <%= page_title @employee.name, @back_url %>
 
 <div class="d-flex gap-2">
-  <%= render partial: "shared/accounting/image_card", collection: @employee.images, as: :image %>
+  <%= render partial: "shared/image_card", collection: @employee.images, as: :image %>
 </div>
+
+<%= render partial: "shared/remove_action", locals: {item: @employee, link: lambda {|item| [:directories, item]}}%>
 
 <%= tag.hr class: "mb-4" if @employee.images.any? %>
 
