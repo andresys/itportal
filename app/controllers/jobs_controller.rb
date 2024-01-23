@@ -45,6 +45,14 @@ class JobsController < ApplicationController
     end
   end
 
+  def destroy
+    @job = Job.find(params[:id])
+    @job.destroy
+    respond_to do |format|
+      format.html { redirect_to @back_url, notice: "Job was successfully destroyed." }
+    end
+  end
+
 private
   def job_params
     params.fetch(:job, {}).permit(:type)

@@ -22,6 +22,7 @@
           <div class="col-auto col-sm text-truncate">
             <div class="d-flex flex-wrap mt-2 mt-sm-0 justify-content-end">
               <%= render partial: 'short_history', locals: {job: @job} %>
+              <%= link_to bs_icon('trash'), [@job], class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } %>
             </div>
           </div>
         </div>

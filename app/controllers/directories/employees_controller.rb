@@ -10,7 +10,7 @@ class Directories::EmployeesController < DirectoriesController
 
     @query = request.query_parameters
 
-    query_parameters = {}
+    query_parameters = {delete_mark: false}
 
     if @organization || params[:organization] == '0'
       query_parameters.merge!(organization: {id: @organization})
