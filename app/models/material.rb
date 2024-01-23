@@ -36,6 +36,6 @@ class Material < ApplicationRecord
   def permit_desdroy?
     return if delete_mark
     errors[:base] << "Material don't mark for removing."
-    # throw :abort
+    throw :abort
   end
 end
