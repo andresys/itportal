@@ -35,9 +35,9 @@
     </div>
 
     <div class="accordion" id="recordsHistory">
-      <%= render partial: "history", locals: {job_histories: @add_histories, action: 'add', title: "Список добавленных записей", parent: "recordsHistory"} %>
-      <%= render partial: "history", locals: {job_histories: @remove_histories, action: 'remove', title: "Список удаляемых записей", parent: "recordsHistory"} %>
-      <%= render partial: "history", locals: {job_histories: @change_histories, action: 'change', title: "Список измененных записей", parent: "recordsHistory"} %>
+      <%= render "job_histories/histories", job_histories: @add_histories, action: 'add', title: "Список добавленных записей", parent: "recordsHistory" %>
+      <%= render "job_histories/histories", job_histories: @remove_histories, action: 'remove', title: "Список удаляемых записей", parent: "recordsHistory" %>
+      <%= render "job_histories/histories", job_histories: @change_histories, action: 'change', title: "Список измененных записей", parent: "recordsHistory" %>
     </div>
    
   </div>

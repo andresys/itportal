@@ -1,22 +1,22 @@
-<% return unless history.record %>
+<% return unless job_history.record %>
 
 <%= tag.li class: "list-group-item" do %>
   <div class="d-flex gap-2 align-items-center">
     <div>
-      <%= tag.span "#{history_counter + 1}." %>
+      <%= tag.span "#{job_history_counter + 1}." %>
     </div>
 
     <%= tag.div class: "flex-fill text-truncate px-2" do %>
       <div class="row align-items-center">
-        <%= render partial: "item_#{history.record_type.downcase}", locals: {history: history} %>
+        <%= render partial: "job_histories/item_#{job_history.record_type.downcase}", locals: {job_history: job_history} %>
 
-        <% if history.action == 'change' %>
+        <% if job_history.action == 'change' %>
           <div class="col">
             <div class="d-flex flex-column">
-              <% history.values.each do |k,v| %>
+              <% job_history.values.each do |k,v| %>
                 <div class="d-flex gap-2">
                   <%= tag.strong "#{k}:"%>
-                  <%= tag.span "#{v} -> #{history.record[k]}" %>
+                  <%= tag.span "#{v} -> #{job_history.record[k]}" %>
                 </div>
               <% end %>
             </div>

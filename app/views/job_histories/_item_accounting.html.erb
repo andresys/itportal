@@ -1,0 +1,27 @@
+<div class="col-auto col-sm-8 col-md-7 text-truncate">
+  <%= link_to job_history.record.name, [:accounting, job_history.record] if job_history.record %><br/>
+  <small><%= job_history.record&.mol&.name %></small>
+</div>
+<div class="col-auto col-sm text-truncate">
+  <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mt-sm-0">
+    <% if job_history.record&.count %>
+      <% css_class = {add: 'text-bg-success', remove: 'text-bg-danger', change: 'text-bg-secondary'}[job_history.action.to_sym] || '' %>
+      <% sign = {add: '+', remove: '-'}[job_history.action.to_sym] || '' %>
+      <%= tag.span "#{sign}#{job_history.record&.count} шт", class: "badge rounded-pill #{css_class}" %>
+    <% end %>
+
+    <% if job_history.record&.notes.any? %>
+      <% css_class = {add: 'text-success', remove: 'text-danger', change: 'text-secondary'}[job_history.action.to_sym] || '' %>
+      <%= tag.span class: "badge rounded-pill #{css_class}", title: "Объект имеет заметки" do %>
+        <%= bs_icon 'journal-bookmark' %>
+      <% end %>
+    <% end %>
+
+    <% if job_history.record&.images.any? %>
+      <% css_class = {add: 'text-success', remove: 'text-danger', change: 'text-secondary'}[job_history.action.to_sym] || '' %>
+      <%= tag.span class: "badge rounded-pill #{css_class}", title: "Объект имеет изображения" do %>
+        <%= bs_icon 'images' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

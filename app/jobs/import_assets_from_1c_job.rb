@@ -5,7 +5,7 @@ class ImportAssetsFrom1cJob < ApplicationJob
 
     return unless data.respond_to?(:any?) && data.any?
 
-    progress.total = data.count
+    set_progress data.count
     job = Job.find_by(job_id: @job_id)
     ids = []
     histories = []
@@ -17,7 +17,7 @@ class ImportAssetsFrom1cJob < ApplicationJob
     @accounts = {}
     
     data.each do |asset|
-      progress.increment
+      set_progress
       
       unless @organizations.has_key? asset['organization_code']
         organization = Organization.find_by_name_and_code(asset['organization'], nil)

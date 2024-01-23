@@ -4,7 +4,7 @@
   <small class="accordion-header">
     <%= tag.div class: "accordion-button collapsed p-2", type: "button", data: {'bs-toggle': "collapse", 'bs-target': "##{action}Records"} do %>
       <% sign = {add: '+', remove: '-'}[action.to_sym] || '' %>
-      <% css_class = {add: 'text-bg-success', remove: 'text-bg-danger', change: 'text-bg-secondary'}[action.to_sym] || '' %>
+      <% css_class = {add: 'text-bg-success', remove: 'text-bg-danger', change: 'text-bg-warning'}[action.to_sym] || '' %>
       <%= tag.span "#{sign}#{job_histories.count}", class: "badge rounded-pill #{css_class}" %>
       <%= tag.span title, class: "ms-2" %>
     <% end %>
@@ -13,7 +13,7 @@
   <%= tag.div id: "#{action}Records", class: "accordion-collapse collapse", data: html_data do %>
     <div class="accordion-body p-0">
       <ul class="list-group list-group-flush">
-        <%= render partial: "item", collection: job_histories, as: :history %>
+        <%= render job_histories %>
 
         <%= tag.li class: "list-group-item" do %>
           <div class="d-flex gap-2 align-items-center">

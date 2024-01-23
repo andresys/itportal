@@ -12,27 +12,58 @@ class ApplicationJob < ActiveJob::Base
     Job.create(job_type: job_type, job_id: @job_id)
   end
 
-  before_perform do |job|
-    job.status[:status] = :working
-    Job.find_by(job_id: @job_id)&.update(start_time: DateTime.now)
+  before_perform do |active_job|
+    active_job.status[:status] = :working
+    job = Job.find_by(job_id: @job_id)
+    job&.update(start_time: DateTime.now)
+    ActionCable.server.broadcast "job_channel", { job_id: @job_id,
+      job_item: ApplicationController.render(partial: "jobs/job_item", locals: { job: job }),
+      job_progress: ApplicationController.helpers.job_progress(Job.find_by(job_id: job_id)),
+      job_action: ApplicationController.render(partial: "jobs/job_action", locals: { job: job })
+    }
   end
 
-  after_perform do |job|
-    job.status[:status] = :completed
-    Job.find_by(job_id: @job_id)&.update(end_time: DateTime.now, status: job.status.to_h)
+  after_perform do |active_job|
+    active_job.status[:status] = :completed
+    job = Job.find_by(job_id: @job_id)
+    job&.update(end_time: DateTime.now, status: active_job.status.to_h)
+    ActionCable.server.broadcast "job_channel", { job_id: @job_id,
+      job_item: ApplicationController.render(partial: "jobs/job_item", locals: { job: job }),
+      job_progress: ApplicationController.helpers.job_progress(Job.find_by(job_id: job_id)),
+      job_action: ApplicationController.render(partial: "jobs/job_action", locals: { job: job })
+    }
   end
 
   rescue_from(Exception) do |e|
     status[:status] = :failed
     status[:exception] = { class: e.class, message: e.message }
-    Job.find_by(job_id: @job_id)&.update(end_time: DateTime.now, status: status.to_h)
+    job = Job.find_by(job_id: @job_id)
+    job&.update(end_time: DateTime.now, status: status.to_h)
+    ActionCable.server.broadcast "job_channel", { job_id: @job_id,
+      job_item: ApplicationController.render(partial: "jobs/job_item", locals: { job: job }),
+      job_progress: ApplicationController.helpers.job_progress(Job.find_by(job_id: job_id)),
+      job_action: ApplicationController.render(partial: "jobs/job_action", locals: { job: job })
+    }
     raise e
   end
 
 protected
   def set_step step
-    ActionCable.server.broadcast "job_channel", { status: step }
-    status[:step] = (status[:step] || []).push({time: DateTime.now, name: step})
+    status[:step] = (status[:step] || []).push({ time: DateTime.now, name: step })
     p step
+    job = Job.find_by(job_id: job_id)
+    current_step = ApplicationController.helpers.job_current_log_step(job)
+    messages = ApplicationController.render(partial: 'jobs/log', locals: {job: job})
+    ActionCable.server.broadcast "job_channel", { job_id: job_id, step: current_step, messages: messages }
+  end
+
+  def set_progress total = nil
+    if total
+      progress.total = total
+    else
+      progress.increment
+    end
+    procent = (status[:progress]&.to_i * 100 || 0) / status[:total]&.to_i if status[:total]&.to_i > 0
+    ActionCable.server.broadcast "job_channel", { job_id: job_id, procent: procent || 0 }
   end
 end

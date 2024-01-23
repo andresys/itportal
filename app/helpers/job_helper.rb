@@ -1,5 +1,6 @@
 module JobHelper
   def job_logs job
+    job.status ||= ActiveJob::Status.get(job.job_id).to_h
     return unless job.status
     status = []
     status << {time: job.start_time, name: 'Starting a job'} if job.start_time
@@ -14,28 +15,31 @@ module JobHelper
   end
 
   def job_current_log_step job
+    job.status ||= ActiveJob::Status.get(job.job_id).to_h
     return unless job.status
     status = []
     status << {time: job.start_time, name: 'Starting a job'} if job.start_time
     status += job.status['step'].kind_of?(Array) ? job.status['step'] : [job.status['step']]
     status << {time: job.end_time, name: 'Finishing the job'} if job.end_time
 
-    tag.div class: "text-truncate" do
+    tag.div id: "step_#{job.job_id}", class: "text-truncate" do
       log_string status.last, date_format: "%H:%M:%S"
     end
   end
 
   def job_progress job
+    job.status ||= ActiveJob::Status.get(job.job_id).to_h
     return unless job.status
     progress = job.status['progress'].to_i
     total = job.status['total'].to_i
     procent = progress * 100 / total if total > 0 && progress <= total
-    tag.div class: "progress", style: "height: 1px" do
-      tag.div class: "progress-bar", style: "width: #{procent}%"
+    tag.li id: "job_progress_#{job.job_id}", class: "progress", style: "height: 1px" do
+      tag.div id: "progress_#{job.job_id}", class: "progress-bar", style: "width: #{procent || 0}%"
     end if job.status['status'] == 'working'
   end
 
   def job_status job
+    job.status ||= ActiveJob::Status.get(job.job_id).to_h
     return unless job.status
     case job.status['status']
       when 'failed'

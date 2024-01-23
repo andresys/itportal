@@ -5,7 +5,7 @@ class ImportEmployeesJob < ApplicationJob
 
     return unless data.respond_to?(:any?) && data.any?
 
-    progress.total = data['contacts'].count
+    set_progress data['contacts'].count
     job = Job.find_by(job_id: @job_id)
     ids = []
     histories = []
@@ -13,7 +13,7 @@ class ImportEmployeesJob < ApplicationJob
     set_step "Parsing data from JSON and save employees to database"
     
     data['contacts'].each do |employee|
-      progress.increment
+      set_progress
 
       values = employee_params employee
       if finded = Employee.find_by(code: values[:code])

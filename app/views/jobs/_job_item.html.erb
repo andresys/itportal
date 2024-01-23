@@ -1,0 +1,21 @@
+<% job.status ||= ActiveJob::Status.get(job.job_id).to_h %>
+<%= tag.div class: "col-12 #{job.status['status'] == 'working' ? 'col-md-auto' : 'col-sm-8 col-md-7 col-lg-6'} text-truncate" do %>
+  <%= link_to t("job.types.#{job.job_type}"), job, class: "d-block text-truncate" %>
+  <small>
+    <%= "[#{job.job_id}]" %>
+  </small>
+<% end %>
+<%= tag.div class: "#{job.status['status'] == 'working' ? 'col' : 'col-sm-4 col-md-3'} text-truncate" do %>
+  <%= tag.div class: "d-flex flex-nowrap mt-2 #{job.status['status'] == 'working' ? 'mt-md-0 justify-content-md-center' : 'mt-sm-0 justify-content-sm-center'}" do %>
+    <% if job.status['status'] == 'working' %>
+      <%= tag.div class: "d-flex align-items-center me-2" do %>
+        <%= tag.span class: "spinner-border spinner-border-sm text-secondary" do %>
+          <%= tag.span "Loading...", class: "visually-hidden" %>
+        <% end %>
+      <% end %>
+      <%= job_current_log_step job %>
+    <% else %>
+      <%= render partial: 'jobs/short_history', locals: {job: job} %>
+    <% end %>
+  <% end %>
+<% end %>

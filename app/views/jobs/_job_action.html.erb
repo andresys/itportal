@@ -1,0 +1,5 @@
+<%= job_status job %>
+
+<%= link_to "#job_log_#{job.job_id}", data: {'bs-toggle': "collapse" } do %>
+  <%= bs_icon 'arrow-down-left-square' %>
+<% end unless job.status && job.status['status'] == 'queued' %>
