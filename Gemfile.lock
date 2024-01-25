@@ -95,6 +95,7 @@ GEM
     awesome_nested_set (3.6.0)
       activerecord (>= 4.0.0, < 7.2)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     bigdecimal (3.1.6)
     bindata (2.4.15)
     bindex (0.8.1)
@@ -116,9 +117,17 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
+    cssbundling-rails (1.4.0)
+      railties (>= 6.0.0)
     cupsffi (0.1.9)
       ffi
     date (3.3.4)
+    devise (4.9.3)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     draper (4.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -128,6 +137,8 @@ GEM
       ruby2_keywords
     drb (2.2.0)
       ruby2_keywords
+    email_validator (2.2.4)
+      activemodel
     erubi (1.12.0)
     fast_gettext (2.3.0)
     ffi (1.16.3)
@@ -160,6 +171,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jsbundling-rails (1.3.0)
+      railties (>= 6.0.0)
     json (2.7.1)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -209,6 +222,7 @@ GEM
     nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
     options (2.3.2)
+    orm_adapter (0.5.0)
     pg (1.5.4)
     prime (0.1.2)
       forwardable
@@ -230,8 +244,6 @@ GEM
     rack (3.0.8)
     rack-mini-profiler (3.3.0)
       rack (>= 1.2.0)
-    rack-proxy (0.7.7)
-      rack
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -285,6 +297,9 @@ GEM
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
+    responders (3.1.1)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.6)
     rqrcode (2.2.0)
       chunky_png (~> 1.0)
@@ -301,14 +316,13 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
-    sidekiq (7.2.0)
+    sidekiq (7.2.1)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
-      redis-client (>= 0.14.0)
+      redis-client (>= 0.19.0)
     singleton (0.2.0)
-    slim (5.2.0)
+    slim (5.2.1)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
     sprockets (4.2.1)
@@ -333,6 +347,8 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -342,11 +358,6 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0, < 4.11)
-    webpacker (5.4.4)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webrick (1.8.1)
     websocket (1.2.10)
     websocket-driver (0.7.6)
@@ -371,12 +382,16 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  cssbundling-rails (~> 1.4)
   cupsffi
+  devise (~> 4.9)
   draper
+  email_validator (~> 2.2)
   friendly_id (~> 5.5.1)
   httparty
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
+  jsbundling-rails (~> 1.3)
   json
   kaminari
   listen (~> 3.3)
@@ -401,7 +416,6 @@ DEPENDENCIES
   unicorn
   web-console (>= 4.1.0)
   webdrivers
-  webpacker (~> 5.0)
   wicked_pdf
   wkhtmltopdf-binary
 

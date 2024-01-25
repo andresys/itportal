@@ -7,6 +7,6 @@
     <li><a class="dropdown-item" href="account.html">Аккаунт</a></li>
     <li><a class="dropdown-item" href="settings.html">Настройки</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="login.html">Выход</a></li>
+    <li><%= link_to "Выход", [:destroy, :user, :session], class: "dropdown-item", data: {turbo_method: :delete} %></li>
   </ul>
 </div><!--//app-user-dropdown--> 

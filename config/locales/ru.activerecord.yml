@@ -4,6 +4,7 @@ ru:
       messages:
         required: не может быть пустым
         employee_or_location_must_not_be_empty: Сотрудник или местоположение должны быть не пустыми
+        must_contain_the_domain: должен содержать домен @adm.tver.ru
     models:
       asset: 
         one: основное средство
@@ -50,3 +51,10 @@ ru:
         asset_type: Родительский тип
       job:
         type: Тип задачи
+      user:
+        employee_id: ФИО
+        employee: ФИО
+        email: E-mail адрес
+        password: Пароль
+        password_confirmation: Повтор пароля
+        remember_me: Запомнить меня

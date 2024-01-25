@@ -1,17 +1,45 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= render "shared/errors", model: user %>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= form_with model: user do |f| %>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="mb-3 d-flex justify-content-center justify-content-sm-start">
+        <%#= f.label :images, class: "btn btn-sm" do |lebel| %>
+          <%#= bs_icon :upload %>
+          <%#= lebel %>
+        <%# end %>
+        <%#= f.file_field :images, accept: "image/*", multiple: true, class: "d-none image-preview" %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="col-sm-8">
+      <div class="mb-3">
+        <%= f.label :employee_id, class: "form-label" %>
+        <%= f.collection_select :employee_id,
+              Employee.all, :id, :name,
+              { include_blank: true },
+              { class: "form-control js-select", placeholder: t('.employee'), autocomplete: "off" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.email_field :email, class: "form-control", placeholder: t('.email') %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, class: "form-control", placeholder: t('.password') %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, class: "form-label" %>
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('.password') %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions text-center">
+    <%= link_to t(:cancel), @back_url, class: "btn app-btn-secondary" %>
+    <%= f.button :submit, class: "btn app-btn-primary" %>
   </div>
 <% end %>

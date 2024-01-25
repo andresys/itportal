@@ -1,6 +1,15 @@
-<h1>Editing User</h1>
+<% provide :page_title, "Пользователи" %>
 
-<%= render 'form', user: @user %>
+<%= page_title "Редактирование пользователя", @back_url %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<div class="row justify-content-center mt-4">
+  <div class="col-lg-8">
+    <div class="app-card app-card-settings shadow-sm p-4">
+      <div class="app-card-body">
+        <h4 class="card-title mb-3">Редактирование пользователя</h4>
+
+        <%= render 'form', user: @user %>
+      </div>
+    </div>
+  </div>
+</div>

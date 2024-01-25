@@ -1,0 +1,15 @@
+<% if current_user.present? %>
+  <%= render "user-profile" %>
+<% else %>
+  <div class="app-utility-item">
+    <%= link_to [:new, :user, :session], title: "Вход в систему" do %>
+      <%= bs_icon "box-arrow-in-right", nil, class: "icon" %>
+    <% end %>
+  </div>
+
+  <div class="app-utility-item">
+    <%= link_to [:new, :user, :registration], title: "Регистрация в системе" do %>
+      <%= bs_icon "person-add", nil, class: "icon" %>
+    <% end %>
+  </div>
+<% end %>

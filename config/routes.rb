@@ -7,6 +7,7 @@ class AdminConstraint
 end
 
 Rails.application.routes.draw do
+  devise_for :users, path: ""
   mount Sidekiq::Web => 'sidekiq', constraints: AdminConstraint.new
 
   concern :noteble do
@@ -47,13 +48,12 @@ Rails.application.routes.draw do
     resources :notes, only: %i[index show destroy]
     resources :prints, only: %i[index]
   end
-  resources :users
   
-  # mount ActionCable.server => '/cable'
-
   if Rails.env == "production"
     get '/', to: redirect { |p, r| "#{r.url}/accounting" }, as: :root
   else
+    resources :users
+
     root 'dashboard#index'
   end
 end

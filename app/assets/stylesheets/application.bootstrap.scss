@@ -1,0 +1,16 @@
+// $primary: #15a362;
+$progress-bar-bg: #15a362;
+$accordion-button-active-bg: #edfdf6;
+
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+@import "portal";
+@import "main";
+@import "treeview";
+
+@import "tom-select/dist/scss/tom-select.bootstrap5";
+
+@import '@fancyapps/ui/dist/fancybox/fancybox';
+
+@import "override";

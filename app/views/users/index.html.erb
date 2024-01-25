@@ -1,33 +1,37 @@
-<div class="row g-3 mb-4 align-items-center justify-content-between">
-  <div class="col-auto">
-    <h1 class="app-page-title mb-0">Список пользователей</h1>
-  </div>
-  <div class="col-auto">
-    <div class="page-utilities">
-      <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-        <div class="col-auto">
-          <form class="table-search-form row gx-1 align-items-center">
-            <div class="col-auto">
-              <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Быстрый фильтр">
-            </div>
-          </form>
-        </div><!--//col-->
+<% provide :page_title, "Список пользователей" %>
 
-        <div class="col-auto">
-          <select class="form-select w-auto" >
-            <option selected value="option-1">Cтруктурное подразделение</option>
-            <option value="option-2">This week</option>
-            <option value="option-3">This month</option>
-            <option value="option-4">Last 3 months</option>
-          </select>
-        </div>
-      </div><!--//row-->
-    </div><!--//table-utilities-->
-  </div><!--//col-auto-->
-</div><!--//row-->
-
-<%#= datatable_tag @users, columns: [:name] %>
-
-<% @users.each do |user| %>
-<p><%= user.name %></p>
+<%= page_title "Список пользователей" do %>
+  <%= render partial: "shared/filters/search" %>
+  <%= link_to [:new, :user], class: "btn btn-primary flex-fill" do %>
+    <%= bs_icon 'person-add' %>
+    <%= t('.new') %>
+  <% end %>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#searchOptions" aria-expanded="false" aria-controls="searchOptions">
+    <%= bs_icon 'funnel' %>
+  </button>
+  <%#= link_to t('.import'), import_directories_employees_path, class: "btn btn-sm btn-secondary flex-fill" %>
 <% end %>
+
+<% content_for :filter do %>
+  <% filters = params[:organization] || params[:photo] %>
+  <div class="collapse<%= filters && ' show' %>" id="searchOptions">
+    <div class="app-card app-card-body shadow-sm p-3 mb-4">
+      <%= render partial: "shared/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: '[Без организации]'})] + Organization.all, item: :organization, placeholder: "Организация", html_class: "mb-3" } %>
+      <%#= render partial: "shared/filters/selecter", locals: { items: [OpenStruct.new({id: 0, name: 'Не обязательно'}), OpenStruct.new({id: 1, name: 'С фото'}), OpenStruct.new({id: 2, name: 'Без фото'})], item: :photo, placeholder: "Наличие фото" } %>
+    </div>
+  </div>
+<% end %>
+
+<div class="tab-content">
+  <div class="tab-pane fade show active">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+      <div class="app-card-body">
+        <ul class="list-group list-group-flush">
+          <%= render @users %>
+        </ul>
+      </div><!--//app-card-body-->		
+    </div><!--//app-card-->
+
+    <%= render partial: "shared/paginate", locals: { items: @users, link: lambda {|q| users_path(q)} } %>
+  </div><!--//tab-pane-->
+</div><!--//tab-content-->

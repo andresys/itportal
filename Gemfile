@@ -9,8 +9,6 @@ gem 'rails', '~> 7.1.3'
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 6.4.0'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -22,6 +20,8 @@ gem 'redis', '~> 5.0'
 gem 'image_processing', '~> 1.2'
 
 gem 'sprockets-rails'
+gem "jsbundling-rails", "~> 1.3"
+gem "cssbundling-rails", "~> 1.4"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -85,3 +85,5 @@ gem 'activerecord-import', '~> 1.5.1'
 gem 'draper'
 gem 'awesome_nested_set'
 gem 'rails_sortable'
+gem "devise", "~> 4.9"
+gem "email_validator", "~> 2.2"
