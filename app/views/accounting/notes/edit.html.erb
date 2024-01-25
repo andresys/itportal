@@ -3,7 +3,7 @@
 <%= page_title @note.noteble&.name, @back_url %>
 
 <div class="table-responsive d-flex gap-2">
-  <%= render partial: "shared/accounting/image_card", collection: @note.images, as: :image %>
+  <%= render partial: "shared/image_card", collection: @note.images, as: :image %>
 </div>
 
 <%= tag.hr class: "mb-4" if @note.images.any? %>
