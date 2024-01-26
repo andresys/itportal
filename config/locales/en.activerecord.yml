@@ -5,6 +5,7 @@ en:
         required: cannot be empty
         employee_or_location_must_not_be_empty: Employee or location must not be empty
         must_contain_the_domain: must contain the domain @adm.tver.ru
+        already_confirmed: has already been confirmed previously
     models:
       asset: 
         one: Asset

@@ -1,6 +1,6 @@
 <%= render "shared/errors", model: user %>
 
-<%= form_with model: user, url: [:new, user, :session], class: "auth-form auth-signup-form" do |f| %>
+<%= form_with model: user, url: [:user, :session], class: "auth-form auth-signup-form" do |f| %>
   <div class="mb-3">
     <%= f.email_field :email, class: "form-control", placeholder: t('activerecord.attributes.user..email'), autocomplete: "email", autofocus: true %>
   </div>

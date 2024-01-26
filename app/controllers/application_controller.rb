@@ -5,10 +5,15 @@ class ApplicationController < ActionController::Base
   
   layout proc { false if request.xhr? }
   before_action :save_back_url, :only => :index
-  before_action :set_back_url
+  before_action :set_back_url, unless: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  private
+protected
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_id])
+  end
 
+ private
   def save_back_url
     session[:back_url] = request.url
   end

@@ -1,24 +1,25 @@
-<h2>Change your password</h2>
+<% provide :page_title, "Изменение пароля" %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<h2 class="auth-heading text-center mb-4">Изменение пароля</h2>					
+
+<%= render "shared/errors", model: @user %>
+
+<%= form_with model: @user, url: [:user, :password], method: :put, class: "auth-form auth-signup-form" do |f| %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
+  <div class="mb-3">
+    <%= f.password_field :password, class: "form-control", placeholder: t('activerecord.attributes.user.password'), autocomplete: "new-password" %>
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+    <small class="fst-italic">(<%= @minimum_password_length %> символов минимум)</small>
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="mb-3">
+    <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('activerecord.attributes.user.password_confirmation'), autocomplete: "new-password" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
+  <div class="form-actions text-center">
+    <%= f.submit "Изменить мой пароль", class: "btn app-btn-primary w-100 theme-btn mx-auto" %>
   </div>
 <% end %>
 

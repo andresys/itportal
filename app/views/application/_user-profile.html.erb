@@ -1,6 +1,8 @@
+<% return unless current_user %>
 <div class="app-utility-item app-user-dropdown dropdown">
   <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-    <%= image_tag "user.png", alt: "user profile" %>
+    <% image =  current_user.employee.images.last %>
+    <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "rounded-circle", style: "max-width: inherit", alt: "user profile" %>
   </a>
 
   <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
