@@ -1,10 +1,10 @@
 import Vue from 'vue/dist/vue.esm'
 
-import ImageCard from "../components/image-card"
-import UploadFiles from "../components/upload-files"
-import Fancybox from "../components/fancybox"
-import ModalDialog from "../components/modal-dialog"
-import DatePicker from  "../components/datepicker"
+import ImageCard from "./components/image-card"
+import UploadFiles from "./components/upload-files"
+import Fancybox from "./components/fancybox"
+import ModalDialog from "./components/modal-dialog"
+import DatePicker from  "./components/datepicker"
 
 document.addEventListener('turbo:load', () => {
   new Vue({

@@ -1,5 +1,5 @@
 import TomSelect from 'tom-select/dist/js/tom-select.complete'
-import Translations from '../i18n/select.json'
+import Translations from './i18n/select.json'
 
 const rerender = () => {
   const i18n = Translations[document.querySelector('body').dataset.lang]

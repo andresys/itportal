@@ -25,10 +25,10 @@
 
   <div class="extra mb-3">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="RememberPassword">
-      <label class="form-check-label" for="RememberPassword">
-      Я согласен с <a href="/service" class="app-link">условиями оказания услуг</a> и <a href="/policy" class="app-link">политикой конфиденциальности</a> itPortal`а.
-      </label>
+      <%= f.check_box :terms_of_service, class: "form-check-input" %>
+      <%= f.label :terms_of_service, class: "form-check-label" do %>
+        Я согласен с <a href="/service" class="app-link">условиями оказания услуг</a> и <a href="/policy" class="app-link">политикой конфиденциальности</a> itPortal`а.
+      <% end %>
     </div>
   </div>
 

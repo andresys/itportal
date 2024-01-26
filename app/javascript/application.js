@@ -10,9 +10,11 @@ import "bootstrap/js/dist/modal"
 import "bootstrap/js/dist/button"
 import "bootstrap/js/dist/alert"
 
-import "./plugins/index-charts"
-import "./plugins/itportal"
-import "./plugins/select"
-import "./plugins/fancybox"
+import "./scripts/index-charts"
+import "./scripts/side-panel"
+import "./scripts/resize-window"
+import "./scripts/alerts"
+import "./scripts/select"
+import "./scripts/fancybox"
 
 ActiveStorage.start()

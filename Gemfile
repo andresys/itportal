@@ -73,7 +73,6 @@ gem 'friendly_id', '~> 5.5.1'
 #gem 'simple-navigation'
 #gem 'has_barcode'
 gem "rqrcode", "~> 2.0"
-gem 'russian'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'cupsffi'
@@ -88,3 +87,6 @@ gem 'awesome_nested_set'
 gem 'rails_sortable'
 gem "devise", "~> 4.9"
 gem "email_validator", "~> 2.2"
+
+gem "rails-i18n", "~> 7.0"
+# gem 'russian'

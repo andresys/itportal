@@ -1,4 +1,5 @@
 <%= render "shared/errors", model: user %>
+<%= render "shared/notify" %>
 
 <%= form_with model: user, url: [:user, :session], class: "auth-form auth-signup-form" do |f| %>
   <div class="mb-3">

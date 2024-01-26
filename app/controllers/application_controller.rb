@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include ErrorHandling
+  include Internationalization
 
   helper_method :turbo_frame_request?
   
@@ -10,10 +11,10 @@ class ApplicationController < ActionController::Base
 
 protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_id, :terms_of_service])
   end
 
- private
+private
   def save_back_url
     session[:back_url] = request.url
   end

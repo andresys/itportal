@@ -1,0 +1,15 @@
+<% if flash.any? %>
+  <small>
+    <div class="alert alert-warning">
+      <% if flash.count == 1%>
+        <%= flash.first.last %>
+      <% else %>
+        <ul class="mb-0">
+          <% flash.each do |type, msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </small>
+<% end %>

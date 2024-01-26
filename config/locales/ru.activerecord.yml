@@ -6,6 +6,7 @@ ru:
         employee_or_location_must_not_be_empty: Сотрудник или местоположение должны быть не пустыми
         must_contain_the_domain: должен содержать домен @adm.tver.ru
         already_confirmed: уже был подтвержден ранее
+        must_be_abided: должны быть прияняты
     models:
       asset: 
         one: основное средство
@@ -59,3 +60,4 @@ ru:
         password: Пароль
         password_confirmation: Повтор пароля
         remember_me: Запомнить меня
+        terms_of_service: Условия использования
