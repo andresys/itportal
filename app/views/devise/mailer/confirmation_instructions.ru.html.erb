@@ -1,0 +1,5 @@
+<p>Здравствуйте <%= @resource.employee&.name %>!</p>
+
+<p>Для подтверждения вашего аккаунта перейдите по ссылке ниже:</p>
+
+<p><%= link_to 'Подтвердить мой аккаунт', [:user, :confirmation, confirmation_token: @token] %></p>

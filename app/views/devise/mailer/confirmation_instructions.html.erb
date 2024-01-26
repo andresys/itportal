@@ -1,5 +1,5 @@
-<p>Welcome <%= @email %>!</p>
+<p>Welcome <%= @resource.employee&.name %>!</p>
 
 <p>You can confirm your account email through the link below:</p>
 
-<p><%= link_to 'Confirm my account', [@resource, :confirmation, confirmation_token: @token] %></p>
+<p><%= link_to 'Confirm my account', [:user, :confirmation, confirmation_token: @token] %></p>
