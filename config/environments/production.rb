@@ -69,8 +69,9 @@ Rails.application.configure do
     open_timeout:    5,
     read_timeout:    5 }
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: 'itportal.adm.tver.ru' }
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {host: 'itportal.adm.tver.ru', from: 'itportal@adm.tver.ru'}
+  config.action_mailer.default_options = { from: 'itportal@adm.tver.ru' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
