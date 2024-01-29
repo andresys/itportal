@@ -12,8 +12,13 @@ class UsersController < ApplicationController
     @organization = Organization.find_by_id(params[:organization] ||= nil)
 
     @query = request.query_parameters
+    @approved = ['yes', 'no'].include?(params[:approved]) && params[:approved] || 'yes'
 
     query_parameters = {} #{delete_mark: false}
+
+    if @approved
+      query_parameters.merge!(approved: {'yes' => true, 'no' => false}[@approved])
+    end
 
     if @organization || params[:organization] == '0'
       query_parameters.merge!(organization: {id: @organization})
@@ -24,8 +29,7 @@ class UsersController < ApplicationController
 
     @users = User.left_joins(:employee)
       .where(query_parameters)
-      .where(matches_string_user.(:email))
-      .where(matches_string_employee.(:name))
+      .where(matches_string_user.(:email).or(matches_string_employee.(:name)))
       .group(:id)
     
     # @users = @users.having("COUNT(active_storage_attachments) > 0") if params[:photo] == 1.to_s
@@ -80,6 +84,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.fetch(:user, {}).permit(:employee_id, :email, :password, :password_confirmation, :terms_of_service)
+      params.fetch(:user, {}).permit(:employee_id, :email, :password, :password_confirmation, :terms_of_service, :approved)
     end
 end
