@@ -1,5 +1,8 @@
+# require 'sidekiq-scheduler'
+
 class ApplicationJob < ActiveJob::Base
   include ActiveJob::Status
+  # include Sidekiq::Job
   
   queue_as :default
 

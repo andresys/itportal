@@ -58,6 +58,8 @@ ru:
         employee: ФИО
         email: E-mail адрес
         password: Пароль
+        new_password: Новый пароль
         password_confirmation: Повтор пароля
+        current_password: Текущий пароль
         remember_me: Запомнить меня
         terms_of_service: Условия использования

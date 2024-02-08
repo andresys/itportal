@@ -1,0 +1,11 @@
+ImportAssetsFrom1cJob:
+  cron: "0 0 * * *"
+  queue: sheduler
+
+ImportMaterialsFrom1cJob:
+  cron: "0 0 * * *"
+  queue: sheduler
+
+ImportEmployeesJob:
+  every: '2h'
+  queue: sheduler
