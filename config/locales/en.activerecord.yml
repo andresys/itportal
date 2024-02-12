@@ -57,6 +57,10 @@ en:
         asset_type: Parent type
       job:
         type: Task type
+        types:
+          import_assets_from_1c: Import assets from 1C
+          import_materials_from_1c: Import materials from 1C
+          import_employees: Import employees
       user:
         employee_id: Name
         employee: Name

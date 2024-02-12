@@ -16,8 +16,8 @@ module Portal
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = "Europe/Moscow"
     config.i18n.available_locales = %i[en ru]
     config.i18n.default_locale = :en
     config.active_storage.variant_processor = :mini_magick

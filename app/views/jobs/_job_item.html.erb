@@ -1,7 +1,13 @@
 <% job.status ||= ActiveJob::Status.get(job.job_id).to_h %>
 <%= tag.div class: "col-12 #{job.status['status'] == 'working' ? 'col-md-auto' : 'col-sm-8 col-md-7 col-lg-6'} text-truncate" do %>
-  <%= link_to t("job.types.#{job.job_type}"), job, class: "d-block text-truncate" %>
+  <div class="d-block text-truncate">
+    <%= link_to Job.human_enum_name(:types, job.job_type), job %>
+  </div>
+
+  <% date = l(job.start_time, format: "%d.%m.%Y %H:%M:%S") if job.start_time %>
   <small>
+    <time><%= date %></time>
+    <br/>
     <%= "[#{job.job_id}]" %>
   </small>
 <% end %>

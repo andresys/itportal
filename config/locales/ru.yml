@@ -2,11 +2,6 @@ ru:
   cancel: Отмена
   save: Сохранить
   confirm: Вы подтверждаете, что хотите удалить?
-  job:
-    types:
-      import_assets_from_1c: Импорт основных средств из 1С
-      import_materials_from_1c: Импорт материалов из 1С
-      import_employees: Импорт пользователей
 
   shared:
     filters:

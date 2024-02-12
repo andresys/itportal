@@ -57,6 +57,10 @@ ru:
         asset_type: Родительский тип
       job:
         type: Тип задачи
+        types:
+          import_assets_from_1c: Импорт основных средств из 1С
+          import_materials_from_1c: Импорт материалов из 1С
+          import_employees: Импорт пользователей
       user:
         employee_id: ФИО
         employee: ФИО
