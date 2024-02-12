@@ -1,5 +1,5 @@
 <% param ||= 'tabs' %>
-<% except = (except || []) << param.to_sym %>
+<% except = (except || [:page]) << param.to_sym %>
 <% first_value = (name, val = items.first) && (val || name) %>
 <% query = request.query_parameters.except(except) || {} %>
 <% current_param = request.query_parameters.has_key?(param) && request.query_parameters[param] || first_value %>
