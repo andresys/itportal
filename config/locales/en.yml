@@ -1,10 +1,6 @@
 en:
   cancel: Cancel
   save: Save
-  all: All
-  on_balance: On balance
-  out_balance: Out balance
-  storage: "On storage"
   confirm: Do you confirm that you want to delete?
 
   shared:
@@ -15,6 +11,14 @@ en:
         employee: Employee
         organization: Organization
         photo: Photo availability
+    nav_tabs:
+      all: All
+      on_balance: On balance
+      out_balance: Out balance
+      storage: On storage
+      changed: With changed
+      approved: Approved
+      not_approved: Not approved
   
   application:
     navigation:
@@ -96,6 +100,7 @@ en:
         name: Name
     staffings:
       show:
+        remove: Remove
         add_department: Add department
         add_title: Add title
         edit_department: Edit department
@@ -117,6 +122,8 @@ en:
   jobs:
     index:
       new: New task
+    show:
+      remove: Remove
     short_history:
       added: Added
       removed: Removed

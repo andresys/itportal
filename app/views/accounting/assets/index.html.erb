@@ -17,11 +17,7 @@
   </div>
 </div>
 
-<nav class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-1">
-  <% @statuses.each do |key, value| %>
-    <%= link_to t(key), accounting_assets_path(@query.merge(status: key).except(:page)), class: "flex-sm-fill text-sm-center nav-link#{' active' if @status == key}" %>
-  <% end %>
-</nav>
+<%= render "shared/nav_tabs", items: ['on_balance', 'out_balance', 'storage', 'all'], param: 'status', except: [:page] %>
 				
 <div class="tab-content">
   <div class="tab-pane fade show active">

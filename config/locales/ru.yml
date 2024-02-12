@@ -1,10 +1,6 @@
 ru:
   cancel: Отмена
   save: Сохранить
-  all: Все
-  on_balance: На балансе
-  out_balance: За балансом
-  storage: На хранении
   confirm: Вы подтверждаете, что хотите удалить?
   job:
     types:
@@ -20,6 +16,14 @@ ru:
         employee: Ответственное лицо
         organization: Организация
         photo: Наличие фото
+    nav_tabs:
+      all: Все
+      on_balance: На балансе
+      out_balance: За балансом
+      storage: На хранении
+      changed: С изменениями
+      approved: Одобренные
+      not_approved: Не одобренные
     
   application:
     navigation:
@@ -102,6 +106,7 @@ ru:
         name: Название организации
     staffings:
       show:
+        remove: Удалить
         add_department: Добавить подразделение
         add_title: Добавить должность
         edit_department: Редактировать подразделение
@@ -123,6 +128,8 @@ ru:
   jobs:
     index:
       new: Новая задача
+    show:
+      remove: Удалить
     short_history:
       added: Добавлено
       removed: Удалено

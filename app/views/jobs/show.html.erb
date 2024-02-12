@@ -1,6 +1,11 @@
 <% provide :page_title, "Фоновые задачи" %>
 
-<%= page_title t("job.types.#{@job.job_type}"), @back_url %>
+<%= page_title t("job.types.#{@job.job_type}"), @back_url do %>
+  <%= link_to [@job], class: "btn btn-danger flex-fill", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } do %>
+    <%= bs_icon('trash') %>
+    <%= t('.remove') %>
+  <% end if @add_histories.empty? && @remove_histories.empty? && @change_histories.empty? %>
+<% end %>
 
 <% @job.status ||= ActiveJob::Status.get(@job.job_id).to_h %>
 
@@ -22,7 +27,6 @@
           <div class="col-auto col-sm text-truncate">
             <div class="d-flex flex-wrap mt-2 mt-sm-0 justify-content-end">
               <%= render partial: 'short_history', locals: {job: @job} %>
-              <%= link_to bs_icon('trash'), [@job], class: "ms-2", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } %>
             </div>
           </div>
         </div>
