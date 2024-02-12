@@ -16,6 +16,10 @@ en:
         name: Name
         type: Accounting type
         type_id: Accounting type
+        statuses:
+          on_balance: On balance
+          out_balance: Out balance
+          storage: On Storage
       material:
         name: Name
         type: Accounting type

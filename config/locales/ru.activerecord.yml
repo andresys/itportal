@@ -16,6 +16,10 @@ ru:
         name: Наименование
         type: Тип оборудования
         type_id: Тип оборудования
+        statuses:
+          on_balance: На балансе
+          out_balance: За балансом
+          storage: На хранении
       material:
         name: Наименование
         type: Тип оборудования

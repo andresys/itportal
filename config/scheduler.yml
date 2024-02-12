@@ -1,11 +1,11 @@
 ImportAssetsFrom1cJob:
-  cron: "0 0 * * *"
+  cron: "0 0 * * 1-5"
   queue: sheduler
 
 ImportMaterialsFrom1cJob:
-  cron: "0 0 * * *"
+  cron: "0 0 * * 1-5"
   queue: sheduler
 
 ImportEmployeesJob:
-  every: '2h'
+  cron: "0 10,13,16,19 * * 1-5"
   queue: sheduler

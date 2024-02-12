@@ -37,7 +37,7 @@ module ApplicationHelper
   def status_tag(code)
     status = { '101.36' => 'on_balance', "101.34" => 'on_balance', '21.36' => 'out_balance', '21.34' => 'out_balance', '102' => 'storage' }[code]
     colors = { 'on_balance' => 'bg-success', 'out_balance' => 'bg-warning', 'storage' => 'bg-danger' }
-    content_tag :span, t(status), class: ["badge", colors[status]].join(' ') if status
+    content_tag :span, I18n.t("activerecord.attributes.asset.statuses.#{status}"), class: ["badge", colors[status]].join(' ') if status
   end
 
   def full_title(page_title)
