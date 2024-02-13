@@ -35,8 +35,8 @@ module ApplicationHelper
   end
 
   def status_tag(code)
-    status = { '101.36' => 'on_balance', "101.34" => 'on_balance', '21.36' => 'out_balance', '21.34' => 'out_balance', '102' => 'storage' }[code]
-    colors = { 'on_balance' => 'bg-success', 'out_balance' => 'bg-warning', 'storage' => 'bg-danger' }
+    status = { '101.36' => 'on_balance', "101.34" => 'on_balance', '21.36' => 'out_balance', '21.34' => 'out_balance', '102.00' => 'storage', '02.3' => 'disposal' }[code]
+    colors = { 'on_balance' => 'bg-success', 'out_balance' => 'bg-warning', 'storage' => 'bg-danger', 'disposal' => 'bg-warning' }
     content_tag :span, Asset.human_enum_name(:statuses, status), class: ["badge", colors[status]].join(' ') if status
   end
 

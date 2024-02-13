@@ -7,67 +7,21 @@
   <% end unless @organization.department.children.any? || @organization.department.titles.any? %>
 <% end %>
 
+<%= render "shared/nav_tabs", items: ['departments', 'titles', 'employees'] %>
+
 <div class="app-card app-card-orders-table shadow-sm mb-5">
   <div class="app-card-body p-3">
     <div class="treeview">
       <%= fields_for :locations do |f| %>
         <%= nested_li @departments do |department| %>
-          <%= tag.div class: department.parent.nil? && "title-primary" do %>
-            <div class="float-start">
-              <%#= bs_icon 'dash-square' %>
-              <%#= f.check_box :id, class: "ms-2 align-middle"  %>
-              <%= bs_icon 'folder' %>
-              <%= bs_icon 'grip-vertical' if department.parent %>
-            </div>
-
-            <div class="float-end d-flex gap-2">
-              <%= link_to new_directories_organization_department_path(@organization, department: {parent_id: department}), title: t('.add_department') do %>
-                <%= bs_icon 'folder-plus' %>
-              <% end %>
-              <%= link_to new_directories_organization_title_path(@organization, title: {department_id: department}), title: t('.add_title') do %>
-                <%= bs_icon 'person-plus' %>
-              <% end %>
-              <%= link_to directories_organization_department_path(@organization, department), title: t('.edit_department') do %>
-                <%= bs_icon 'pencil-square' %>
-              <% end if department.parent %>
-            </div>
-
-            <%= tag.div department.name, class: "text-truncate px-2", title: department.name %>
-          <% end %>
-
+          <%= render "department", department: department %>
           <ul>
           <% department.titles.each do |title| %>
             <li>
-              <div>
-                <div class="float-start">
-                  <%#= f.check_box :id, class: "ms-2 align-middle" %>
-                  <%= bs_icon 'person-circle' %>
-                  <%= bs_icon 'grip-vertical' %>
-                </div>
-
-                <div class="float-end d-flex gap-2">
-                  <%= link_to directories_organization_title_path(@organization, title), title: t('.edit_title') do %>
-                    <%= bs_icon 'pencil-square' %>
-                  <% end %>
-                </div>
-                
-                <%= tag.div title.name, class: "text-truncate px-2", title: title.name %>
-
-                <div class="d-flex gap-2 pt-2 align-items-center">
-                  <% if title.employee&.images&.any? %>
-                    <% image = title.employee.images.last %>
-                    <%= link_to rails_storage_proxy_path(image), data: { fancybox: "gallery-#{title.employee.id}" } do %>
-                      <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "thumb-image img-thumbnail", style: "max-width: inherit" %>
-                    <% end %>
-                  <% end %>
-
-                  <small class="d-flex flex-fill flex-column fw-light">
-                    <%= tag.div title.employee&.name %>
-                  </small>
-                </div>
-              </div>
+              <%= render "title", title: title %>
+              <%= render "employee", employee: title.employee %>
             </li>
-          <% end %>
+          <% end if ['titles', 'employees'].include? params[:tabs]%>
           </ul>
         <% end %>
       <% end %>

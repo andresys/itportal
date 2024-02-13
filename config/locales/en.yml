@@ -17,16 +17,9 @@ en:
       out_balance: Out balance
       storage: On storage
       changed: With changed
+      disposal: For disposal
       approved: Approved
       not_approved: Not approved
-  
-  application:
-    navigation:
-      directories: Directories
-
-  layouts:
-    directories:
-      title: Directories
       organizations: Organizations
       employees: Employees
       mols: Financially responsible persons
@@ -34,6 +27,14 @@ en:
       titles: Titles
       departments: Departments
       asset_types: Asset types
+
+  application:
+    navigation:
+      directories: Directories
+
+  layouts:
+    directories:
+      title: Directories
 
   accounting:
     assets:
@@ -101,10 +102,14 @@ en:
     staffings:
       show:
         remove: Remove
-        add_department: Add department
+      department:
+        add: Add department
+        edit: Edit department
         add_title: Add title
-        edit_department: Edit department
-        edit_title: Edit title
+      title:
+        edit: Edit title
+      employee:
+        edit: Edit employee
     titles:
       form:
         name: Title

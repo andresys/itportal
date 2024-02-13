@@ -6,7 +6,7 @@ class Accounting::AssetsController < ApplicationController
     matches_string =  ->(p){ accounting[p].lower.matches("%#{params[:q]&.downcase}%") }
 
     @query = request.query_parameters
-    params[:status] = ['on_balance', 'out_balance', 'storage', 'all'].include?(params[:status]) && params[:status] || 'on_balance'
+    params[:status] = ['on_balance', 'out_balance', 'storage', 'disposal', 'all'].include?(params[:status]) && params[:status] || 'on_balance'
 
     @mol = Mol.find_by_id(params[:mol] ||= nil)
     @room = Room.find_by_id(params[:location])
@@ -15,7 +15,7 @@ class Accounting::AssetsController < ApplicationController
     query_parameters = {delete_mark: false}
 
     if params[:status]
-      accounts = { 'on_balance' => ["101.36", "101.34"], 'out_balance' => ["21.36", "21.34"], 'storage' => ["102"] }
+      accounts = { 'on_balance' => ["101.36", "101.34"], 'out_balance' => ["21.36", "21.34"], 'storage' => ["02.3"], 'disposal' => ["102.00"] }
       accounts = accounts[params[:status]]
       query_parameters.merge!(account: {code: accounts}) if accounts&.any?
     end

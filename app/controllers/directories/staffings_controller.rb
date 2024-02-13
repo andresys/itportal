@@ -1,8 +1,11 @@
 class Directories::StaffingsController < DirectoriesController
   layout "application"
   before_action :set_organization
+  before_action :save_back_url, :only => :show
 
   def show
+    params[:tabs] = ['departments', 'titles', 'employees'].include?(params[:tabs]) && params[:tabs] || 'departments'
+
     @departments = @organization.department.self_and_descendants
   end
 

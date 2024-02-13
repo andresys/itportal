@@ -17,9 +17,17 @@ ru:
       out_balance: За балансом
       storage: На хранении
       changed: С изменениями
+      disposal: Для утилизации
       approved: Одобренные
       not_approved: Не одобренные
-    
+      organizations: Организации
+      employees: Сотрудники
+      mols: Метериально-ответственные лица
+      locations: Места хранения
+      titles: Должности
+      departments: Подразделения
+      asset_types: Типы ресурсов
+
   application:
     navigation:
       directories: Справочники
@@ -27,14 +35,6 @@ ru:
   layouts:
     directories:
       title: Справочники
-      organizations: Организации
-      employees: Сотрудники
-      mols: Метериально-ответственные лица
-      locations: Места хранения
-      titles: Должности
-      departments: Подразделения
-      staffing_tables: Штатное расписание
-      asset_types: Типы ресурсов
 
   accounting:
     assets:
@@ -102,10 +102,14 @@ ru:
     staffings:
       show:
         remove: Удалить
-        add_department: Добавить подразделение
+      department:
+        add: Добавить подразделение
+        edit: Редактировать подразделение
         add_title: Добавить должность
-        edit_department: Редактировать подразделение
-        edit_title: Редактировать должность
+      title:
+        edit: Редактировать должность
+      employee:
+        edit: Редактировать сотрудника
     titles:
       form:
         name: Название должности
