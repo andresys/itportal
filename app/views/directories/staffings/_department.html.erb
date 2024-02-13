@@ -1,19 +1,19 @@
 <%= tag.div class: department.parent.nil? && "title-primary" do %>
   <div class="float-start">
     <%= bs_icon 'folder' %>
-    <%= bs_icon 'grip-vertical' if department.parent && params[:tabs] == 'departments' %>
+    <%= bs_icon 'grip-vertical' if department.parent && @current_tab == 'departments' %>
   </div>
 
   <div class="float-end d-flex gap-2">
     <%= link_to [:new, :directories, @organization, :department, department: {parent_id: department}], title: t('.add') do %>
       <%= bs_icon 'folder-plus' %>
-    <% end if params[:tabs] == 'departments' %>
+    <% end if @current_tab == 'departments' %>
     <%= link_to [:new, :directories, @organization, :title, title: {department_id: department}], title: t('.add_title') do %>
       <%= bs_icon 'person-plus' %>
-    <% end if params[:tabs] == 'titles' %>
+    <% end if @current_tab == 'titles' %>
     <%= link_to [:directories, @organization, department], title: t('.edit') do %>
       <%= bs_icon 'pencil-square' %>
-    <% end if department.parent && params[:tabs] == 'departments' %>
+    <% end if department.parent && @current_tab == 'departments' %>
   </div>
 
   <%= tag.div department.name, class: "text-truncate px-2", title: department.name %>

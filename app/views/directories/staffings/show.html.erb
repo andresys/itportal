@@ -21,7 +21,7 @@
               <%= render "title", title: title %>
               <%= render "employee", employee: title.employee %>
             </li>
-          <% end if ['titles', 'employees'].include? params[:tabs]%>
+          <% end if ['titles', 'employees'].include? @current_tab %>
           </ul>
         <% end %>
       <% end %>

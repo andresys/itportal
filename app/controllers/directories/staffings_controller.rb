@@ -4,7 +4,7 @@ class Directories::StaffingsController < DirectoriesController
   before_action :save_back_url, :only => :show
 
   def show
-    params[:tabs] = ['departments', 'titles', 'employees'].include?(params[:tabs]) && params[:tabs] || 'departments'
+    @current_tab = ['departments', 'titles', 'employees'].include?(params[:tab]) && params[:tab] || 'departments'
 
     @departments = @organization.department.self_and_descendants
   end

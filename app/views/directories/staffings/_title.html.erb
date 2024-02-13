@@ -1,13 +1,13 @@
 <div>
   <div class="float-start">
     <%= bs_icon 'person-circle' %>
-    <%= bs_icon 'grip-vertical' if params[:tabs] == 'titles' %>
+    <%= bs_icon 'grip-vertical' if @current_tab == 'titles' %>
   </div>
 
   <div class="float-end d-flex gap-2">
     <%= link_to [:directories, @organization, title], title: t('.edit') do %>
       <%= bs_icon 'pencil-square' %>
-    <% end if params[:tabs] == 'titles' %>
+    <% end if @current_tab == 'titles' %>
   </div>
   
   <%= tag.div title.name, class: "text-truncate px-2", title: title.name %>

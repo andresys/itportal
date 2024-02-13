@@ -1,13 +1,13 @@
 class JobsController < ApplicationController
   def index
-    params[:tabs] = ['changed', 'all'].include?(params[:tabs]) && params[:tabs] || 'changed'
+    @current_tab = ['changed', 'all'].include?(params[:tab]) && params[:tab] || 'changed'
 
     page_size = params[:per] || 10
     page = params[:page] || 0
     
     @jobs = Job.left_joins(:job_histories).group(:id)
 
-    @jobs = @jobs.having("COUNT(job_histories) > 0") if params[:tabs] == 'changed'
+    @jobs = @jobs.having("COUNT(job_histories) > 0") if @current_tab == 'changed'
 
     @jobs = @jobs.page(page).per(page_size)
   end

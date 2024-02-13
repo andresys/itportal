@@ -1,12 +1,12 @@
-<% provide :page_title, t(".#{controller_name}") %>
-
 <%= page_title t '.title' do %>
   <%= yield :title %>
 <% end %>
 
 <%= yield(:filter) %>
 
-<%= render "shared/nav_tabs", items: ['organizations', 'employees', 'mols', 'locations', 'asset_types'], url: lambda {|name, val| [:directories, (val || name).to_sym]}, active: lambda {|name, val| controller_name == (val || name)} %>
+<% url = lambda {|item| [:directories, item.to_sym]} %>
+<% active = lambda {|item| controller_name == item} %>
+<%= render "shared/nav_tabs", items: ['organizations', 'employees', 'mols', 'locations', 'asset_types'], url: url, active: active %>
 
 <%= yield %>
 

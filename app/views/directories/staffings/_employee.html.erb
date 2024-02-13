@@ -1,8 +1,8 @@
-<% return unless employee && params[:tabs] == 'employees' %>
+<% return unless employee && @current_tab == 'employees' %>
 
 <%= tag.div class: "d-flex gap-2 p-2 align-items-center" do %>
   <div class="float-start">
-    <%= bs_icon 'grip-vertical' if params[:tabs] == 'employees' %>
+    <%= bs_icon 'grip-vertical' if @current_tab == 'employees' %>
   </div>
 
   <% if employee.images.any? %>
@@ -18,5 +18,5 @@
 
   <%= link_to [:directories, employee], title: t('.edit') do %>
     <%= bs_icon 'pencil-square' %>
-  <% end if params[:tabs] == 'employees' %>
+  <% end if @current_tab == 'employees' %>
 <% end %>

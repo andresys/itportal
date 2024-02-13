@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<%= render "shared/nav_tabs", items: [['approved', 'yes'], ['not_approved', 'no']], param: 'approved' %>
+<%= render "shared/nav_tabs", items: ['approved', 'not_approved'], param: 'approved', value: lambda {|item| {'approved' => 'yes', 'not_approved' => 'no'}[item] } %>
 
 <div class="tab-content">
   <div class="tab-pane fade show active">

@@ -1,16 +1,17 @@
-<% param ||= 'tabs' %>
+<% param ||= 'tab' %>
 <% default_param ||= nil %>
 <% except = (except || ['page']) << param.to_s %>
-<% first_value = (name, val = items.first) && (val || name) %>
 <% query = request.query_parameters.except(*except) || {} %>
+<% value ||= lambda {|item| item} %>
+<% first_value = value.call(items.first) %>
 <% current_param = request.query_parameters.has_key?(param) && request.query_parameters[param] || default_param || first_value %>
-<% url ||= lambda {|name, val| url_for(query.merge(param => (val || name)))} %>
-<% active ||= lambda {|name, val| current_param == (val || name)} %>
+<% url ||= lambda {|item| url_for(query.merge(param => value.call(item)))} %>
+<% active ||= lambda {|item| current_param == value.call(item)} %>
 
 <nav class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-1">
-  <% items.each do |name, val| %>
-    <% link = url.call(name, val) %>
-    <% active_class = active.call(name, val) ? ' active' : '' %>
-    <%= link_to t(".#{name}"), link, class: "flex-sm-fill text-sm-center nav-link#{active_class}" %>
+  <% items.each do |item| %>
+    <% link = url.call(item) %>
+    <% active_class = active.call(item) ? ' active' : '' %>
+    <%= link_to t(".#{item}"), link, class: "flex-sm-fill text-sm-center nav-link#{active_class}" %>
   <% end %>
 </nav>
