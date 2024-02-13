@@ -1,10 +1,10 @@
 <% provide :page_title, "Материальные запасы" %>
 
+<%= render partial: "shared/remove_action", locals: {item: @accounting, link: lambda {|item| [:accounting, item]}}%>
+
 <%= page_title @accounting.name, @back_url do %>
   <%= render partial: "shared/upload_file", locals: {item: @accounting, title: t('.upload')} %>
 <% end %>
-
-<%= render partial: "shared/remove_action", locals: {item: @accounting, link: lambda {|item| [:accounting, item]}}%>
 
 <div class="table-responsive d-flex gap-2">
   <%= render partial: "shared/image_card", collection: @accounting.all_images, as: :image %>

@@ -1,12 +1,12 @@
 <% provide :page_title, "Справочник [cотрудники]" %>
 
+<%= render partial: "shared/remove_action", locals: {item: @employee, link: lambda {|item| [:directories, item]}}%>
+
 <%= page_title @employee.name, @back_url %>
 
 <div class="d-flex gap-2">
   <%= render partial: "shared/image_card", collection: @employee.images, as: :image %>
 </div>
-
-<%= render partial: "shared/remove_action", locals: {item: @employee, link: lambda {|item| [:directories, item]}}%>
 
 <%= tag.hr class: "mb-4" if @employee.images.any? %>
 
