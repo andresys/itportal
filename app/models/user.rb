@@ -16,7 +16,7 @@ class User < ApplicationRecord
   before_create :add_superadmin, if: Proc.new { User.count == 0 }
 
   validates :employee_id, presence: true
-  validates :email, email: {domain: 'adm.tver.ru', message: I18n.t('activerecord.errors.messages.must_contain_the_domain')}, unless: :admin_for_user?
+  validates :email, email: {domain: 'adm.tver.ru', message: I18n.t('activerecord.errors.messages.must_contain_the_domain')} #, unless: :admin_for_user?
   validates :password, confirmation: true
   # validates :password_confirmation, presence: true
   validates :terms_of_service, acceptance: { message: I18n.t('activerecord.errors.messages.must_be_abided') }
