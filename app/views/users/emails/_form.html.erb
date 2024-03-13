@@ -1,0 +1,13 @@
+<%= render "shared/errors", model: user %>
+
+<%= form_with model: user, url: [@user, :emails] do |f| %>
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label fw-bold" %>
+    <%= f.email_field :email, class: "form-control", placeholder: t('.email') %>
+  </div>
+
+  <div class="form-actions mb-3 text-center">
+    <%= link_to t('global.cancel'), [@user], class: "btn btn-outline-secondary" %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

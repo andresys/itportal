@@ -1,9 +1,15 @@
-// $primary: #15a362;
 $progress-bar-bg: #15a362;
 $accordion-button-active-bg: #edfdf6;
+$input-focus-border-color: #15a362;
+$component-active-bg: #15a362;
+$focus-ring-box-shadow: 0 0 0 0.25rem rgb(25 135 84 / 25%);
+
 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts";
+@import 'font-awesome/scss/font-awesome.scss';
 
 @import "portal";
 @import "main";

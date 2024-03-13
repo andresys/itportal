@@ -1,0 +1,19 @@
+<li class="list-group-item">
+  <div class="d-flex gap-2 align-items-center">
+    <div>
+      <%= bs_icon 'shield-check' %>
+    </div>
+
+    <%= tag.div class: "flex-fill text-truncate px-2" do %>
+      <%= role_name(role) %>
+    <% end %>
+
+    <div class="d-flex gap-2">
+      <div class="float-end d-flex gap-2">
+        <%= link_to [@user, role], title: t('.delete_role'), data: { turbo_method: :delete, turbo_confirm: t('global.confirm') } do %>
+          <%= bs_icon 'trash' %>
+        <% end if policy(role).destroy? %>
+      </div>
+    </div>
+  </div>
+</li>

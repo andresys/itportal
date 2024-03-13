@@ -1,7 +1,28 @@
 ru:
-  cancel: Отмена
-  save: Сохранить
-  confirm: Вы подтверждаете, что хотите удалить?
+  global:
+    cancel: Отмена
+    save: Сохранить
+    change: Изменить
+    delete: Удалить
+    view: Посмотреть
+    confirm: Вы подтверждаете, что хотите удалить?
+    flash:
+      not_authorized: У вас нет прав на выполнение этого действия!
+    roles:
+      user: Пользователь
+      member: Участник
+      moderator: Модератор
+      admin: Администратор
+      superadmin: Суперадмин
+      resource_role: "%{role} для %{resource}"
+      resource_role_id: "%{role} для %{resource} [ID: %{id}]"
+      models:
+        Organization: организации
+        User: пользователей
+    languages:
+      global: Задан глобальными настройками
+      en: Английский
+      ru: Русский
 
   shared:
     filters:
@@ -27,14 +48,29 @@ ru:
       titles: Должности
       departments: Подразделения
       asset_types: Типы ресурсов
+    remove_action:
+      attention: Внимание
+      for_deleted: Элемент помечен для удаления
+      delete_now: Удалить сейчас?
 
   application:
     navigation:
+      home: Главная
+      accounting: Инвентарный учет
+      assets: Основные средства
+      materials: Материалы
+      notes: Заметки
+      lebel_printing: Печать этикеток
       directories: Справочники
-
-  layouts:
-    directories:
-      title: Справочники
+      users: Пользователи
+      background_tasks: Фоновые задачи
+      settings: Настройки
+    user-profile:
+      profile: Профиль
+      exit: Выход
+    footer:
+      design: Дизайн
+      from: от
 
   accounting:
     assets:
@@ -72,6 +108,7 @@ ru:
     locations:
       index:
         new: Добавить адрес
+        title: Справочники
       form:
         name: Адрес
       location:
@@ -84,6 +121,7 @@ ru:
     employees:
       index:
         new: Добавить сотрудника
+        title: Справочники
       employee:
         edit_employee: Редактировать сотрудника
       form:
@@ -93,6 +131,7 @@ ru:
     organizations:
       index:
         new: Добавить организацию
+        title: Справочники
       organization:
         staffing_table: Штатное расписание
         create_staffing_table: Создать штатное расписание
@@ -120,10 +159,14 @@ ru:
     asset_types:
       index:
         new: Новый тип
+        title: Справочники
         edit_asset_type: Редактировать тип ресурса
         add_asset_type: Добавить подтип ресурса
       form:
         name: Название типа ресурса
+    mols:
+      index:
+        title: Справочники
   jobs:
     index:
       new: Новая задача
@@ -136,8 +179,89 @@ ru:
       all_records: Всего записей
     form:
       type: Тип задачи
+  
+  users: &user
+    index:
+      new: Новый пользователь
+    show:
+      user_profile: Профиль пользователя
+    new:
+      user_edit: Редактирование пользователя
+      new_user: Новый пользователь
+    edit:
+      user_edit: Редактирование пользователя
+      edit_user: Редактирование пользователя
+    form:
+      employee: ФИО
+      email: E-mail
+      password: Пароль
+    profile: 
+      profile: Профиль
+      photo: Фото
+      name: Имя
+      organization: Организация
+      department: Подразделение
+      title: Должность
+      email: E-mail
+    preferences:
+      preferences: Настройки
+      locale: Язык интерфейса системы
+      manage_preferences: Изменить настройки
+    security:
+      security: Безопасность
+      password: Пароль
+      current_login: Текущий вход
+      last_login: Последний вход
+      roles: Роли пользователя
+    emails:
+      edit:
+        user_email: E-mail пользователя
+        edit_email: Редактирование e-mail пользователя
+      form:
+        email: E-mail
+    passwords:
+      edit:
+        user_password: Пароль пользователя
+        edit_password: Редактирование пароля пользователя
+      form:
+        password: Пароль
+    roles:
+      index:
+        user_roles: Роли пользователя
+        new: Добавить роль
+      new:
+        user_roles: Роли пользователя
+        new_role: Новая роль
+      role:
+        delete_role: Удалить роль
+      form:
+        role: Имя роли
+        resource: Ресурс для роли
+
+  settings:
+    show: &settings
+      settings: Настройки системы
+      general: Основные настройки
+      general_description: Перечень основных настроек системы
+    general:
+      autodetect_locale: Язык интерфейса системы будет автоматически определяться из настроек браузера
+
+  profile:
+    <<: *user
+    
+  preferences:
+    edit:
+      preferences: Мои настройки
+      <<: *settings
           
   helpers:
     submit:
       create: Создать
       update: Сохранить
+
+  devise:
+    registrations:
+      edit:
+        edit: Редактирование аккаунта
+        edit_password: Изменение пароля
+        minimal_length: "%{length} символов минимум"

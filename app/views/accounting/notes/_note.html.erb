@@ -25,6 +25,6 @@
     </div>
   </td>
   <td class="cell text-end">
-    <%= link_to bs_icon('pencil-square'), [:accounting, note], data: { turbo: false } %>
+    <%= link_to bs_icon('pencil-square'), [:accounting, note], data: { turbo: false } if policy(note).edit? %>
   </td>
 </tr>

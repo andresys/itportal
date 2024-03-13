@@ -14,7 +14,7 @@ module Internationalization
     # end
 
     def switch_locale
-      locale = locale_from_url || locale_from_headers || I18n.default_locale
+      locale = locale_from_url || (Setting.autodetect_locale && locale_from_headers) || Setting.default_locale
       response.set_header "Content-Language", locale
       I18n.locale = locale
     end

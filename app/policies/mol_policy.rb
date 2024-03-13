@@ -1,0 +1,2 @@
+class MolPolicy < ApplicationPolicy
+end

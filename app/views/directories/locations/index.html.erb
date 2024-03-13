@@ -1,11 +1,15 @@
 <% provide :page_title, "Справочник [места хранения]" %>
 
-<% content_for :title do %>
+<%= page_title t '.title' do %>
   <%= link_to new_directories_location_path, class: "btn btn-primary flex-fill" do %>
     <%= bs_icon 'building-add' %>
     <%= t('.new') %>
   <% end %>
 <% end %>
+
+<% url = lambda {|item| [:directories, item.to_sym]} %>
+<% active = lambda {|item| controller_name == item} %>
+<%= render "shared/nav_tabs", items: directory_items, url: url, active: active %>
 
 <div class="tab-content">
   <div class="tab-pane fade show active">

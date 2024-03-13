@@ -1,4 +1,6 @@
 class Room < ApplicationRecord
+  resourcify
+  
   attr_reader :full_name
   
   after_initialize :set_full_name

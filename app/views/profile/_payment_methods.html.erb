@@ -1,0 +1,23 @@
+<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+  <div class="app-card-header p-3 border-bottom-0">
+    <div class="row align-items-center gx-3">
+      <div class="col-auto">
+        <div class="app-icon-holder">
+          <%= bs_icon "credit-card" %>
+        </div>
+      </div>
+      <div class="col-auto">
+        <%= tag.h4 t('.payment_methods'), class: "app-card-title" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-card-body px-4 w-100">
+    <%= user_item_tag "Credit/Debit Card", "1234*******5678", icon: "cc-visa", class: "border-bottom py-3" %>
+    <%= user_item_tag "PayPal", "Not connected", icon: "paypal", class: "border-bottom py-3" %>
+  </div>
+
+  <div class="app-card-footer p-4 mt-auto">
+    <%= link_to t('.manage_payment'), "#", class: "btn btn-outline-secondary" %>
+  </div>
+</div>

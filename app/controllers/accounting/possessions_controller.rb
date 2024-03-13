@@ -1,6 +1,7 @@
-class Accounting::PossessionsController < ApplicationController
+class Accounting::PossessionsController < AccountingController
   before_action :set_accounting
-  before_action :set_possession, only: %i[show update destroy]
+  before_action :set_possession, only: %i[edit update destroy]
+  before_action { authorize(@possession || Possession) }
 
   def index
     redirect_to [:new, :accounting, @accounting, :possession]
@@ -24,8 +25,7 @@ class Accounting::PossessionsController < ApplicationController
     @possession = Possession.new possession_params
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def update

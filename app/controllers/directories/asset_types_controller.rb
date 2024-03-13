@@ -1,6 +1,6 @@
 class Directories::AssetTypesController < DirectoriesController
-  layout "application", except: :index
-  before_action :set_asset_type, only: %i[show update destroy]
+  before_action :set_asset_type, only: %i[edit update destroy]
+  before_action { authorize(@asset_type || AssetType) }
 
   def index
     @asset_types = AssetType.all
@@ -22,8 +22,7 @@ class Directories::AssetTypesController < DirectoriesController
     end
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def update

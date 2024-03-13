@@ -25,7 +25,7 @@
             <% end %>
           </td>
           <td class="cell text-end">
-            <%= link_to bs_icon('pencil-square'), [:accounting, item, possession] %>
+            <%= link_to bs_icon('pencil-square'), [:accounting, item, possession] if policy(:possession).edit? %>
           </td>
         </tr>
       <% end %>
@@ -34,15 +34,17 @@
 <% end %>
 
 <% if item.possessions.map(&:count).sum < (item.count || 0) %>
+  <% if policy(:possession).new? %>
   <%= turbo_frame_tag "possessions_form" do %>
     <div class="row justify-content-center justify-content-sm-end">
       <div class="col-auto">
-        <%= link_to [:new, :accounting, item, :possession], class: "btn app-btn-secondary", data: { turbo_frame: "possessions_form" } do %>
+        <%= link_to [:new, :accounting, item, :possession], class: "btn btn-outline-secondary", data: { turbo_frame: "possessions_form" } do %>
           <%= bs_icon('plus-square') %>
           <%= t('.add_possession') %>
         <% end %>
       </div>
     </div>
+  <% end %>  
   <% end %>
 <% elsif item.count == 1 %>
   <%= turbo_frame_tag "possessions_form" do %>
@@ -65,13 +67,15 @@
       </div>
     </div>
 
+    <% if policy(:possession).edit? %>
     <div class="row justify-content-center justify-content-sm-end">
       <div class="col-auto">
-        <%= link_to [:accounting, item, item.possessions.first], class: "float-end", class: "btn app-btn-secondary", data: { turbo_frame: "possessions_form" } do %>
+        <%= link_to [:accounting, item, item.possessions.first], class: "float-end", class: "btn btn-outline-secondary", data: { turbo_frame: "possessions_form" } do %>
           <%= bs_icon('pencil-square') %>
           <%= t('.edit') %>
         <% end %>
       </div>
     </div>
+    <% end %>
   <% end %>
 <% end %>

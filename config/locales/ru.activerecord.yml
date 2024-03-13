@@ -71,3 +71,10 @@ ru:
         current_password: Текущий пароль
         remember_me: Запомнить меня
         terms_of_service: Условия использования
+      setting:
+        default_locale: Язык интерфейса системы
+        autodetect_locale: Автоматическое определение языка
+        default_per_page: Количество записей на странице
+      role:
+        name: Имя роли
+        resource_type: Ресурс для роли

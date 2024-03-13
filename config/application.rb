@@ -25,5 +25,7 @@ module Portal
     config.active_job.queue_adapter = :sidekiq
 
     config.action_view.preload_links_header = false
+
+    config.count_record_list = %w[10 15 20 25 30 40 50 75 100]
   end
 end

@@ -1,7 +1,7 @@
 class Directories::RoomsController < DirectoriesController
-  layout "application"
   before_action :set_location
-  before_action :set_room, only: %i[show update destroy]
+  before_action :set_room, only: %i[edit update destroy]
+  before_action { authorize(@room || Room) }
 
   def new
     @room = Room.new room_params
@@ -19,8 +19,7 @@ class Directories::RoomsController < DirectoriesController
     end
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def update

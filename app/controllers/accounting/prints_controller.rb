@@ -1,4 +1,4 @@
-class Accounting::PrintsController < ApplicationController
+class Accounting::PrintsController < AccountingController
   layout "sticker", :only => :print
 
   def index

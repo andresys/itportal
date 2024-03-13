@@ -1,0 +1,35 @@
+<%= form_with model: Setting.new, url: [:profile, :preferences], method: :patch do |f| %>
+  <%= render "shared/errors", errors: @errors %>
+  
+  <div class="mb-3">
+    <%= f.label :default_locale, class: "d-block form-label" %>
+    <div class="btn-group" role="group">
+      <% I18n.available_locales.each do |locale| %>
+        <%= f.radio_button :default_locale, locale, class: "btn-check" %>
+        <%= f.label :"default_locale_#{locale}", locale.to_s.humanize, class: "btn btn-sm btn-outline-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-check form-switch mb-3">
+    <%= f.check_box :autodetect_locale, class: "form-check-input" %>
+    <%= f.label :autodetect_locale, class: "form-check-label" do |title| %>
+      <%= title %>
+      <%= popover_tag t('.autodetect_locale'), class: "ms-1" %>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :"default_per_page", class: "d-block form-label" %>
+    <div class="btn-group" role="group">
+      <% Rails.application.config.count_record_list.each do |per_page| %>
+        <%= f.radio_button :default_per_page, per_page, class: "btn-check" %>
+        <%= f.label :"default_per_page_#{per_page}", per_page.to_s.humanize, class: "btn btn-sm btn-outline-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button t("global.save"), class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

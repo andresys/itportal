@@ -1,0 +1,23 @@
+<div class="form-check form-switch mb-3">
+  <%= check_box_tag :notification_enable, class: "form-check-input" %>
+  <%= label_tag :notification_enable, t('.notification_enable'), class: "form-check-label" %>
+</div>
+
+<div class="form-check mb-3">
+  <%= check_box_tag 'global.confirm'able_enable, class: "form-check-input" %>
+  <%= label_tag 'global.confirm'able_enable, t('.confirmable_enable'), class: "form-check-label" %>
+</div>
+
+<div class="mb-3">
+  <%= label_tag :mailer_sender, class: "form-label" do %>
+    <%= t '.mailer_sender' %>
+    <span class="ms-2" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="top" data-bs-content="This is a Bootstrap popover example. You can use popover to provide extra info.">
+      <%= bs_icon "info-circle" %>
+    </span>
+  <% end %>
+  <%= text_field_tag :mailer_sender, Setting.mailer_sender, class: "form-control" %>
+</div>
+
+<div class="form-actions">
+  <%= button_tag t("global.save"), class: "btn btn-outline-secondary" %>
+</div>

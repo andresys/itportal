@@ -4,13 +4,13 @@
   </div>
 
   <div class="float-end d-flex gap-2">
-    <%= link_to directories_employee_path(employee), title: t('.edit_employee') do %>
+    <%= link_to [:edit, :directories, employee], title: t('.edit_employee') do %>
       <%= bs_icon 'pencil-square' %>
-    <% end %>
+    <% end if policy(employee).edit? %>
   </div>
 
   <%= tag.div class: "text-truncate px-2", title: employee.name do %>
-    <%= employee.name %>
+    <%= link_to employee.name, [:directories, employee] %>
   <% end %>
 
   <div class="d-flex gap-2 pt-2 align-items-center">

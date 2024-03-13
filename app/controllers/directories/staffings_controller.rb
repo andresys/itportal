@@ -1,12 +1,12 @@
 class Directories::StaffingsController < DirectoriesController
-  layout "application"
   before_action :set_organization
   before_action :save_back_url, :only => :show
+  before_action { authorize(@organization || Organization) }
 
   def show
     @current_tab = ['departments', 'titles', 'employees'].include?(params[:tab]) && params[:tab] || 'departments'
 
-    @departments = @organization.department.self_and_descendants
+    @departments = @organization.department&.self_and_descendants || error_404
   end
 
   def create
@@ -20,7 +20,7 @@ class Directories::StaffingsController < DirectoriesController
   def destroy
     @organization.department.destroy
     respond_to do |format|
-      format.html { redirect_to @back_url, notice: "Staffing was successfully destroyed." }
+      format.html { redirect_to [:directories, :organizations] || @back_url, notice: "Staffing was successfully destroyed." }
     end
   end
 

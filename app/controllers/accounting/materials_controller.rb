@@ -1,5 +1,6 @@
-class Accounting::MaterialsController < ApplicationController
+class Accounting::MaterialsController < AccountingController
   before_action :set_accounting, only: %i[show edit update destroy]
+  before_action { authorize(@material || Material) }
 
   def index
     accounting = Material.arel_table
@@ -24,9 +25,6 @@ class Accounting::MaterialsController < ApplicationController
     if @employee
       query_parameters.merge!(employees: {id: @employee})
     end
-
-    page_size = params[:per] || 10
-    page = params[:page] || 0
 
     @accountings = Material.left_joins(:uids, :images_attachments, :account, :mol, :rooms, :employees)
       .where(query_parameters)

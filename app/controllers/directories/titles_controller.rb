@@ -1,7 +1,7 @@
 class Directories::TitlesController < DirectoriesController
-  layout "application"
   before_action :set_organization
-  before_action :set_title, only: %i[show update destroy]
+  before_action :set_title, only: %i[edit update destroy]
+  before_action { authorize(@title || Title) }
 
   def new
     @title = Title.new title_params
@@ -20,8 +20,7 @@ class Directories::TitlesController < DirectoriesController
     end
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def update

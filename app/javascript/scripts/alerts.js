@@ -1,13 +1,14 @@
 import Alert from "bootstrap/js/dist/alert"
 import Toast from "bootstrap/js/dist/toast"
+import Popover from "bootstrap/js/dist/popover"
 
 const rerender = () => {
 	/* ===== Enable Bootstrap Popover (on element  ====== */
-	var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="popover"]'))
-	popoverTriggerList.map(function (popoverTriggerEl) {
-		return new bootstrap.Popover(popoverTriggerEl)
+	var popoverList = document.querySelectorAll('[data-bs-toggle="popover"]')
+	popoverList.forEach(function (popover) {
+		new Popover(popover)
 	})
-
+	
 	/* ==== Enable Bootstrap Alert ====== */
 	var alertList = document.querySelectorAll('.alert')
 	alertList.forEach(function (alert) {

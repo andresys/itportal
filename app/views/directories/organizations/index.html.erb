@@ -1,13 +1,17 @@
 <% provide :page_title, "Справочник [организации]" %>
 
-<% content_for :title do %>
+<%= page_title t '.title' do %>
   <%= render partial: "shared/filters/search" %>
   <%= link_to [:new, :directories, :organization], class: "btn btn-primary flex-fill" do %>
     <%= bs_icon 'building-add' %>
     <%= t('.new') %>
-  <% end %>
+  <% end if policy(:organization).new? %>
   <%#= link_to t('.import'), import_directories_employees_path, class: "btn btn-sm btn-secondary flex-fill" %>
 <% end %>
+
+<% url = lambda {|item| [:directories, item.to_sym]} %>
+<% active = lambda {|item| controller_name == item} %>
+<%= render "shared/nav_tabs", items: directory_items, url: url, active: active %>
 
 <div class="tab-content">
   <div class="tab-pane fade show active">

@@ -1,0 +1,15 @@
+<% provide :page_title, t('.settings') %>
+
+<%= page_title t('.settings') %>
+
+<hr class="mb-4">
+
+<%= setting_section_tag t('.general'), t('.general_description') do %>
+  <%= render "general" %>
+<% end %>
+
+<hr class="my-4">
+
+<%= setting_section_tag t(".notification"), t(".notification_description")  do %>
+  <%= render "notification" %>
+<% end if false %>

@@ -1,11 +1,15 @@
-<div class="row mb-2"><strong class="col-auto">Наименование:</strong> <%= tag.span @accounting.name, class: "col-auto" %></div>
-<div class="row mb-2"><strong class="col-auto">Тип оборудования:</strong> <%= tag.span @accounting.type&.name || "[не установлен]", class: "col-auto" %></div>
+<%= turbo_frame_tag "accounting" do %>
+  <div class="row mb-2"><strong class="col-auto">Наименование:</strong> <%= tag.span @accounting.name, class: "col-auto" %></div>
+  <div class="row mb-2"><strong class="col-auto">Тип оборудования:</strong> <%= tag.span @accounting.type&.name || "[не установлен]", class: "col-auto" %></div>
 
-<div class="row justify-content-center justify-content-sm-end">
-  <div class="col-auto">
-    <%= link_to [:edit, :accounting, @accounting], class: "float-end", class: "btn app-btn-secondary", data: { turbo_frame: 'accounting' } do %>
-      <%= bs_icon('pencil-square') %>
-      <%= t('.edit') %>
-    <% end %>
+  <% if policy(:material).edit? %>
+  <div class="row justify-content-center justify-content-sm-end">
+    <div class="col-auto">
+      <%= link_to [:edit, :accounting, @accounting], class: "float-end", class: "btn btn-outline-secondary", data: { turbo_frame: 'accounting' } do %>
+        <%= bs_icon('pencil-square') %>
+        <%= t('.edit') %>
+      <% end %>
+    </div>
   </div>
-</div>
+  <% end %>
+<% end %>

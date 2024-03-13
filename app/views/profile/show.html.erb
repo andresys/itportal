@@ -1,0 +1,21 @@
+<% provide :page_title, t('.user_profile') %>
+
+<%= page_title t('.user_profile') %>
+
+<div class="row gy-4 justify-content-center">
+	<div class="col-12 col-lg-6 d-flex flex-column gap-4">
+		<%= render "profile" %>
+	</div>
+
+	<div class="col-12 col-lg-6 d-flex flex-column gap-4">
+		<%= render "security" %>
+		<%#= render "preferences" %>
+	</div>
+
+	<%# <div class="col-12 col-lg-6"> %>
+	<%# </div> %>
+
+	<%# <div class="col-12 col-lg-6"> %>
+		<%#= render "payment_methods" %>
+	<%# </div> %>
+</div>

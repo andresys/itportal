@@ -50,9 +50,33 @@ module ApplicationHelper
       icon = bs_icon 'chevron-left', '1.2em'
       concat tag.div class: "order-2 float-end d-flex gap-2 flex-wrap", &block
       concat (tag.div class: "order-1 d-flex align-items-center flex-nowrap mb-2 mb-sm-0" do
-        concat link_to icon, back_url, class: "btn app-btn-secondary me-2" if back_url
+        concat link_to icon, back_url, class: "btn btn-outline-secondary me-2" if back_url
         concat tag.h1 title, class: "app-page-title mb-0 text-truncate"
       end)
+    end
+  end
+
+  def setting_section_tag title, description = nil
+    tag.div class: "row g-4 settings-section mb-3" do
+      concat (tag.div class: "col-12 col-md-4" do
+        concat tag.h3 title.html_safe, class: "section-title" if title
+        concat tag.div description.html_safe, class: "section-intro" if description
+      end)
+      concat (tag.div class: "col-12 col-md-8 mt-1 mt-sm-4" do
+        tag.div class: "app-card app-card-settings shadow-sm p-4" do
+          tag.div class: "app-card-body" do
+            yield if block_given?
+          end
+        end
+      end)
+    end
+  end
+
+  def popover_tag content = "", options = {}
+    css_class = options.delete(:class) || ''
+    placement = options.delete(:placement) || "top"
+    tag.span class: css_class, data: { bs_container: "body", bs_toggle: "popover", bs_trigger: "hover focus", bs_placement: placement, bs_content: content } do
+      bs_icon "info-circle"
     end
   end
 end

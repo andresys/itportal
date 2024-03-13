@@ -1,15 +1,20 @@
 <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
   <ul class="app-menu list-unstyled accordion" id="menu-accordion">
-    <%= nav_item_tag "Главная", root_path, icon: "house-door", active: request.path == "/" unless Rails.env == "production" %>
-    <%= nav_item_tag "Инвентарный учет", nil, icon: "list-check", active: request.path.start_with?("/accounting") do %>
-      <%= sub_item_tag "Основные средства", accounting_assets_path %>
-      <%= sub_item_tag "Материалы", accounting_materials_path %>
-      <%= sub_item_tag "Заметки", accounting_notes_path %>
-      <%= sub_item_tag "Печать этикеток", accounting_prints_path unless Rails.env == "production" %>
-    <% end %>
-    <%= nav_item_tag t('.directories'), directories_root_path, icon: "files" %>
-    <%= nav_item_tag "Пользователи", users_path, icon: "people" unless Rails.env == "production"  %>
-    <%= nav_item_tag "Фоновые задачи", jobs_path, icon: "boxes" %>
+    <%= nav_item_tag t('.home'), root_path, icon: "house-door", active: request.path == "/" unless Rails.env == "production" %>
+    
+    <%= nav_item_tag t('.accounting'), nil, icon: "list-check", active: request.path.start_with?("/accounting") do %>
+      <%= sub_item_tag t('.assets'), accounting_assets_path if policy(:asset).index? %>
+      <%= sub_item_tag t('.materials'), accounting_materials_path if policy(:material).index? %>
+      <%= sub_item_tag t('.notes'), accounting_notes_path if policy(:note).index? %>
+      <%= sub_item_tag t('.lebel_printing'), accounting_prints_path unless Rails.env == "production" %>
+    <% end if accounting_items %>
+    
+    <%= nav_item_tag t('.directories'), directories_root_path, icon: "files" if directory_items %>
+    
+    <%= nav_item_tag t('.users'), users_path, icon: "people" if policy(:user).index? %>
+    
+    <%= nav_item_tag t('.background_tasks'), jobs_path, icon: "boxes" if policy(:job).index? %>
+
     <%#= nav_item_tag "Страницы", nil, icon: "folder" do %>
       <%#= sub_item_tag "Notifications", "notifications.html" %>
       <%#= sub_item_tag "Account", "account.html" %>
@@ -29,7 +34,7 @@
 <div class="app-sidepanel-footer">
   <nav class="app-nav app-nav-footer">
     <ul class="app-menu footer-menu list-unstyled">
-      <%#= nav_item_tag "Настройки", "settings.html", icon: "gear" %>
+      <%= nav_item_tag t('.settings'), settings_path, icon: "gear" if policy(:setting).index? %>
       <%#= nav_item_tag "Скачать", "https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/", icon: "download" %>
       <%#= nav_item_tag "Лицензия", "https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/", icon: "file-person" %>
     </ul><!--//footer-menu-->

@@ -1,15 +1,11 @@
-<% provide :page_title, "Пользователи" %>
+<% provide :page_title, t('.user_edit') %>
 
-<%= page_title "Добавление нового пользователя", @back_url %>
+<%= page_title t('.user_edit'), [:users] %>
 
-<div class="row justify-content-center mt-4">
-  <div class="col-lg-8">
-    <div class="app-card app-card-settings shadow-sm p-4">
-      <div class="app-card-body">
-        <h4 class="card-title mb-3">Добавление нового пользователя</h4>
-
-        <%= render 'form', user: @user %>
-      </div>
-    </div>
+<div class="row gy-4 justify-content-center">
+	<div class="col-12 col-lg-6 d-flex flex-column gap-4">
+    <%= card_tag t('.new_user'), icon: "person"  do %>
+      <%= render 'form', user: @user %>
+    <% end %>
   </div>
 </div>

@@ -1,3 +1,4 @@
+require_relative "../../app/models/setting"
 # frozen_string_literal: true
 
 # Assuming you have not yet modified this file, each configuration option below
@@ -24,7 +25,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'itportal@adm.tver.ru'
+  config.mailer_sender = Setting.mailer_sender
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

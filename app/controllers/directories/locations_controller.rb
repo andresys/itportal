@@ -1,10 +1,8 @@
 class Directories::LocationsController < DirectoriesController
-  before_action :set_location, only: %i[show update destroy]
+  before_action :set_location, only: %i[edit update destroy]
+  before_action { authorize(@location || Location) }
 
   def index
-    page_size = params[:per] || 10
-    page = params[:page] || 0
-
     @locations = Location.page(page).per(page_size)
   end
 
@@ -24,8 +22,7 @@ class Directories::LocationsController < DirectoriesController
     end
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def update

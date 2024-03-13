@@ -1,10 +1,10 @@
 <% provide :page_title, "Фоновые задачи" %>
 
 <%= page_title Job.human_enum_name(:types, @job.job_type), @back_url do %>
-  <%= link_to [@job], class: "btn btn-danger flex-fill", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } do %>
+  <%= link_to [@job], class: "btn btn-danger flex-fill", data: { turbo_method: :delete, turbo_confirm: t('global.confirm') } do %>
     <%= bs_icon('trash') %>
     <%= t('.remove') %>
-  <% end if @add_histories.empty? && @remove_histories.empty? && @change_histories.empty? %>
+  <% end if @add_histories.empty? && @remove_histories.empty? && @change_histories.empty? && policy(@job).destroy? %>
 <% end %>
 
 <% @job.status ||= ActiveJob::Status.get(@job.job_id).to_h %>

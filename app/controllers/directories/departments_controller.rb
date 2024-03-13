@@ -1,7 +1,7 @@
 class Directories::DepartmentsController < DirectoriesController
-  layout "application"
   before_action :set_organization
-  before_action :set_department, only: %i[show update destroy]
+  before_action :set_department, only: %i[edit update destroy]
+  before_action { authorize(@department || Department) }
 
   def new
     @department = Department.new department_params
@@ -19,8 +19,7 @@ class Directories::DepartmentsController < DirectoriesController
     end
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def update

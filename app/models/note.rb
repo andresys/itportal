@@ -1,4 +1,6 @@
 class Note < ApplicationRecord
+  resourcify
+  
   belongs_to :noteble, polymorphic: true
 
   has_many_attached :images, dependent: :destroy do |attachable|

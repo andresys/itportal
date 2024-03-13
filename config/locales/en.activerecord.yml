@@ -71,3 +71,10 @@ en:
         current_password: Current password
         remember_me: Remember me
         terms_of_service: Terms of service
+      setting:
+        default_locale: System interface language
+        autodetect_locale: Automatic language detection
+        default_per_page: Number of entries per page
+      role:
+        name: Role name
+        resource_type: Resource for role

@@ -8,7 +8,7 @@
       <div class="app-card-body">
         <h4 class="card-title mb-3 d-flex">
           <span>Редактирование подразделения</span>
-          <%= link_to bs_icon('trash'), [:directories, @organization, @department], class: "ms-auto", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } %>
+          <%= link_to bs_icon('trash'), [:directories, @organization, @department], class: "ms-auto", data: { turbo_method: :delete, turbo_confirm: t('global.confirm') } %>
         </h4>
        
         <%= render 'form', department: @department %>

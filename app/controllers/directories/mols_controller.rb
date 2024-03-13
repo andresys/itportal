@@ -1,8 +1,8 @@
 class Directories::MolsController < DirectoriesController
-  def index
-    page_size = params[:per] || 10
-    page = params[:page] || 0
+  before_action :set_mol, only: %i[show update destroy]
+  before_action { authorize(@mol || Mol) }
 
+  def index
     @mols = Mol.page(page).per(page_size)
   end
 
@@ -10,5 +10,11 @@ class Directories::MolsController < DirectoriesController
   end
 
   def create
+  end
+
+  private
+
+  def set_mol
+    @mol = Mol.find(params[:id])
   end
 end

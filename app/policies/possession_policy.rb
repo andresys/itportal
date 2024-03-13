@@ -1,0 +1,2 @@
+class PossessionPolicy < ApplicationPolicy
+end

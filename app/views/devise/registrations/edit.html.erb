@@ -1,42 +1,25 @@
-<% provide :page_title, "Редактирование аккаунта" %>
+<% provide :page_title, t('.edit') %>
 
-<%= page_title "Редактирование аккаунта", @back_url || root_path %>
+<%= page_title t('.edit'), [:profile] %>
 
 <div class="row justify-content-center mt-4">
   <div class="col-lg-6">
     <div class="app-card app-card-settings shadow-sm p-4">
       <div class="app-card-body">
         <h4 class="card-title mb-3 d-flex">
-          <span>Редактирование аккаунта</span>
-          <%= link_to bs_icon('trash'), registration_path(resource_name), class: "ms-auto", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } %>
+          <%= tag.span t('.edit_password') %>
+          <%#= link_to bs_icon('trash'), registration_path(resource_name), class: "ms-auto", data: { turbo_method: :delete, turbo_confirm: t('global.confirm') } %>
         </h4>
 
         <%= render "shared/errors", model: resource %>
 
         <%= form_with model: resource, url: [:user, :registration], class: "auth-form auth-signup-form" do |f| %>
           <div class="mb-3">
-            <%= f.email_field :email, class: "form-control", placeholder: t('activerecord.attributes.user..email'), autocomplete: "email", autofocus: true %>
-          </div>
-
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-          <% end %>
-          
-          <div class="mb-3">
-            <%= f.collection_select :employee_id,
-                  Employee.all, :id, :name,
-                  { include_blank: true },
-                  { class: "form-control js-select", placeholder: t('activerecord.attributes.user.employee'), autocomplete: "off" } %>
-          </div>
-
-          <div class="mb-3">
             <%= f.password_field :password, class: "form-control", placeholder: t('activerecord.attributes.user.new_password'), autocomplete: "new-password" %>
-            <% if @minimum_password_length %>
-            <small class="fst-italic">(<%= @minimum_password_length %> символов минимум)</small>
-            <% end %>
+            <%= tag.small t('.minimal_length', length: @minimum_password_length), class: "fst-italic" if @minimum_password_length %>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-5">
             <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('activerecord.attributes.user.password_confirmation'), autocomplete: "new-password" %>
           </div>
 
@@ -45,7 +28,8 @@
           </div>
 
           <div class="form-actions text-center">
-            <%= f.submit "Сохранить изменения", class: "btn app-btn-primary theme-btn mx-auto" %>
+            <%= link_to t('global.cancel'), [:profile], class: "btn btn-outline-secondary", data: { turbo: turbo_frame_request? } %>
+            <%= f.submit t('global.change'), class: "btn btn-primary theme-btn mx-auto" %>
           </div>
         <% end %>
       </div>

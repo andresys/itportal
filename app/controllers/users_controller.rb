@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action { authorize(@user || User) }
 
   def index
     # @users = ActiveDirectory::User.find(:all)
@@ -24,9 +25,6 @@ class UsersController < ApplicationController
       query_parameters.merge!(organization: {id: @organization})
     end
 
-    page_size = params[:per] || 10
-    page = params[:page] || 0
-
     @users = User.left_joins(:employee)
       .where(query_parameters)
       .where(matches_string_user.(:email).or(matches_string_employee.(:name)))
@@ -43,7 +41,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    render :edit
   end
 
   def edit
@@ -51,6 +48,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.approved = true
+    @user.skip_confirmation_notification!
+    @user.confirmed_at = DateTime.now
 
     respond_to do |format|
       if @user.save

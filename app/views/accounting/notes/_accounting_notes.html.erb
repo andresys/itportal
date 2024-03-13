@@ -1,15 +1,14 @@
-<div class="app-card app-card-orders-table app-card-settings shadow-sm p-4">
-  <div class="app-card-body">
-    <div class="mb-2">
-      <strong>Заметки:</strong>
-    </div>
-
-    <%= turbo_frame_tag "notes_table" do %>
-      <%= render "/accounting/notes/notes_table", item: item %>
-    <% end %>
-
-    <%= turbo_frame_tag "notes_form" do %>
-      <%= render "/accounting/notes/notes_form", note: @note, item: item %>
-    <% end %>
-  </div>
+<div class="mb-2">
+  <strong>Заметки:</strong>
 </div>
+
+<%= turbo_frame_tag "notes_table" do %>
+  <%= render "/accounting/notes/notes_table", item: item %>
+<% end %>
+
+<% if policy(:note).new? %>
+<div class="mt-4"></div>
+<%= turbo_frame_tag "notes_form" do %>
+  <%= render "/accounting/notes/notes_form", note: @note, item: item %>
+<% end %>
+<% end %>

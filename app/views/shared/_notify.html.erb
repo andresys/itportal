@@ -1,11 +1,12 @@
 <% if flash.any? %>
+  <% notify = flash.to_h.except('timedout') %>
   <small>
     <div class="alert alert-warning">
-      <% if flash.count == 1%>
-        <%= flash.first.last %>
+      <% if notify.count == 1 %>
+        <%= notify.first.last %>
       <% else %>
         <ul class="mb-0">
-          <% flash.each do |type, msg| %>
+          <% notify.each do |type, msg| %>
             <li><%= msg %></li>
           <% end %>
         </ul>

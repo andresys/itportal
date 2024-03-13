@@ -1,12 +1,18 @@
 class ApplicationController < ActionController::Base
-  include ErrorHandling
   include Internationalization
   include BackUrl
+  include ErrorHandling
+  include Authorization
+  include PerPage
+
+  layout :set_layout
 
   helper_method :turbo_frame_request?
-  
-  layout :set_layout
+  helper_method :policy
+  helper_method :accounting_items, :directory_items, :user_action_items
+
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!, unless: -> { %w[static_pages].include? controller_name }
 
   protected
 
@@ -19,6 +25,31 @@ class ApplicationController < ActionController::Base
   def set_layout
     return false if request.xhr?
 
-    return 'application' if controller_name == 'registrations' && ['edit', 'update'].include?(action_name)
+    return 'application' if controller_name == 'registrations' && %w[edit update].include?(action_name)
+  end
+
+  def accounting_items
+    items = []
+    items << 'assets' if policy(:asset).index?
+    items << 'materials' if policy(:material).index?
+    items << 'notes' if policy(:note).index?
+    # items << 'prints' if policy(:print).index?
+    items
+  end
+
+  def directory_items
+    items = []
+    items << 'organizations' if policy(:organization).index?
+    items << 'employees' if policy(:employee).index?
+    items << 'mols' if policy(:mol).index?
+    items << 'locations' if policy(:location).index?
+    items << 'asset_types' if policy(:asset_type).index?
+    items
+  end
+
+  def user_action_items
+    items = []
+    items << 'approveds' if policy(:approved).create? || policy(:approved).destroy?
+    items
   end
 end

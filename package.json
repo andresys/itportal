@@ -8,17 +8,18 @@
     "@popperjs/core": "^2.11.8",
     "@rails/actioncable": "^7.1.3",
     "@rails/activestorage": "^7.1.3",
+    "autoprefixer": "^10.4.2",
     "axios": "^1.6.7",
     "bootstrap": "^5.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^2.7.1",
     "downloadjs": "^1.4.7",
     "esbuild": "^0.19.12",
-    "sass": "1.70.0",
-    "tom-select": "^2.2.0",
-    "postcss-cli": "^9.1.0",
+    "font-awesome": "^4.7.0",
     "postcss": "^8.4.6",
-    "autoprefixer": "^10.4.2"
+    "postcss-cli": "^9.1.0",
+    "sass": "1.70.0",
+    "tom-select": "^2.2.0"
   },
   "version": "0.1.0",
   "browserslist": [
@@ -26,7 +27,7 @@
     "IE 11"
   ],
   "scripts": {
-    "build:css:dev": "sass --style compressed ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build:css:dev": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules",
     "build:css": "yarn run build:css:dev && postcss ./app/assets/builds/application.css --replace --use autoprefixer --no-map",
     "build": "esbuild app/javascript/*.* --bundle --minify --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   }

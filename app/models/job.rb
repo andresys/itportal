@@ -1,4 +1,6 @@
 class Job < ApplicationRecord
+  resourcify
+  
   enum job_type: { import_assets_from_1c: 0, import_materials_from_1c: 1, import_employees: 2 }
   has_many :job_histories, dependent: :delete_all
 

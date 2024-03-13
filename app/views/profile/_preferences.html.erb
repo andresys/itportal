@@ -1,0 +1,5 @@
+<% footer = link_to t('.manage_preferences'), [:profile, :preferences], class: "btn btn-outline-secondary" %>
+
+<%= card_tag t('.preferences'), icon: "sliders", footer: footer do %>
+  <%= user_item_tag t('.locale'), t("global.languages.#{@user.preferences&[:locale] || 'global'}"), class: "py-3" %>
+<% end %>

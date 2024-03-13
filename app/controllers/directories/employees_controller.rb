@@ -1,6 +1,6 @@
 class Directories::EmployeesController < DirectoriesController
-  layout "application", except: :index
-  before_action :set_employee, only: %i[show update destroy]
+  before_action :set_employee, only: %i[edit update destroy]
+  before_action { authorize(@employee || Employee) }
 
   def index
     employee = Employee.arel_table
@@ -15,9 +15,6 @@ class Directories::EmployeesController < DirectoriesController
     if @organization || params[:organization] == '0'
       query_parameters.merge!(organization: {id: @organization})
     end
-
-    page_size = params[:per] || 10
-    page = params[:page] || 0
 
     @employees = Employee.left_joins(:images_attachments, :organization)
       .where.not(name: nil)
@@ -35,8 +32,7 @@ class Directories::EmployeesController < DirectoriesController
     @employee = Employee.new
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def create

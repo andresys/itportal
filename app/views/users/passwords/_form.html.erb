@@ -1,0 +1,18 @@
+<%= render "shared/errors", model: user %>
+
+<%= form_with model: user, url: [@user, :passwords] do |f| %>
+  <div class="mb-3">
+    <%= f.label :password, class: "form-label fw-bold" %>
+    <%= f.password_field :password, class: "form-control", placeholder: t('.password') %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: "form-label fw-bold" %>
+    <%= f.password_field :password_confirmation, class: "form-control", placeholder: t('.password') %>
+  </div>
+
+  <div class="form-actions mb-3 text-center">
+    <%= link_to t('global.cancel'), [@user], class: "btn btn-outline-secondary" %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,8 +1,10 @@
-<% if model.errors.any? %>
+<% model ||= nil %>
+<% errors ||= model&.errors %>
+<% if errors&.any? %>
   <small>
     <div class="alert alert-danger ">
       <ul class="mb-0">
-        <% model.errors.each do |error| %>
+        <% errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

@@ -4,7 +4,11 @@
   <%= link_to [:new, :job], class: "btn btn-primary flex-fill" do %>
     <%= bs_icon 'boxes' %>
     <%= t('.new') %>
-  <% end %>
+  <% end if policy(:job).new? %>
+  <%= link_to sidekiq_path, class: "btn btn-outline-secondary flex-fill" do %>
+    <%= bs_icon 'boxes' %>
+    <%= 'Sidekiq' %>
+  <% end if current_user.has_role?(:superadmin) %>
 <% end %>
 
 <%= render "shared/nav_tabs", items: ['changed', 'all'] %>

@@ -1,0 +1,11 @@
+<% provide :page_title, t('.user_roles') %>
+
+<%= page_title t('.user_roles'), [@user, :roles] %>
+
+<div class="row gy-4 justify-content-center">
+	<div class="col-12 col-lg-6 d-flex flex-column gap-4">
+    <%= card_tag t('.new_role'), icon: "shield-exclamation" do %>
+      <%= render 'form', role: @role %>
+    <% end %>
+  </div>
+</div>

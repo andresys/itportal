@@ -1,0 +1,46 @@
+<div class="row mb-4">
+  <div class="col-lg">
+    <div class="mb-2"><strong>Цена:</strong> <%= tag.span number_to_currency(@accounting.cost / @accounting.count, separator: ',', unit: '₽') %></div>
+    <div class="mb-2"><strong>Количество:</strong> <%= tag.span @accounting.count %></div>
+    <%= tag.div class: @accounting.description && "mb-2 mb-lg-0" do %>
+      <strong>Cтоимость:</strong>
+      <%= tag.span number_to_currency(@accounting.cost, separator: ',', unit: '₽') %>
+    <% end %>
+  </div>
+
+  <% if @accounting.description %>
+  <div class="col-lg">
+    <div class="card text-bg-light">
+      <div class="card-body">
+        <h6 class="card-title">Информация:</h6>
+        <%= tag.p @accounting.description %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+
+<div class="mb-2"><strong>Организация:</strong> <%= link_to @accounting.organization.name, accounting_materials_path(organization: @accounting.organization) %></div>
+<div class="mb-4"><strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong> <%= link_to @accounting.mol.name, accounting_materials_path(mol: @accounting.mol) %></div>
+
+<div class="row">
+  <div class="col-auto">
+    <div class="mb-2">
+      <strong>Счет учета:</strong>
+      <%= tag.abbr @accounting.account.code, title: @accounting.account.name, class: "initialism" %>
+    </div>
+    <div class="mb-2"><strong>Код материала:</strong> <%= tag.span @accounting.code %></div>
+  </div>
+  <div class="col-auto">
+  </div>
+</div>
+
+<div class="row justify-content-between">
+  <div class="col-auto">
+    <%#= render partial: "add_edit_material", locals: { model: @accounting, text: "Изменить", title: "Редактирование основного средства (ОС)" } %>
+  </div>
+  <%# <div class="col-auto">
+    <a class="btn btn-outline-secondary" href="#">Cancel Plan</a>
+  </div> %>
+</div>

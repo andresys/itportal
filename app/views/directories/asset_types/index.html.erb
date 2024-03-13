@@ -1,11 +1,15 @@
 <% provide :page_title, "Справочник [типы ресурсов]" %>
 
-<% content_for :title do %>
+<%= page_title t '.title' do %>
   <%= link_to new_directories_asset_type_path, class: "btn btn-primary flex-fill" do %>
     <%= bs_icon 'folder-plus' %>
     <%= t('.new') %>
   <% end %>
 <% end %>
+
+<% url = lambda {|item| [:directories, item.to_sym]} %>
+<% active = lambda {|item| controller_name == item} %>
+<%= render "shared/nav_tabs", items: directory_items, url: url, active: active %>
 
 <div class="app-card app-card-orders-table shadow-sm mb-5">
   <div class="app-card-body p-3">

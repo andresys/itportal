@@ -1,11 +1,9 @@
-class Accounting::NotesController < ApplicationController
+class Accounting::NotesController < AccountingController
   before_action :set_accounting, only: %i[create]
-  before_action :set_note, only: %i[show update destroy]
+  before_action :set_note, only: %i[edit update destroy]
+  before_action { authorize(@note || Note) }
 
   def index
-    page_size = params[:per] || 10
-    page = params[:page] || 0
-
     @notes = Note.reorder(date: :desc, created_at: :desc).page(page).per(page_size)
   end
 
@@ -23,8 +21,7 @@ class Accounting::NotesController < ApplicationController
     end
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def update

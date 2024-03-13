@@ -1,0 +1,19 @@
+<% provide :page_title, t('.user_roles') %>
+
+<%= page_title t('.user_roles'), [@user] do %>
+  <%= link_to [:new, @user, :role], class: "btn btn-primary flex-fill" do %>
+    <%= bs_icon 'shield-plus' %>
+    <%= t('.new') %>
+  <% end if policy(:role).new? %>
+<% end %>
+
+
+<div class="app-card app-card-orders-table shadow-sm mb-5">
+  <div class="app-card-body">
+    <ul class="list-group list-group-flush">
+      <%= render @roles %>
+    </ul>
+  </div>
+</div>
+
+<%= render partial: "shared/paginate", locals: { items: @roles, link: lambda {|q| user_roles_path(@user, q)} } %>

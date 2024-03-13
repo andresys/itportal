@@ -1,0 +1,15 @@
+<%= render "shared/errors", model: user %>
+
+<%= form_with model: user, url: [:profile], method: :patch do |f| %>
+  <div class="row">
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %>
+      <%= f.email_field :email, class: "form-control", placeholder: t('.email') %>
+    </div>
+
+    <div class="form-actions text-center">
+      <%= link_to t('global.cancel'), [:profile], class: "btn btn-outline-secondary" %>
+      <%= f.button :submit, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

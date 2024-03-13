@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "possessions_form" do %>
-  <%= link_to bs_icon('trash'), [:accounting, @possession.possessionable, @possession], class: "float-end", data: { turbo_method: :delete, turbo_confirm: t(:confirm) } if turbo_frame_request? && @possession.persisted? %>
+  <%= link_to bs_icon('trash'), [:accounting, @possession.possessionable, @possession], class: "float-end", data: { turbo_method: :delete, turbo_confirm: t('global.confirm') } if turbo_frame_request? && @possession.persisted? %>
 
   <%= form_with model: [:accounting, @accounting, possession] do |f| %>
     <%= render "shared/errors", model: possession %>
@@ -29,8 +29,8 @@
     </div>
 
     <div class="form-actions text-center">
-      <%= link_to t(:cancel), [:accounting, @accounting], class: "btn app-btn-secondary", data: { turbo: turbo_frame_request? } %>
-      <%= f.button :submit, class: "btn app-btn-primary", data: { turbo: turbo_frame_request? } %>
+      <%= link_to t('global.cancel'), [:accounting, @accounting], class: "btn btn-outline-secondary", data: { turbo: turbo_frame_request? } %>
+      <%= f.button :submit, class: "btn btn-primary", data: { turbo: turbo_frame_request? } %>
     </div>
   <% end %>
 <% end %>

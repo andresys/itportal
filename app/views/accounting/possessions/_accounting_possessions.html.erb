@@ -1,14 +1,3 @@
-<div class="row g-4 settings-section mb-3">
-  <div class="col-12 col-md-4">
-    <div class="section-intro">Ответственное владение (хранение)</div>
-  </div>
-  <div class="col-12 col-md-8 mt-1 mt-sm-4">
-    <div class="app-card app-card-settings shadow-sm p-4">
-      <div class="app-card-body">
-        <%= turbo_frame_tag "possessions", class: "d-flex flex-column gap-4" do %>
-          <%= render "accounting/possessions/possessions", item: item %>
-        <% end %>
-      </div><!--//app-card-body-->
-    </div><!--//app-card-->
-  </div>
-</div>
+<%= turbo_frame_tag "possessions", class: "d-flex flex-column gap-4" do %>
+  <%= render "accounting/possessions/possessions", item: item %>
+<% end %>

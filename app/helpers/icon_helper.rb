@@ -4,6 +4,11 @@ module IconHelper
     svg_icon(file_name, size && options.merge(width: size.to_s, height: size.to_s) || options) if File.exists?(file_name)
   end
 
+  def fa_icon icon, options = {}
+    css_class = options.delete(:class)
+    tag.i nil, class: ["fa fa-#{icon}", css_class].join(' ')
+  end
+
   def svg_icon file_name, options = {}
     file = File.read(file_name)
     doc = Nokogiri::HTML::DocumentFragment.parse file

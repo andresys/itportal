@@ -1,4 +1,19 @@
-<p id="notice"><%= notice %></p>
+<% provide :page_title, t('.user_profile') %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= page_title t('.user_profile'), [:users] %>
+
+
+
+<div class="row gy-4 justify-content-center">
+  <%= tag.div class: "col-12 d-flex flex-column gap-4" do %>
+    <%= render "action" %>
+  <% end if user_action_items.any? %>
+
+	<div class="col-12 col-lg-6 d-flex flex-column gap-4">
+    <%= render "profile" %>
+	</div>
+
+  <div class="col-12 col-lg-6 d-flex flex-column gap-4">
+    <%= render "security" %>
+	</div>
+</div>

@@ -1,11 +1,13 @@
-<%= tag.div class: "alert alert-danger d-flex align-items-center gap-2" do %>
+<%= tag.div class: "alert alert-danger d-flex flex-wrap align-items-center gap-2" do %>
   <%= bs_icon "exclamation-triangle-fill" %>
-  <strong>Внимание:</strong>
-  Элемент помечен для удаления
+  <%= tag.strong "#{t('.attention')}:" %>
+  <%= tag.span t('.for_deleted') %>
+  <% if policy(item).destroy? %>
   <div class="ms-auto">
-    <%= button_to link&.call(item), class: "btn btn-outline-danger", method: :delete, data: { turbo_confirm: t(:confirm) } do %>
+    <%= button_to link&.call(item), class: "btn btn-outline-danger", method: :delete, data: { turbo_confirm: t('global.confirm') } do %>
       <%= bs_icon('trash') %>
-      Удалить сейчас?
+      <%= tag.span t('.delete_now') %>
     <% end %>
   </div>
+  <% end %>
 <% end if item.delete_mark %>

@@ -23,11 +23,11 @@
         <li class="page-item">
           <button class="page-link dropdown-toggle" data-bs-toggle="dropdown">по <%= items.limit_value %></button>
           <ul class="dropdown-menu text-center">
-            <% [10, 15, 20, 25, 30, 40, 50, 75, 100].each do |per_page| %>
+            <% Rails.application.config.count_record_list.each do |per_page| %>
               <li>
-                <%= link_to per_page, link&.call(query.merge(per: per_page)), class: "dropdown-item" %>
+                <%= link_to per_page, link&.call(query.merge(per: per_page)), class: ["dropdown-item", per_page.to_i == items.limit_value && "active"].join(' ') %>
               </li>
-              <% break if per_page >= items.total_count %>
+              <% break if per_page.to_i >= items.total_count %>
             <% end %>
           </ul>
         </li>

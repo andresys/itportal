@@ -1,0 +1,18 @@
+<%= render "shared/errors", model: role %>
+
+<%= form_with model: [@user, role] do |f| %>
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label fw-bold" %>
+    <%= f.text_field :name, class: "form-control", placeholder: t('.role') %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :resource_type, class: "form-label fw-bold" %>
+    <%= f.text_field :resource_type, class: "form-control", placeholder: t('.resource') %>
+  </div>
+
+  <div class="form-actions mb-3 text-center">
+    <%= link_to t('global.cancel'), [@user, :roles], class: "btn btn-outline-secondary" %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

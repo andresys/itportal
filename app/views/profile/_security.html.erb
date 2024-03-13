@@ -1,0 +1,26 @@
+<%= card_tag t('.security'), icon: "shield-check" do %>
+  <div class="row gx-0 gap-3 border-bottom py-3">
+    <div class="col">
+      <%= user_item_tag t('.current_login') do %>
+        <div class="text-truncate mt-2">
+          <%= tag.span "#{l(@user.current_sign_in_at, format: :short)} [#{@user.current_sign_in_ip}]" %>
+        </div>
+      <% end if @user.current_sign_in_at %>
+    </div>
+    <div class="col">
+      <%= user_item_tag t('.last_login') do %>
+        <div class="text-truncate mt-2">
+          <%= tag.span "#{l(@user.last_sign_in_at, format: :short)} [#{@user.last_sign_in_ip}]" %>
+        </div>
+      <% end if @user.last_sign_in_at %>
+    </div>
+  </div>
+  <%= user_item_tag t('.roles'), class: "border-bottom py-3" do %>
+    <div class="d-flex gap-2 flex-wrap mt-2">
+      <% @user.roles.each do |role| %>
+        <%= role_tag role %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= user_item_tag t('.password'), "••••••••", action: lambda { link_to t('global.change'), [:edit, :user, :registration], class: "btn btn-sm btn-outline-secondary" }, class: "py-3" %>
+<% end %>

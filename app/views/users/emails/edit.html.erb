@@ -1,0 +1,13 @@
+<% provide :page_title, t('.user_email') %>
+
+<%= page_title t('.user_email'), [@user] %>
+
+
+
+<div class="row gy-4 justify-content-center">
+	<div class="col-12 col-lg-6 d-flex flex-column gap-4">
+    <%= card_tag t('.edit_email') do %>
+      <%= render 'form', user: @user %>
+    <% end %>
+	</div>
+</div>

@@ -1,6 +1,6 @@
 class Directories::OrganizationsController < DirectoriesController
-  layout "application", except: :index
-  before_action :set_organization, only: %i[show update destroy]
+  before_action :set_organization, only: %i[edit update destroy]
+  before_action { authorize(@organization || Organization) }
 
   def index
     organization = Organization.arel_table
@@ -9,9 +9,6 @@ class Directories::OrganizationsController < DirectoriesController
     @query = request.query_parameters
 
     query_parameters = {}
-
-    page_size = params[:per] || 10
-    page = params[:page] || 0
 
     @organizations = Organization.left_joins(nil)
       .where.not(name: nil)
@@ -26,8 +23,7 @@ class Directories::OrganizationsController < DirectoriesController
     @organization = Organization.new
   end
 
-  def show
-    render :edit
+  def edit
   end
 
   def create

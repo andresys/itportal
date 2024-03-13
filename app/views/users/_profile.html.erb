@@ -1,0 +1,11 @@
+<%= card_tag t('.profile'), icon: "person"  do %>
+  <%= user_item_tag t('.photo'), nil, action: policy(@user).edit? && lambda { link_to t('global.change'), [@user], class: "btn btn-sm btn-outline-secondary" }, class: "border-bottom py-3" do %>
+    <% image = @user.employee.images.last %>
+    <%= image_tag rails_storage_proxy_path(image.variant(:icon)), class: "rounded-circle mt-2", style: "max-width: inherit" if image %>
+  <% end %>
+  <%= user_item_tag t('.name'), @user.employee&.name, class: "border-bottom py-3" %>
+  <%= user_item_tag t('.organization'), @user.employee&.organization&.name, class: "border-bottom py-3" if @user.employee&.organization %>
+  <%= user_item_tag t('.department'), @user.employee&.title&.department&.name, class: "border-bottom py-3" if @user.employee&.title&.department %>
+  <%= user_item_tag t('.title'), @user.employee&.title&.name, class: "border-bottom py-3" if @user.employee&.title %>
+  <%= user_item_tag t('.email'), @user.email, action: policy(@user).edit? && lambda { link_to t('global.change'), [:edit, @user, :emails], class: "btn btn-sm btn-outline-secondary" }, class: "py-3" %>
+<% end %>

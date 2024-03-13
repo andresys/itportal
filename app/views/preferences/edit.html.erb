@@ -1,0 +1,9 @@
+<% provide :page_title, t('.preferences') %>
+
+<%= page_title t('.preferences'), [:profile] %>
+
+<hr class="mb-4">
+
+<%= setting_section_tag t('.general'), t('.general_description') do %>
+  <%= render "general" %>
+<% end %>

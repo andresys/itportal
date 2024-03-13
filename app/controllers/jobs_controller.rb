@@ -1,10 +1,9 @@
 class JobsController < ApplicationController
+  before_action { authorize(@job || Job) }
+
   def index
     @current_tab = ['changed', 'all'].include?(params[:tab]) && params[:tab] || 'changed'
 
-    page_size = params[:per] || 10
-    page = params[:page] || 0
-    
     @jobs = Job.left_joins(:job_histories).group(:id)
 
     @jobs = @jobs.having("COUNT(job_histories) > 0") if @current_tab == 'changed'

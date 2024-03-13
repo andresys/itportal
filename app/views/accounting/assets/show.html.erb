@@ -1,9 +1,9 @@
 <% provide :page_title, "Основные средства" %>
 
-<%= render partial: "shared/remove_action", locals: {item: @accounting, link: lambda {|item| [:accounting, item]}}%>
+<%= render partial: "shared/remove_action", locals: {item: @accounting, link: lambda {|item| [:accounting, item]}} %>
 
 <%= page_title @accounting.name, @back_url do %>
-  <%= render partial: "shared/upload_file", locals: {item: @accounting, title: t('.upload')} %>
+  <%= render partial: "shared/upload_file", locals: {item: @accounting, title: t('.upload')} if policy(:asset).edit? %>
 <% end %>
 
 <div class="table-responsive">
@@ -14,90 +14,18 @@
 
 <%= tag.hr class: "mb-4" if @accounting.images.any? %>
 
-<div class="row g-4 settings-section mb-3">
-  <div class="col-12 col-md-4">
-    <h3 class="section-title">Данные инвентарного учета</h3>
-    <div class="section-intro">Основные данные учета</div>
-  </div>
-  <div class="col-12 col-md-8 mt-1 mt-sm-4">
-    <div class="app-card app-card-settings shadow-sm p-4">
-      <div class="app-card-body">
-        <%= turbo_frame_tag "accounting" do %>
-          <%= render "accounting/assets/accounting" %>
-        <% end %>
-      </div><!--//app-card-body-->
-    </div><!--//app-card-->
-  </div>
-</div>
+<%= setting_section_tag "Данные инвентарного учета", "Основные данные учета"  do %>
+  <%= render "accounting/assets/accounting" %>
+<% end %>
 
-<%= render "accounting/possessions/accounting_possessions", item: @accounting %>
-        
-<div class="row g-4 settings-section mb-3">
-  <div class="col-12 col-md-4">
-    <div class="section-intro">Прочие данные инвентарного учета</div>
-  </div>
-  <div class="col-12 col-md-8 mt-1 mt-sm-4">
-    <div class="app-card app-card-settings shadow-sm p-4 mb-3">
-      <div class="app-card-body">
-        <div class="row mb-4">
-          <div class="col-lg">
-            <div class="mb-2"><strong>Инвентарный номер:</strong> <%= tag.span @accounting.inventory_number %></div>
-            <div class="mb-2"><strong>Количество:</strong> <%= tag.span @accounting.count %></div>
-            <div class="mb-4"><strong>Балансовая стоимость:</strong> <%= tag.span number_to_currency(@accounting.cost, separator: ',', unit: '₽') %></div>
+<%= setting_section_tag nil, "Ответственное владение (хранение)"  do %>
+  <%= render "accounting/possessions/accounting_possessions", item: @accounting %>
+<% end if @accounting.possessions.any? || policy(:possession).edit? || policy(:possession).new? %>
 
-            <%= tag.div class: @accounting.description && "mb-4 mb-lg-0" do %>
-              <strong>Статус:</strong>
-              <%= status_tag @accounting.account&.code %>
-            <% end %>
-          </div>
+<%= setting_section_tag nil, "Прочие данные инвентарного учета" do %>
+  <%= render "accounting/assets/inventory_data" %>
+<% end %>
 
-          <% if @accounting.description %>
-          <div class="col-lg mb-3">
-            <div class="card text-bg-light">
-              <div class="card-body">
-                <h6 class="card-title">Информация:</h6>
-                <%= tag.p @accounting.description %>
-              </div>
-            </div>
-          </div>
-          <% end %>
-        </div>
-
-        <div class="mb-2">
-          <strong>Организация:</strong>
-          <%= link_to @accounting.organization.name, accounting_assets_path(organization: @accounting.organization) if @accounting.organization %>
-        </div>
-        <div class="mb-4">
-          <strong><abbr title="Материально-ответственное лицо" class="initialism">МОЛ</abbr>:</strong>
-          <%= link_to @accounting.mol.name, accounting_assets_path(mol: @accounting.mol) if @accounting.mol %>
-        </div>
-        
-        <div class="row">
-          <div class="col-lg">
-            <div class="mb-2">
-              <strong>Счет учета:</strong>
-              <%= tag.abbr @accounting.account&.code, title: @accounting.account&.name, class: "initialism" %>
-            </div>
-            <div class="mb-2"><strong>Код учета в 1С:</strong> <%= tag.span @accounting.code %></div>
-          </div>
-          <div class="col-lg">
-            <div class="mb-2"><strong>Дата принятия к учету:</strong> <%= tag.span l @accounting.start_date, format: "%e %B %Y год" if @accounting.start_date %></div>
-            <div class="mb-2"><strong>Дата ввода в эксплуатацию:</strong> <%= tag.span l @accounting.date, format: "%e %B %Y год" if @accounting.date %></div>
-            <div class="mb-2"><strong>Срок полезного использования:</strong> <%= tag.span "#{@accounting.useful_life} мес." if @accounting.useful_life %></div>
-          </div>
-        </div>
-
-        <div class="row justify-content-between">
-          <div class="col-auto">
-            <%#= render partial: "add_edit_asset", locals: { model: @accounting, text: "Изменить", title: "Редактирование основного средства (ОС)" } %>
-          </div>
-          <%# <div class="col-auto">
-            <a class="btn app-btn-secondary" href="#">Cancel Plan</a>
-          </div> %>
-        </div>
-      </div><!--//app-card-body-->
-    </div><!--//app-card-->
-
-    <%= render "accounting/notes/accounting_notes", item: @accounting %>
-  </div>
-</div>
+<%= setting_section_tag nil, nil do %>
+  <%= render "accounting/notes/accounting_notes", item: @accounting if @accounting.notes.any? || policy(:note).new? %>
+<% end %>

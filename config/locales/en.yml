@@ -1,7 +1,28 @@
 en:
-  cancel: Cancel
-  save: Save
-  confirm: Do you confirm that you want to delete?
+  global:
+    cancel: Cancel
+    save: Save
+    change: Change
+    delete: Delete
+    view: View
+    confirm: Do you confirm that you want to delete?
+    flash:
+      not_authorized: You are not authorized to perform this action!
+    roles:
+      user: User
+      admin: Admin
+      member: Member
+      moderator: Moderator
+      superadmin: Super Admin
+      resource_role: "%{role} for %{resource}"
+      resource_role_id: "%{role} for %{resource} [ID: %{id}]"
+      models:
+        Organization: organizations
+        User: users
+    languages:
+      global: Defined by global settings
+      en: English
+      ru: Russian
 
   shared:
     filters:
@@ -27,14 +48,29 @@ en:
       titles: Titles
       departments: Departments
       asset_types: Asset types
+    remove_action:
+      attention: Attention
+      for_deleted: Item marked for deletion
+      delete_now: Delete now?
 
   application:
     navigation:
+      home: Home
+      accounting: Inventory accounting
+      assets: Fixed assets
+      materials: Materials
+      notes: Notes
+      lebel_printing: Label printing
       directories: Directories
-
-  layouts:
-    directories:
-      title: Directories
+      users: Users
+      background_tasks: Background tasks
+      settings: Settings
+    user-profile:
+      profile: Profile
+      exit: Exit
+    footer:
+      design: Design
+      from: from
 
   accounting:
     assets:
@@ -72,6 +108,7 @@ en:
     locations:
       index:
         new: Add location
+        title: Direstories
       form:
         name: Address
       location:
@@ -84,6 +121,7 @@ en:
     employees:
       index:
         new: New employee
+        title: Direstories
       employee:
         edit_employee: Edit employee
       form:
@@ -93,6 +131,7 @@ en:
     organizations:
       index:
         new: Add organization
+        title: Direstories
       organization:
         staffing_table: Staffing table
         create_staffing_table: Create staffing table
@@ -120,10 +159,14 @@ en:
     asset_types:
       index:
         new: New type
+        title: Direstories
         edit_asset_type: Edit asset type
         add_asset_type: Add asset subtype
       form:
         name: Name
+    mols:
+      index:
+        title: Direstories
   jobs:
     index:
       new: New task
@@ -137,7 +180,88 @@ en:
     form:
       type: Task type
 
+  users: &user
+    index:
+      new: New user
+    show:
+      user_profile: User profile
+    new:
+      user_edit: Edit user
+      new_user: New user
+    edit:
+      user_edit: Edit user
+      edit_user: Edit user
+    form:
+      employee: Name
+      email: E-mail
+      password: Password
+    profile:
+      profile: Profile
+      photo: Photo
+      name: Name
+      organization: Organization
+      department: Department
+      title: Title
+      email: E-mail
+    preferences:
+      preferences: Preferences
+      locale: The system interface language
+      manage_preferences: Manage preferences
+    security:
+      security: Security
+      password: Password
+      current_login: Current login
+      last_login: Last login
+      roles: User roles
+    emails:
+      edit:
+        user_email: User e-mail
+        edit_email: Edit user e-mail
+      form:
+        email: E-mail
+    passwords:
+      edit:
+        user_password: User password
+        edit_password: Edit user password
+      form:
+        password: Password
+    roles:
+      index:
+        user_roles: User roles
+        new: Add role
+      new:
+        user_roles: User roles
+        new_role: New role
+      role:
+        delete_role: Remove role
+      form:
+        role: Role name
+        resource: Recource for role
+
+  settings:
+    show: &settings
+      settings: System settings
+      general: General settings
+      general_description: List of general settings
+    general:
+      autodetect_locale: The system interface language will be automatically determined from the browser settings
+
+  profile:
+    <<: *user
+      
+  preferences:
+    edit:
+      preferences: My settings
+      <<: *settings
+
   helpers:
     submit:
       create: Create
       update: Save
+
+  devise:
+    registrations:
+      edit:
+        edit: Edit account
+        edit_password: Password change
+        minimal_length: "%{length} characters minimum"

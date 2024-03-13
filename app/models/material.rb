@@ -1,4 +1,6 @@
 class Material < ApplicationRecord
+  resourcify
+  
   extend FriendlyId
   
   friendly_id :uid, use: [:slugged, :finders]

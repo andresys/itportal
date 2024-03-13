@@ -16,8 +16,8 @@
     </div>
 
     <div class="form-actions text-center">
-      <%= link_to t(:cancel), [:accounting, material], class: "btn app-btn-secondary", data: { turbo: turbo_frame_request? } %>
-      <%= f.button :submit, class: "btn app-btn-primary", data: { turbo: turbo_frame_request? } %>
+      <%= link_to t('global.cancel'), [:accounting, material], class: "btn btn-outline-secondary", data: { turbo: turbo_frame_request? } %>
+      <%= f.button :submit, class: "btn btn-primary", data: { turbo: turbo_frame_request? } %>
     </div>
   <% end %>
 <% end %>

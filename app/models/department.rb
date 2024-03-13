@@ -1,4 +1,6 @@
 class Department < ApplicationRecord
+  resourcify
+  
   acts_as_nested_set
   belongs_to :organization, optional: true
   has_many :titles, dependent: :destroy
