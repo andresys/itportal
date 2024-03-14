@@ -86,7 +86,6 @@ gem 'draper'
 gem 'awesome_nested_set'
 gem 'rails_sortable'
 gem "devise", "~> 4.9"
-gem "email_validator", "~> 2.2"
 gem "rails-i18n", "~> 7.0"
 # gem 'russian'
 gem "sidekiq-scheduler", "~> 5.0"
