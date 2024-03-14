@@ -1,16 +1,15 @@
-<%= tag.div class: "d-flex justify-content-end gap-2" do %>
-  <%= button_to [@user, :approveds], class: "btn btn-outline-secondary" do %>
-    <%= bs_icon('check2-all') %>
-    <%= tag.span t('.approved') %>
-  <% end if !@user.approved && policy(:approved).create? %>
+<%= panel_tag class: "d-flex justify-content-end gap-2" do %>
+  <% if @user.approved %>
+    <%= button_to [:approved, @user], class: "btn btn-sm btn-outline-danger py-0", method: :delete, data: { turbo_confirm: t('global.confirm') } do %>
+      <%= t('.remove_approved') %>
+    <% end if policy(@user).destroy_approved? %>
+  <% else %>
+    <%= button_to [:approved, @user], class: "btn btn-sm btn-outline-secondary py-0" do %>
+      <%= t('.approved') %>
+    <% end if policy(@user).create_approved? %>
+  <% end %>
 
-  <%= button_to [@user, :approveds], class: "btn btn-outline-danger", method: :delete, data: { turbo_confirm: t('global.confirm') } do %>
-    <%= bs_icon('trash') %>
-    <%= tag.span t('.remove_approved') %>
-  <% end if @user.approved && policy(:approved).destroy? %>
-
-  <%= button_to [@user], class: "btn btn-outline-danger", method: :delete, data: { turbo_confirm: t('global.confirm') } do %>
-    <%= bs_icon('trash') %>
-    <%= tag.span t('.remove_user') %>
-  <% end if policy(:user).destroy? %>
+  <%= button_to [@user], class: "btn btn-sm btn-outline-danger py-0", method: :delete, data: { turbo_confirm: t('global.confirm') } do %>
+    <%= t('.remove_user') %>
+  <% end if policy(@user).destroy? %>
 <% end %>

@@ -47,9 +47,10 @@ class ApplicationController < ActionController::Base
     items
   end
 
-  def user_action_items
+  def user_action_items user = nil
     items = []
-    items << 'approveds' if policy(:approved).create? || policy(:approved).destroy?
+    items << 'approveds' if policy(user || User).create_approved? || policy(user || User).destroy_approved?
+    items << 'users' if policy(user || User).destroy?
     items
   end
 end

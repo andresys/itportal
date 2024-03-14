@@ -7,7 +7,7 @@
 <div class="row gy-4 justify-content-center">
   <%= tag.div class: "col-12 d-flex flex-column gap-4" do %>
     <%= render "action" %>
-  <% end if user_action_items.any? %>
+  <% end if user_action_items(@user).any? %>
 
 	<div class="col-12 col-lg-6 d-flex flex-column gap-4">
     <%= render "profile" %>

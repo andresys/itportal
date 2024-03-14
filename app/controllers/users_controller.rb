@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, except: %i[index new]
   before_action { authorize(@user || User) }
 
   def index
@@ -75,6 +75,26 @@ class UsersController < ApplicationController
     @user.destroy
     respond_to do |format|
       format.html { redirect_to @back_url, notice: "User was successfully destroyed." }
+    end
+  end
+
+  def create_approved
+    respond_to do |format|
+      if @user.update(approved: true)
+        format.html { redirect_to [@user], notice: "User was successfully approved." }
+      else
+        format.html { redirect_to [@user], notice: @user.errors }
+      end
+    end
+  end
+
+  def destroy_approved
+    respond_to do |format|
+      if @user.update(approved: false)
+        format.html { redirect_to [@user], notice: "User is no longer approved." }
+      else
+        format.html { redirect_to [@user], notice: @user.errors }
+      end
     end
   end
 

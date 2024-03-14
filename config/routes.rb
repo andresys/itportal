@@ -52,7 +52,8 @@ Rails.application.routes.draw do
       resources :roles, except: %i[show], module: :users, path_names: {new: 'add'}
       resource :emails, only: %i[edit update], module: :users, path_names: {edit: ''}, path: 'email'
       resource :passwords, only: %i[edit update], module: :users, path_names: {edit: ''}, path: 'password'
-      resource :approveds, only: %i[create destroy], module: :users, path: 'approved'
+      patch 'approved', action: "create_approved", on: :member
+      delete 'approved', action: "destroy_approved", on: :member
     end
 
     resources :jobs, only: %i[index new create show destroy]
