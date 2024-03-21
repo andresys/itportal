@@ -72,12 +72,12 @@ Rails.application.routes.draw do
     
     if Rails.env == "production"
       get '/', to: redirect { |p, r| "#{r.url.sub(/(\/)+$/,'')}/profile" }, as: :root
-    else
-      root 'dashboard#index'
     end
-
+    
     get 'directories', to: "directories#redirect", as: :directories_root
     get 'accounting', to: "accounting#redirect", as: :accounting_root
     get ":page", to: "static_pages#show"
+
+    root 'dashboard#index'
   end
 end
