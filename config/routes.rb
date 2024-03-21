@@ -10,11 +10,11 @@ end
 Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join('|')}/ do
     concern :noteble do
-      resources :notes, except: %i[new edit]
+      resources :notes, except: %i[new show], path_names: {edit: ''}
     end
 
     concern :possessionable do
-      resources :possessions, except: %i[edit]
+      resources :possessions, except: %i[show], path_names: {edit: ''}
     end
 
     resources :images, only: %i[destroy]

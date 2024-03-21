@@ -25,7 +25,7 @@
             <% end %>
           </td>
           <td class="cell text-end">
-            <%= link_to bs_icon('pencil-square'), [:accounting, item, possession] if policy(:possession).edit? %>
+            <%= link_to bs_icon('pencil-square'), [:edit, :accounting, item, possession] if policy(:possession).edit? %>
           </td>
         </tr>
       <% end %>
@@ -70,7 +70,7 @@
     <% if policy(:possession).edit? %>
     <div class="row justify-content-center justify-content-sm-end">
       <div class="col-auto">
-        <%= link_to [:accounting, item, item.possessions.first], class: "float-end", class: "btn btn-outline-secondary", data: { turbo_frame: "possessions_form" } do %>
+        <%= link_to [:edit, :accounting, item, item.possessions.first], class: "float-end", class: "btn btn-outline-secondary", data: { turbo_frame: "possessions_form" } do %>
           <%= bs_icon('pencil-square') %>
           <%= t('.edit') %>
         <% end %>
