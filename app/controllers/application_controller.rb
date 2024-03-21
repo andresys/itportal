@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_id, :terms_of_service])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:remember_me])
   end
 
   private
