@@ -71,7 +71,7 @@ Rails.application.routes.draw do
     end
     
     if Rails.env == "production"
-      get '/', to: redirect { |p, r| "#{r.url.sub(/(\/)+$/,'')}/profile" }, as: :root
+      get '/', to: redirect { |p, r| "#{r.url.sub(/(\/)+$/,'')}/profile" }
     end
     
     get 'directories', to: "directories#redirect", as: :directories_root
