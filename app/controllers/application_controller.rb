@@ -19,10 +19,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    # devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_id, :terms_of_service])
-    # devise_parameter_sanitizer.permit(:sign_in, keys: [:remember_me])
-    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :employee_id, :terms_of_service) }
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :email, :password, :password_confirmation, :employee_id, :terms_of_service])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [ :email, :password, :remember_me] )
   end
 
   private
