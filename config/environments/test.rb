@@ -37,6 +37,21 @@ Rails.application.configure do
   config.active_storage.service = :test
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:         'mail.adm.tver.ru',
+    port:            587,
+    domain:          'adm.tver.ru',
+    user_name:       'itportal@adm.tver.ru',
+    password:        '75,NnEYm,&',
+    authentication:  'plain',
+    enable_starttls: true,
+    open_timeout:    5,
+    read_timeout:    5 }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: 'itportal.adm.tver.ru' }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = { from: 'itPortal <itportal@adm.tver.ru>' }
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
