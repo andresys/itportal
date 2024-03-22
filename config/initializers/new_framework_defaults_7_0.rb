@@ -41,7 +41,7 @@
 # Rails.application.config.active_support.executor_around_test_case = true
 
 # Set both the `:open_timeout` and `:read_timeout` values for `:smtp` delivery method.
-# Rails.application.config.action_mailer.smtp_timeout = 5
+Rails.application.config.action_mailer.smtp_timeout = 5
 
 # The ActiveStorage video previewer will now use scene change detection to generate
 # better preview images (rather than the previous default of using the first frame
@@ -68,7 +68,7 @@
 # generate variants to use image processing macros and ruby-vips
 # operations. See the upgrading guide for detail on the changes required.
 # The `:mini_magick` option is not deprecated; it's fine to keep using it.
-# Rails.application.config.active_storage.variant_processor = :vips
+Rails.application.config.active_storage.variant_processor = :mini_magick
 
 # Enable parameter wrapping for JSON.
 # Previously this was set in an initializer. It's fine to keep using that initializer if you've customized it.
@@ -108,7 +108,7 @@
 # If you're upgrading and haven't set `cookies_serializer` previously, your cookie serializer
 # is `:marshal`. The default for new apps is `:json`.
 #
-# Rails.application.config.action_dispatch.cookies_serializer = :json
+Rails.application.config.action_dispatch.cookies_serializer = :marshal
 #
 #
 # To migrate an existing application to the `:json` serializer, use the `:hybrid` option.
