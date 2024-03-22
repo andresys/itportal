@@ -85,7 +85,7 @@ gem 'activerecord-import', '~> 1.5.1'
 gem 'draper'
 gem 'awesome_nested_set'
 gem 'rails_sortable'
-gem "devise", "= 4.9.2"
+gem "devise", "~> 4.9.3"
 gem "rails-i18n", "~> 7.0"
 # gem 'russian'
 gem "sidekiq-scheduler", "~> 5.0"

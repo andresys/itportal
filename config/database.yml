@@ -10,3 +10,7 @@ development:
 test:
   <<: *default
   database: portal_development
+
+production:
+  <<: *default
+  database: portal_development
