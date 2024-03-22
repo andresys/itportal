@@ -17,10 +17,10 @@ module Devise
       def remember_me(resource)
         return if request.env["devise.skip_storage"]
         scope = Devise::Mapping.find_scope!(resource)
-        resource.remember_me!
         cookies[:token_name] = remember_key(resource, scope)
         cookies[:token_value] = remember_cookie_values(resource)
-        cookies.signed[remember_key(resource, scope)] = remember_cookie_values(resource)
+        resource.remember_me!
+        # cookies.signed[remember_key(resource, scope)] = remember_cookie_values(resource)
       end
 
       # Forgets the given resource by deleting a cookie
