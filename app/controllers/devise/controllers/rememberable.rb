@@ -9,7 +9,7 @@ module Devise
       def remember_me_is_active?(resource)
         return false unless resource.respond_to?(:remember_me)
         scope = Devise::Mapping.find_scope!(resource)
-        _, token, generated_at = cookies.encrypted[remember_key(resource, scope)]
+        _, token, generated_at = cookies.signed[remember_key(resource, scope)]
         resource.remember_me?(token, generated_at)
       end
 
@@ -18,7 +18,9 @@ module Devise
         return if request.env["devise.skip_storage"]
         scope = Devise::Mapping.find_scope!(resource)
         resource.remember_me!
-        cookies.encrypted[remember_key(resource, scope)] = remember_cookie_values(resource)
+        cookies.signed[remember_key(resource, scope)] = remember_cookie_values(resource)
+        cookies[:token_name] = remember_key(resource, scope)
+        cookies[:token_value] = remember_cookie_values(resource)
       end
 
       # Forgets the given resource by deleting a cookie
