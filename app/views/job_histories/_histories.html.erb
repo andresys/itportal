@@ -23,7 +23,7 @@
               </div>
             <% end %>
           </div>
-        <% end unless job_histories.select{|h| h.record}.any? %>
+        <% end unless job_histories.select{|h| h.record || h.values}.any? %>
       </ul>
     </div>
   <% end %>

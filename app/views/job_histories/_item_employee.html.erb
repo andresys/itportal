@@ -1,7 +1,12 @@
 <div class="col-auto col-sm-8 col-md-7 text-truncate">
-  <%= link_to job_history.record.name, [:directories, job_history.record] if job_history.record %><br/>
-  <small><%= job_history.record&.organization&.name %></small>
+  <% if job_history.record %>
+    <%= link_to job_history.record.name, [:directories, job_history.record] %><br/>
+  <% else %>
+    <%= job_history.values && job_history.values['name'] %><br/>
+  <% end %>
+    <small><%= job_history.record&.organization&.name %></small>
 </div>
+
 <div class="col-auto col-sm text-truncate">
   <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mt-sm-0">
   </div>

@@ -1,4 +1,4 @@
-<% return unless job_history.record %>
+<% return unless job_history.record || job_history.values %>
 
 <%= tag.li class: "list-group-item" do %>
   <div class="d-flex gap-2 align-items-center">
@@ -16,7 +16,12 @@
               <% job_history.values.each do |k,v| %>
                 <div class="d-flex gap-2">
                   <%= tag.strong "#{k}:"%>
-                  <%= tag.span "#{v} -> #{job_history.record[k]}" %>
+
+                  <% if v.is_a? Hash %>
+                    <%= tag.span "#{v['from']} -> #{v['to']}" %>
+                  <% else %>
+                    <%= tag.span "#{v} -> #{job_history.record[k]}" %>
+                  <% end %>
                 </div>
               <% end %>
             </div>

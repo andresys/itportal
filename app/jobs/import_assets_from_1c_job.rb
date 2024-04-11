@@ -44,20 +44,22 @@ class ImportAssetsFrom1cJob < ApplicationJob
       if finded = Asset.find_by(code: values[:code], inventory_number: values[:inventory_number], mol_id: values[:mol_id])
         values.delete_if {|k,v| v == finded[k]}
         if values.any?
-          histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys))
+          # histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys))
+          histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys).map{|k,v| [k, {from: v, to: values[k.to_sym]}]}.to_h)
           finded.update(values)
         end
         ids << finded.id
       else
         created = Asset.create(values)
-        histories << JobHistory.new(job: job, record: created, action: 'add')
+        # histories << JobHistory.new(job: job, record: created, action: 'add')
+        histories << JobHistory.new(job: job, record: created, action: 'add', values: values)
         ids << created.id
       end
     end
 
     set_step "Removing removed assets from database"
     removed_assets = Asset.where(delete_mark: false).where.not(id: ids)
-    removed_assets.each { |asset| histories << JobHistory.new(job: job, record: asset, action: 'remove') }
+    removed_assets.each { |asset| histories << JobHistory.new(job: job, record: asset, action: 'remove', values: asset.slice(asset_params({}).keys)) }
     removed_assets.update_all(delete_mark: true)
 
     set_step "Saving assets histories"
@@ -70,8 +72,8 @@ private
       name: !asset['name'].blank? && asset['name'] || nil,
       code: !asset['code'].blank? && asset['code'] || nil,
       inventory_number: !asset['inventory_number'].blank? && asset['inventory_number'] || nil,
-      date: !asset['date'].blank? && Date.strptime(asset['date'], "%d.%m.%Y") || nil,
-      start_date: !asset['start_date'].blank? && Date.strptime(asset['start_date'], "%d.%m.%Y") || nil,
+      date: !asset['date'].blank? && Date.strptime(asset['date'], "%d.%m.%Y").to_datetime || nil,
+      start_date: !asset['start_date'].blank? && Date.strptime(asset['start_date'], "%d.%m.%Y").to_datetime || nil,
       useful_life: !asset['useful_life'].blank? && asset['useful_life']&.to_i || nil,
       cost: !asset['cost'].blank? && asset['cost']&.to_f || nil,
       count: !asset['count'].blank? && asset['count']&.to_i || 1,

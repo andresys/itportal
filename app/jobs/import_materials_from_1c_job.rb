@@ -44,20 +44,22 @@ class ImportMaterialsFrom1cJob < ApplicationJob
       if finded = Material.find_by(code: values[:code], mol_id: values[:mol_id])
         values.delete_if {|k,v| v == finded[k]}
         if values.any?
-          histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys))
+          # histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys))
+          histories << JobHistory.new(job: job, record: finded, action: 'change', values: finded.slice(values.keys).map{|k,v| [k, {from: v, to: values[k.to_sym]}]}.to_h)
           finded.update(values)
         end
         ids << finded.id
       else
         created = Material.create(values)
-        histories << JobHistory.new(job: job, record: created, action: 'add')
+        # histories << JobHistory.new(job: job, record: created, action: 'add')
+        histories << JobHistory.new(job: job, record: created, action: 'add', values: values)
         ids << created.id
       end
     end
 
     set_step "Removing removed materials from database"
     removed_materials = Material.where(delete_mark: false).where.not(id: ids)
-    removed_materials.each { |material| histories << JobHistory.new(job: job, record: material, action: 'remove') }
+    removed_materials.each { |material| histories << JobHistory.new(job: job, record: material, action: 'remove', values: material.slice(material_params({}).keys)) }
     removed_materials.update_all(delete_mark: true)
 
     set_step "Saving materials histories"
