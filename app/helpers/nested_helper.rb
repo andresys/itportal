@@ -4,7 +4,7 @@ module NestedHelper
 
     return '' if objects.size == 0
 
-    output = "<ul>"
+    output = "<ol>"
     path = [nil]
 
     objects.each_with_index do |o, i|
@@ -14,12 +14,12 @@ module NestedHelper
           # Remove the wrong trailing path elements
           while path.last != o.parent_id
             path.pop
-            output << "</li></ul>"
+            output << "</li></ol>"
           end
           output << "</li><li id='#{o.id}'>"
         else
           path << o.parent_id
-          output << "<ul><li id='#{o.id}'>"
+          output << "<ol><li id='#{o.id}'>"
         end
       elsif i != 0
         output << "</li><li id='#{o.id}'>"
@@ -27,10 +27,10 @@ module NestedHelper
         output << "<li id='#{o.id}'>"
       end
       output << capture(o, path.size - 1, &block)
-      # output << "<ul></ul>" unless objects[i+1] && (objects[i+1].parent_id == o.id)
+      # output << "<ol></ol>" unless objects[i+1] && (objects[i+1].parent_id == o.id)
     end
 
-    output << "</li></ul>" * path.length
+    output << "</li></ol>" * path.length
     output.html_safe
   end
 

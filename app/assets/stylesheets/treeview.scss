@@ -1,5 +1,5 @@
 .treeview {
-  ul {
+  ol {
     list-style-type: none;
     padding-left: 30px;
     position: relative;
@@ -9,24 +9,9 @@
     }
   }
 
-  >ul {
+  >ol {
     padding-left: 0;
     margin: 0;
-  }
-
-  ul.ui-sortable:empty {
-    padding: 0;
-    margin: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: absolute;
-  }
-
-  ul.ui-sortable:empty:before,
-  li.ui-sortable-helper:before {
-    border: none;
   }
 
   li>div {
@@ -34,12 +19,13 @@
     vertical-align: top;
     position: relative;
     z-index: 2;
-  }
-  li>div:hover {
-    background-color: rgba(0, 0, 0, 0.075);
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.075);
+    }
   }
 
-  ul:before {
+  ol:before {
     content: "";
     position: absolute;
     width: 1px;
@@ -59,7 +45,8 @@
     bottom: 0;
   }
 
-  li:last-child:before {
+  li:last-child:before,
+  li:has(+ li.ui-sortable-helper:last-child):before {
     content: "";
     position: absolute;
     width: 1px;
@@ -78,41 +65,25 @@
     height: 1px;
     border: 1px solid gray;
   }
-
-  ul:last-child:before,
-  >ul:before,
-  >ul>li:after,
-  >ul>li:first-child:before,
-  >ul>li:last-child:before,
-  >ul>li:before {
-    border: none;
-  }
-
+  
   li.ui-sortable-placeholder {
     padding: 0;
     margin: 0;
-    display: block;
+    visibility: visible !important;
     float: none;
-    height: 48px;
     background-color: rgba(0, 0, 0, 0.075);
   }
-
-  .list-group-item {
-    cursor: pointer
+  
+  li.ui-sortable-helper {
+    background-color: rgba(255, 255, 255, 0.75);
   }
-
-  .treeview span.indent {
-      margin-left: 10px;
-      margin-right: 10px
-  }
-
-  .treeview span.icon {
-      width: 12px;
-      margin-right: 5px
-  }
-
-  .treeview .node-disabled {
-      color: silver;
-      cursor: not-allowed
+  
+  ol:last-child:before,
+  >ol:before,
+  >ol>li:after,
+  >ol>li:before,
+  li.ui-sortable-helper:before,
+  li.ui-sortable-helper:after {
+    border: none !important;
   }
 }

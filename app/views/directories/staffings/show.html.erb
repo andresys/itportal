@@ -15,14 +15,14 @@
       <%= fields_for :locations do |f| %>
         <%= nested_li @departments do |department| %>
           <%= render "department", department: department %>
-          <ul>
+          <ol>
           <% department.titles.each do |title| %>
             <li>
               <%= render "title", title: title %>
               <%= render "employee", employee: title.employee %>
             </li>
           <% end if ['titles', 'employees'].include? @current_tab %>
-          </ul>
+          </ol>
         <% end %>
       <% end %>
     </div>

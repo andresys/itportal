@@ -10,11 +10,16 @@ import "bootstrap/js/dist/modal"
 import "bootstrap/js/dist/button"
 import "bootstrap/js/dist/alert"
 
-import "./scripts/index-charts"
-import "./scripts/side-panel"
-import "./scripts/resize-window"
-import "./scripts/alerts"
-import "./scripts/select"
-import "./scripts/fancybox"
+import "./libs/jquery"
+import './libs/jquery-ui'
+import './libs/nestedSortable'
+
+import "./src/index-charts"
+import "./src/side-panel"
+import "./src/resize-window"
+import "./src/alerts"
+import "./src/select"
+import "./src/fancybox"
+import "./src/sortable"
 
 ActiveStorage.start()
