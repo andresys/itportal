@@ -94,3 +94,4 @@ gem "pundit", "~> 2.3"
 gem "rolify", "~> 6.0"
 
 gem "rails-settings-cached", "~> 2.9"
+gem "stimulus-rails", "~> 1.3"

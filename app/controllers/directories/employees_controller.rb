@@ -42,8 +42,10 @@ class Directories::EmployeesController < DirectoriesController
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @back_url, notice: "Employee was successfully created." }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace('employee_form', partial: 'form', locals: { employee: @employee }), status: :unprocessable_entity }
       end
     end
   end

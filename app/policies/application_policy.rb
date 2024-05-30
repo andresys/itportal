@@ -9,17 +9,17 @@ class ApplicationPolicy
   end
 
   def index?
-    return true if user.has_any_role? :superadmin, :admin
+    return true if user.has_any_role? :superadmin, :admin || user.has_role? :admin, record
     false
   end
 
   def show?
-    return true if user.has_any_role? :superadmin, :admin
+    return true if user.has_any_role? :superadmin, :admin || user.has_role? :admin, record
     false
   end
 
   def create?
-    return true if user.has_any_role? :superadmin, :admin
+    return true if user.has_any_role? :superadmin, :admin || user.has_role? :admin, record
     false
   end
 
@@ -28,7 +28,7 @@ class ApplicationPolicy
   end
 
   def update?
-    return true if user.has_any_role? :superadmin, :admin
+    return true if user.has_any_role? :superadmin, :admin || user.has_role? :admin, record
     false
   end
 
@@ -37,13 +37,13 @@ class ApplicationPolicy
   end
 
   def destroy?
-    return true if user.has_any_role? :superadmin, :admin
+    return true if user.has_any_role? :superadmin, :admin || user.has_role? :admin, record
     false
   end
 
   def method_missing(method_name, *args, &block)
     if method_name.to_s.end_with?("?")
-      return true if user.has_any_role? :superadmin, :admin
+      return true if user.has_any_role? :superadmin, :admin || user.has_role? :admin, record
       false
     else
       super(method_name, *args, &block)

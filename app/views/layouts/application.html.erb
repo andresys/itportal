@@ -12,7 +12,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="app" data-lang="<%= I18n.locale %>">
+  <body class="app" data-lang="<%= I18n.locale %>" data-controller="modal" data-action="modalClose@window->modal#close">
     <%= render "notify" %>
 
     <%= render "header" %>
@@ -25,5 +25,7 @@
 
       <%= render "footer" %>
     </div>
+
+    <%= render "modal" %>
   </body>
 </html>

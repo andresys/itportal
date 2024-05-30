@@ -2,7 +2,7 @@
 
 <%= page_title t '.title' do %>
   <%= render partial: "shared/filters/search" %>
-  <%= link_to [:new, :directories, :employee], class: "btn btn-primary flex-fill" do %>
+  <%= link_to [:new, :directories, :employee], class: "btn btn-primary flex-fill", data: { action: "click->modal#open", turbo_stream: "" } do %>
     <%= bs_icon 'person-add' %>
     <%= t('.new') %>
   <% end if policy(:employee).new? %>
@@ -28,7 +28,7 @@
   <div class="tab-pane fade show active">
     <div class="app-card app-card-orders-table shadow-sm mb-5">
       <div class="app-card-body">
-        <ul class="list-group list-group-flush">
+        <ul id="emploees_list" class="list-group list-group-flush">
           <%= render @employees %>
         </ul>
       </div><!--//app-card-body-->		

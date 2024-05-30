@@ -1,6 +1,7 @@
-<%= render "shared/errors", model: employee %>
 
-<%= form_with model: [:directories, employee] do |f| %>
+<%= form_with model: [:directories, employee], id: "employee_form" do |f| %>
+  <%= render "shared/errors", model: employee %>
+
   <div class="row">
     <div class="col-sm-4">
       <div class="mb-3 d-flex justify-content-center justify-content-sm-start">
@@ -37,7 +38,7 @@
   </div>
 
   <div class="form-actions text-center">
-    <%= link_to t('global.cancel'), @back_url, class: "btn btn-outline-secondary" %>
-    <%= f.button :submit, class: "btn btn-primary" %>
+    <%= link_to t('global.cancel'), @back_url, class: "btn btn-outline-secondary", data: { action: "click->modal#close" } %>
+    <%= f.button :submit, class: "btn btn-primary", data: { turbo: true } %>
   </div>
 <% end %>

@@ -4,6 +4,9 @@ import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
 import "./channels"
 
+import "./controllers"
+import "./custom_actions/dispatch_event"
+
 import "bootstrap/js/dist/dropdown"
 import "bootstrap/js/dist/collapse"
 import "bootstrap/js/dist/modal"
